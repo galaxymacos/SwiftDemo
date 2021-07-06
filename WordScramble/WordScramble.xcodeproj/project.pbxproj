@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B9033992694986400F89741 /* start.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2B9033982694986400F89741 /* start.txt */; };
 		2BF315E126942F72009DECFE /* WordScrambleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF315E026942F72009DECFE /* WordScrambleApp.swift */; };
 		2BF315E326942F72009DECFE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF315E226942F72009DECFE /* ContentView.swift */; };
 		2BF315E526942F72009DECFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BF315E426942F72009DECFE /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B9033982694986400F89741 /* start.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = start.txt; path = ../../HackingWithSwift/SwiftUI/project5/Project5/start.txt; sourceTree = "<group>"; };
 		2BF315DD26942F72009DECFE /* WordScramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordScramble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BF315E026942F72009DECFE /* WordScrambleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordScrambleApp.swift; sourceTree = "<group>"; };
 		2BF315E226942F72009DECFE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 				2BF315E226942F72009DECFE /* ContentView.swift */,
 				2BF315E426942F72009DECFE /* Assets.xcassets */,
 				2BF315E926942F72009DECFE /* Info.plist */,
+				2B9033982694986400F89741 /* start.txt */,
 				2BF315E626942F72009DECFE /* Preview Content */,
 			);
 			path = WordScramble;
@@ -127,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BF315E826942F72009DECFE /* Preview Assets.xcassets in Resources */,
+				2B9033992694986400F89741 /* start.txt in Resources */,
 				2BF315E526942F72009DECFE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
