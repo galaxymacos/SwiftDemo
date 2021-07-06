@@ -9,46 +9,69 @@ import SwiftUI
 
 struct ContentView: View {
     @State var sleepHour:Double = 7
-    @State var wakeUp = Date()
+    @State var wakeUp = defaultWakeTime
     @State var cupCoffee = 1
     @State var alertTitle = ""
     @State var alertMessage = ""
     @State var showAlert = false
+    // can't instantiate one variable in swift based on another variable, because there is no sequence in swift
+    static var defaultWakeTime: Date{
+        var dateComponent = DateComponents()
+        dateComponent.hour = 7
+        dateComponent.minute = 0
+        return Calendar.current.date(from: dateComponent) ?? Date()
+    }
+    var desiredSleepTime: String {
+        CalculateSleepHour()
+    }
+    
     let model = SleepCalculator()
     var body: some View {
         NavigationView{
-            VStack(spacing: 50){
-                Text("When do you want to wake up?").font(.headline)
-                DatePicker("Time", selection: $wakeUp, displayedComponents: .hourAndMinute).labelsHidden()
-                
-                Text("How many hours do you want to sleep?")
-                Stepper(value: $sleepHour, in: 4...12, step: 0.25) {
-                    Text("\(sleepHour, specifier: "%g") hours")
+            Form(){
+                VStack(alignment: .leading, spacing: 0){
+                    Text("When do you want to wake up?").font(.headline)
+                    DatePicker("Time", selection: $wakeUp, displayedComponents: .hourAndMinute).datePickerStyle(WheelDatePickerStyle()).labelsHidden()
                 }
                 
-                Text("How many cups of coffee you drink per day?")
-                Stepper(value: $cupCoffee, in: 0...20){
-                    if(cupCoffee == 1){
-                        Text("1 cup")
+                Section(header:Text("How many hours do you want to sleep?")){
+                    Stepper(value: $sleepHour, in: 4...12, step: 0.25) {
+                        Text("\(sleepHour, specifier: "%g") hours")
                     }
-                    else{
-                        Text("\(cupCoffee) cups")
+                }
+                
+                Section(header:Text("How many cups of coffee you drink per day?")){
+                    Stepper(value: $cupCoffee, in: 0...20){
+                        if(cupCoffee == 1){
+                            Text("1 cup")
+                        }
+                        else{
+                            Text("\(cupCoffee) cups")
+                        }
                     }
+                    Picker("Amount", selection: $cupCoffee){
+                        ForEach(0..<21){ number in
+                            if(number == 1 || number == 0){
+                                Text("\(number) cup")
+                            }
+                            else{
+                                Text("\(number) cups")
+                            }
+                            
+                        }
+                    }
+                }
+                
+                Section(header: Text("Desired sleep time")){
+                    Text("\(desiredSleepTime)")
                 }
                 
             }
             .navigationBarTitle(Text("Sleep well"))
-            .navigationBarItems(trailing: Button(action: CalculateSleepHour){
-                Text("Calculate")
-            })
-            .alert(isPresented: $showAlert){
-                Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("Ok")))
-            }
-        
         }
         
     }
-    func CalculateSleepHour(){
+    func CalculateSleepHour()->String{
         // from Date to DateComponent
         let wakeUpDC = Calendar.current.dateComponents([.hour, .minute], from: wakeUp)
         // Retrieve hour and minute (in second) from DateComponent
@@ -58,16 +81,13 @@ struct ContentView: View {
         let prediction = try! model.prediction(wake: Double(wakeUpHour + wakeUpMinute), estimatedSleep: sleepHour, coffee: Double(cupCoffee))
         
         let timeToSleep = wakeUp - prediction.actualSleep
-        alertTitle = "Calculated!"
         
         // from Date to String
         let formatter = DateFormatter()
         formatter.timeStyle = .short
         
-        alertMessage = "Your need to go to sleep at \(formatter.string(from: timeToSleep))"
-        
-        
-        showAlert = true
+        return formatter.string(from:timeToSleep)
+
         
         
     }
