@@ -26,3 +26,22 @@ List{
     }
 }
 
+var erge = "a b c"
+erge.components(separatedBy: " ")
+var longLetter =
+"""
+a
+b
+c
+"""
+var target = longLetter.components(separatedBy: "\n")
+var laji = target.randomElement()
+
+var aStringNeedToTrim = " ovipfer  flcoif "
+aStringNeedToTrim.trimmingCharacters(in: .whitespacesAndNewlines)
+
+let wordToBeChecked = "swift"
+let range = NSRange(location: 0, length: wordToBeChecked.utf16.count)
+let checker = UITextChecker()
+let misSpellRange = checker.rangeOfMisspelledWord(in: wordToBeChecked, range: range, startingAt: 0, wrap: false, language: "en")
+let allgood = misSpellRange.location == NSNotFound

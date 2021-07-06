@@ -15,7 +15,7 @@ struct ContentView: View {
             }
             
             List(0..<5){
-                Text("Test \($0)")
+                Text("Test \($0)").font(.title)
             }.listStyle(GroupedListStyle())
         }
     }
