@@ -51,6 +51,33 @@ struct ContentView: View {
         }
         fatalError("Could not load start.txt from the file")
     }
+    
+    func isOriginal(word: String)->Bool{
+        return !usedWords.contains(word)
+    }
+    
+    func isReal(word: String)->Bool{
+        let checker = UITextChecker()
+        let range = NSRange(location: 0, length: word.utf16.count)
+        let misSpelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
+        if(misSpelledRange.location == NSNotFound){
+            return true
+        }
+        return false
+    }
+    
+    func isPossible(word: String)->Bool{
+        var rootCopy = rootWord
+        for letter in word{
+            if let pos = rootCopy.firstIndex(of: letter){
+                rootCopy.remove(at: pos)
+            }
+            else{
+                return false
+            }
+        }
+        return true
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
