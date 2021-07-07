@@ -12,6 +12,9 @@ struct ContentView: View {
     @State private var rootWord = "Root Word"
     @State private var newWord = ""
     
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var showAlert = false
     var body: some View {
         
         NavigationView{
@@ -28,6 +31,9 @@ struct ContentView: View {
                 }
             }.navigationBarTitle(Text("\(rootWord)"))
             .onAppear(perform: startGame)
+            .alert(isPresented: $showAlert, content: {
+                Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("Ok")))
+            })
         }
     }
     
@@ -36,6 +42,19 @@ struct ContentView: View {
         guard answer.count>0 else {
             return
         }
+        guard isOriginal(word: answer) else {
+            showError(alertTitle: "Not original", alertMessage: "Word already existed")
+            return
+        }
+        guard isReal(word: answer) else {
+            showError(alertTitle: "Not real", alertMessage: "It isn't a word")
+            return
+        }
+        guard isPossible(word: answer) else {
+            showError(alertTitle: "Not possible", alertMessage: "The word doesn't compose of the letter in the root word")
+            return
+        }
+        
         usedWords.insert(newWord, at: 0)
         newWord = ""
     }
@@ -78,6 +97,14 @@ struct ContentView: View {
         }
         return true
     }
+    
+    func showError(alertTitle: String, alertMessage: String){
+        self.alertTitle = alertTitle
+        self.alertMessage = alertMessage
+        self.showAlert = true
+    }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
