@@ -12,6 +12,14 @@ struct ContentView: View {
     @State private var rootWord = "Root Word"
     @State private var newWord = ""
     
+    private var score:Int {
+        var myScore = 0
+        for word in usedWords {
+            myScore+=word.count
+        }
+        return myScore
+    }
+    
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var showAlert = false
@@ -29,10 +37,16 @@ struct ContentView: View {
                     Image(systemName: "\($0.count).circle")
                     Text($0)
                 }
+                Text("Score: \(score)")
+                Spacer()
+                
             }.navigationBarTitle(Text("\(rootWord)"))
             .onAppear(perform: startGame)
             .alert(isPresented: $showAlert, content: {
                 Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("Ok")))
+            })
+            .navigationBarItems(leading: Button(action:startGame){
+                Text("Start game")
             })
         }
     }
@@ -76,6 +90,12 @@ struct ContentView: View {
     }
     
     func isReal(word: String)->Bool{
+        if(word.count < 3){
+            return false
+        }
+        if(rootWord.hasPrefix(word)){
+            return false
+        }
         let checker = UITextChecker()
         let range = NSRange(location: 0, length: word.utf16.count)
         let misSpelledRange = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
