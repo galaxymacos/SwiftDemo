@@ -12,23 +12,27 @@ struct ContentView: View {
     struct MyButton: View {
         @Binding var animationAmount: CGFloat
         var body: some View{
-            Button("Tap me"){
-                self.animationAmount += 1
+            print(animationAmount)
+            return VStack{
+                Button("Tap me"){
+                    self.animationAmount += 1
+                }
+                .padding(40)
+                .background(Color.red)
+                .foregroundColor(.white)
+                .clipShape(Circle())
+                // Change scaleEffect() without animation() will not trigger animation
+                .scaleEffect(animationAmount)
+//                .animation(
+//                            Animation.easeInOut(duration: 1).repeatCount(3, autoreverses: true))
             }
-            .padding(40)
-            .background(Color.red)
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .scaleEffect(animationAmount)
             
         }
     }
     
     var body: some View {
         VStack {
-            Stepper("Scale amount", value: $animationAmount.animation(), in: 1...10)
-
-            Spacer()
+            Stepper("Scale amount", value: $animationAmount, in: 1...10)
 
             MyButton(animationAmount: $animationAmount)
         }
