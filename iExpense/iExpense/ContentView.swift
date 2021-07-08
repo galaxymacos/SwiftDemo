@@ -180,16 +180,18 @@ struct ContentView: View{
 
                                 Spacer()
                                 Text("$\(item.amount)")
+                                    .fontWeight(item.amount > 100 ? .bold : (item.amount > 10 ? .medium : .regular))
+                                    .foregroundColor(item.amount>100 ? .red : (item.amount>10 ? .yellow : .blue))
                     }
                 }
                 .onDelete(perform: removeItems)
             }
-            .navigationBarItems(trailing: Button(action:{
+            .navigationBarItems(leading: EditButton(), trailing: Button(action:{
                 showAddView = true
-                
             }){
                 Image(systemName: "plus")
             })
+            
             .navigationTitle("iExpense")
             .edgesIgnoringSafeArea(.all)
         }
