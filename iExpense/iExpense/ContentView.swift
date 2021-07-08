@@ -127,21 +127,26 @@ struct ContentView: View {
 /*  Building a list we can delete from
     
  */
+
+class Expenses: ObservableObject{
+    @Published var items = [ExpenseItem]()
+    
+}
+
+struct ExpenseItem:Identifiable {
+    let id = UUID()
+    let name: String
+    let type: String
+    let amount: Int
+}
+
 struct ContentView: View{
     
-    struct ExpenseItem:Identifiable {
-        let id = UUID()
-        let name: String
-        let type: String
-        let amount: Int
-    }
     
-    class Expenses: ObservableObject{
-        @Published var items = [ExpenseItem]()
-        
-    }
+    
     
     @ObservedObject var expenses = Expenses()
+    @State var showAddView = false
 
     
     var body: some View{
@@ -153,13 +158,16 @@ struct ContentView: View{
                 .onDelete(perform: removeItems)
             }
             .navigationBarItems(trailing: Button(action:{
-                self.expenses.items.append(ExpenseItem(name: "Example", type: "garbage", amount: 1))
+                showAddView = true
                 
             }){
                 Image(systemName: "plus")
             })
             .navigationTitle("iExpense")
             .edgesIgnoringSafeArea(.all)
+        }
+        .sheet(isPresented: $showAddView){
+            AddView(expenses: expenses)
         }
         
     }
