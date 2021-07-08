@@ -126,53 +126,54 @@ struct ContentView: View {
 
 /*  Building a list we can delete from
     
- struct ContentView: View{
- 
- struct ExpenseItem {
- let name: String
- let type: String
- let amount: Int
- }
- 
- class Expenses: ObservableObject{
- @Published var items = [ExpenseItem]()
- 
- }
- 
- @ObservedObject var expenses = Expenses()
- @State var currentItemIndex = 0
- 
- var body: some View{
- NavigationView{
- List{
- ForEach(expenses.items, id: \.name){ item in
- Text(item.name)
- }
- .onDelete(perform: removeItems)
- }
- .navigationBarItems(trailing: Button(action:{
- self.expenses.items.append(ExpenseItem(name: "item \(currentItemIndex)", type: "garbage", amount: 1))
- currentItemIndex+=1
- }){
- Image(systemName: "plus")
- })
- .navigationTitle("iExpense")
- .edgesIgnoringSafeArea(.all)
- }
- 
- }
- 
- func removeItems(for offsets: IndexSet) {
- expenses.items.remove(atOffsets: offsets)
- }
- }
  */
-
 struct ContentView: View{
+    
+    struct ExpenseItem:Identifiable {
+        let id = UUID()
+        let name: String
+        let type: String
+        let amount: Int
+    }
+    
+    class Expenses: ObservableObject{
+        @Published var items = [ExpenseItem]()
+        
+    }
+    
+    @ObservedObject var expenses = Expenses()
+
+    
     var body: some View{
-        Text("some text")
+        NavigationView{
+            List{
+                ForEach(expenses.items){ item in
+                    Text(item.name)
+                }
+                .onDelete(perform: removeItems)
+            }
+            .navigationBarItems(trailing: Button(action:{
+                self.expenses.items.append(ExpenseItem(name: "Example", type: "garbage", amount: 1))
+                
+            }){
+                Image(systemName: "plus")
+            })
+            .navigationTitle("iExpense")
+            .edgesIgnoringSafeArea(.all)
+        }
+        
+    }
+    
+    func removeItems(for offsets: IndexSet) {
+        expenses.items.remove(atOffsets: offsets)
     }
 }
+
+//struct ContentView: View{
+//    var body: some View{
+//        Text("some text")
+//    }
+//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
