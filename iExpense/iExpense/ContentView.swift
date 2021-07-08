@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+/*  using @ObservedObject
 struct ContentView: View {
     
     class User: ObservableObject {
@@ -21,6 +21,31 @@ struct ContentView: View {
             Text("Your name is \(user.firstName) \(user.lastName)")
             TextField("First name", text: $user.firstName)
             TextField("Last name", text: $user.lastName)
+        }
+    }
+}
+*/
+
+struct ContentView: View {
+    @State var showSheet = false
+    var body: some View{
+        Button("Go to second view"){
+            showSheet.toggle()
+        }
+        .sheet(isPresented: $showSheet, content: {
+            SecondView(name: "galaxymaxx")
+        })
+        
+    }
+}
+
+struct SecondView: View{
+    @State var name: String
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View{
+        Button("Dismiss"){
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
