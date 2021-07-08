@@ -89,6 +89,85 @@ struct ContentView: View {
  }
  */
 
+/*   Storing user settings with UserDefaults
+ 
+ struct ContentView: View{
+ @State var tapCount = UserDefaults.standard.integer(forKey: "Tap")
+ var body: some View{
+ Button("tap time: \(tapCount)"){
+ self.tapCount+=1
+ UserDefaults.standard.set(self.tapCount, forKey: "Tap")
+ }
+ }
+ }
+ */
+
+/*  Archiving swift objects with Codable
+ struct ContentView: View {
+ struct User: Codable{
+ var firstName:String
+ var lastName:String
+ }
+ @State var user = User(firstName: "Taylor", lastName: "Swift")
+ 
+ var body: some View{
+ Button("button"){
+ let encoder = JSONEncoder()
+ // because encode may fail
+ if let userData = try? encoder.encode(self.user){
+ UserDefaults.standard.set(userData, forKey: "UserData")
+ }
+ }
+ }
+ }
+ 
+ */
+
+
+/*  Building a list we can delete from
+    
+ struct ContentView: View{
+ 
+ struct ExpenseItem {
+ let name: String
+ let type: String
+ let amount: Int
+ }
+ 
+ class Expenses: ObservableObject{
+ @Published var items = [ExpenseItem]()
+ 
+ }
+ 
+ @ObservedObject var expenses = Expenses()
+ @State var currentItemIndex = 0
+ 
+ var body: some View{
+ NavigationView{
+ List{
+ ForEach(expenses.items, id: \.name){ item in
+ Text(item.name)
+ }
+ .onDelete(perform: removeItems)
+ }
+ .navigationBarItems(trailing: Button(action:{
+ self.expenses.items.append(ExpenseItem(name: "item \(currentItemIndex)", type: "garbage", amount: 1))
+ currentItemIndex+=1
+ }){
+ Image(systemName: "plus")
+ })
+ .navigationTitle("iExpense")
+ .edgesIgnoringSafeArea(.all)
+ }
+ 
+ }
+ 
+ func removeItems(for offsets: IndexSet) {
+ expenses.items.remove(atOffsets: offsets)
+ }
+ }
+ */
+
 struct ContentView: View{
     var body: some View{
         Text("some text")
