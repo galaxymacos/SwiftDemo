@@ -26,27 +26,72 @@ struct ContentView: View {
 }
 */
 
-struct ContentView: View {
-    @State var showSheet = false
-    var body: some View{
-        Button("Go to second view"){
-            showSheet.toggle()
-        }
-        .sheet(isPresented: $showSheet, content: {
-            SecondView(name: "galaxymaxx")
-        })
-        
-    }
-}
+/* showing the hiding views
+ struct ContentView: View {
+ @State var showSheet = false
+ var body: some View{
+ Button("Go to second view"){
+ showSheet.toggle()
+ }
+ .sheet(isPresented: $showSheet, content: {
+ SecondView(name: "galaxymaxx")
+ })
+ 
+ }
+ }
+ 
+ struct SecondView: View{
+ @State var name: String
+ @Environment(\.presentationMode) var presentationMode
+ 
+ var body: some View{
+ Button("Dismiss"){
+ self.presentationMode.wrappedValue.dismiss()
+ }
+ }
+ }
+ 
+ */
 
-struct SecondView: View{
-    @State var name: String
-    @Environment(\.presentationMode) var presentationMode
-    
+/* Deleting items using onDelete()
+ 
+ struct ContentView: View {
+ @State var nums = [Int]()
+ @State var currentNumber = 1
+ 
+ var body: some View{
+ 
+ NavigationView{
+ 
+ VStack{
+ List{
+ ForEach(nums, id: \.self){
+ Text("\($0)")
+ }
+ .onDelete(perform: removeRows)
+ }
+ Button("add number"){
+ nums.append(currentNumber)
+ currentNumber+=1
+ }
+ 
+ }
+ .navigationBarItems(leading: EditButton())
+ }
+ 
+ 
+ }
+ 
+ func removeRows(at offsets: IndexSet) {
+ nums.remove(atOffsets: offsets)
+ }
+ 
+ }
+ */
+
+struct ContentView: View{
     var body: some View{
-        Button("Dismiss"){
-            self.presentationMode.wrappedValue.dismiss()
-        }
+        Text("some text")
     }
 }
 
