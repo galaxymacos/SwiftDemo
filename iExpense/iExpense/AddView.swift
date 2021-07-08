@@ -10,14 +10,14 @@ import SwiftUI
 // This view is to add an expense into our app
 struct AddView: View {
     @State var name: String = ""
-    @State var type: String = ""
+    @State var type: String = "Personal"
     let types = ["Personal", "Business"]
-    var amount: Int{
-        Int(amountS) ?? 0
-    }
     @State var amountS: String = ""
     
     @ObservedObject var expenses: Expenses
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State var showAlert = false
     
     var body: some View {
         NavigationView{
@@ -38,7 +38,20 @@ struct AddView: View {
                     TextField("Amount", text:$amountS).keyboardType(.numberPad)
                 }
                 
-            }.navigationBarTitle(Text("Add new expense"))
+            }
+            .navigationBarTitle(Text("Add new expense"))
+            .navigationBarItems(trailing: Button("Save"){
+                if let actualAmount = (Int)(amountS){
+                    expenses.items.append(ExpenseItem(name: name, type: type, amount: actualAmount))
+                    presentationMode.wrappedValue.dismiss()
+                }
+                else{
+                    showAlert = true
+                }
+            })
+            .alert(isPresented: $showAlert){
+                Alert(title: Text("Info wrong"), message: Text("Please correct your input"), dismissButton: .default(Text("Ok")))
+            }
         }
         
     }
