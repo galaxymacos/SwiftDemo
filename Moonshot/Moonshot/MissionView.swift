@@ -43,6 +43,8 @@ struct MissionView: View {
                             .scaledToFit()
                             .frame(maxWidth: geometry.size.width*0.75)
                         
+                        Text(mission.formattedLaunchDate)
+                        
                         Text(mission.description)
                             .padding()
                             // It will not be shrinked. layoutPriority(0) will get shrinked. (If there is not enough space)
