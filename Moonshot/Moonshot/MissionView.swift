@@ -45,23 +45,30 @@ struct MissionView: View {
                         
                         Text(mission.description)
                             .padding()
+                            // It will not be shrinked. layoutPriority(0) will get shrinked. (If there is not enough space)
+                            .layoutPriority(1)
                         
                         ForEach(astronauts, id: \.role){ member in
-                            HStack{
-                                Image(member.astronaut.id)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 80, height: 63)
-                                    .clipShape(Capsule())
-                                    .overlay(Capsule().stroke(Color.primary, lineWidth: 1))
-                                VStack(alignment: .leading){
-                                    Text("\(member.astronaut.name)")
-                                        .font(.headline)
-                                    Text("\(member.role)")
-                                        .foregroundColor(.secondary)                                  
+                            NavigationLink(destination: AstronautView(astronaut: member.astronaut)){
+                                HStack{
+                                    Image(member.astronaut.id)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 80, height: 63)
+                                        .clipShape(Capsule())
+                                        .overlay(Capsule().stroke(Color.primary, lineWidth: 1))
+                                    VStack(alignment: .leading){
+                                        Text("\(member.astronaut.name)")
+                                            .font(.headline)
+                                        Text("\(member.role)")
+                                            .foregroundColor(.secondary)
+                                    }
                                 }
+                                .padding()
+                                
                             }
-                            .padding()
+                            // else the text in NavigationLink will be colored blue indicating that it is a "hyperlink"
+                            .buttonStyle(PlainButtonStyle())
                             
                             
                         }
