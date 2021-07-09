@@ -16,6 +16,7 @@
 		2B90AE4526973585009A645A /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B90AE4426973585009A645A /* Bundle-Decodable.swift */; };
 		2B90AE47269742E5009A645A /* Astronaut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B90AE46269742E5009A645A /* Astronaut.swift */; };
 		2B90AE4926974332009A645A /* Mission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B90AE4826974332009A645A /* Mission.swift */; };
+		2BFE223F269847C700D6C53A /* MissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE223E269847C700D6C53A /* MissionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		2B90AE4426973585009A645A /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		2B90AE46269742E5009A645A /* Astronaut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Astronaut.swift; sourceTree = "<group>"; };
 		2B90AE4826974332009A645A /* Mission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mission.swift; sourceTree = "<group>"; };
+		2BFE223E269847C700D6C53A /* MissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				2B90AE46269742E5009A645A /* Astronaut.swift */,
 				2B90AE4826974332009A645A /* Mission.swift */,
 				2B90AE41269732A5009A645A /* astronauts.json */,
+				2BFE223E269847C700D6C53A /* MissionView.swift */,
 				2B90AE40269732A4009A645A /* missions.json */,
 				2B90AE31269701A3009A645A /* MoonshotApp.swift */,
 				2B90AE33269701A3009A645A /* ContentView.swift */,
@@ -160,6 +163,7 @@
 				2B90AE4526973585009A645A /* Bundle-Decodable.swift in Sources */,
 				2B90AE4926974332009A645A /* Mission.swift in Sources */,
 				2B90AE47269742E5009A645A /* Astronaut.swift in Sources */,
+				2BFE223F269847C700D6C53A /* MissionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

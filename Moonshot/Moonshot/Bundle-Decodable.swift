@@ -68,6 +68,7 @@ extension Bundle{
         // Allow the decoder to decode the decode the date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "y-MM-dd"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         guard let astronauts = try? decoder.decode(T.self, from: data) else{
             fatalError("Fail to decode \(file) from bundle.")
