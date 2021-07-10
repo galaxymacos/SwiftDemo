@@ -64,49 +64,108 @@ import SwiftUI
  }
  */
 
-struct ContentView: View{
+/*  make arc insettable shape
+ struct ContentView: View{
+ 
+ struct Arc: InsettableShape {
+ let startAngle: Angle
+ let endAngle: Angle
+ let closeWise: Bool
+ 
+ var insetAmount: CGFloat = 0
+ 
+ func path(in rect: CGRect) -> Path {
+ var path = Path()
+ path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width/2 - insetAmount, startAngle: startAngle-Angle.degrees(90), endAngle: endAngle-Angle.degrees(90), clockwise: !closeWise)
+ return path
+ }
+ 
+ // This method will be called whenever we try to shrink the shape
+ func inset(by amount: CGFloat) -> some InsettableShape {
+ // self is immutable, so we need a copy of self
+ var arc = self
+ arc.insetAmount += amount
+ return arc
+ 
+ //            self.insetAmount += amount
+ //            return self
+ }
+ }
+ 
+ var body: some View{
+ 
+ 
+ 
+ VStack{
+ Circle()
+ //            .stroke(Color.blue, style: StrokeStyle(lineWidth: 30))
+ // The strike will be drawn inside the circle
+ .strokeBorder(Color.purple, lineWidth: 40)
+ 
+ Arc(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360), closeWise: true)
+ .strokeBorder(Color.orange, lineWidth: 30)
+ 
+ }
+ }
+ }
+ */
+
+struct Flower: Shape {
+    // How much to move this petal away from the center
+    var petalOffset: Double = -20
     
-    struct Arc: InsettableShape {
-        let startAngle: Angle
-        let endAngle: Angle
-        let closeWise: Bool
+    // How wide to make each petal
+    var petalWidth: Double = 100
     
-        var insetAmount: CGFloat = 0
+    func path(in rect: CGRect) -> Path {
+        // The path that will hold all petals
+        var path = Path()
         
-        func path(in rect: CGRect) -> Path {
-            var path = Path()
-            path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width/2 - insetAmount, startAngle: startAngle-Angle.degrees(90), endAngle: endAngle-Angle.degrees(90), clockwise: !closeWise)
-            return path
-        }
+        // Count from 0 up to pi * 2, moving up pi / 8 each time
+        for number in stride(from: 0, to: CGFloat.pi * 2, by: CGFloat.pi / 8) {
         
-        // This method will be called whenever we try to shrink the shape
-        func inset(by amount: CGFloat) -> some InsettableShape {
-            // self is immutable, so we need a copy of self
-            var arc = self
-            arc.insetAmount += amount
-            return arc
+            // rotate the petal by the current value of our loop
+            let rotation = CGAffineTransform(rotationAngle: number)
             
-//            self.insetAmount += amount
-//            return self
-        }
-    }
-    
-    var body: some View{
-        
-        
-        
-        VStack{
-            Circle()
-                //            .stroke(Color.blue, style: StrokeStyle(lineWidth: 30))
-                // The strike will be drawn inside the circle
-                .strokeBorder(Color.purple, lineWidth: 40)
+            // move the petal to be at the center of our view
+            let position = rotation.concatenating(CGAffineTransform(translationX: rect.width / 2, y: rect.height / 2))
             
-            Arc(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360), closeWise: true)
-                .strokeBorder(Color.orange, lineWidth: 30)
+            // create a path for this petal using our properties plus a fixed Y and height
+            let originalPetal = Path(ellipseIn: CGRect(x: CGFloat(petalOffset), y: 0, width: CGFloat(petalWidth), height: rect.width / 2))
+            
+            // apply our rotation/position transformation to the petal
+            let rotatedPetal = originalPetal.applying(position)
+            
+            // add it to our main path
+            path.addPath(rotatedPetal)
         }
+        
+        // now send the main path back
+        return path
     }
 }
 
+struct ContentView: View {
+    @State private var petalOffset = -20.0
+    @State private var petalWidth = 100.0
+
+    var body: some View {
+        VStack {
+            Flower(petalOffset: petalOffset, petalWidth: petalWidth)
+//                .stroke(Color.red, lineWidth: 1)
+                .fill(Color.blue, style: FillStyle(eoFill: true))
+                
+
+            Text("Offset")
+            Slider(value: $petalOffset, in: -40...40)
+                .padding([.horizontal, .bottom])
+
+            Text("Width")
+            Slider(value: $petalWidth, in: 0...100)
+                .padding(.horizontal)
+        }
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
