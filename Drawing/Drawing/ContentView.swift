@@ -169,21 +169,66 @@ import SwiftUI
  }
  */
 
-struct ContentView: View {
+/*  Creative border using ImagePaint
+ struct ContentView: View {
+ var body: some View{
+ VStack{
+ Text("Hello world")
+ .frame(width: 300, height: 300)
+ //            .border(ImagePaint(image: Image("AirMaxPreDay"), scale: 0.5), width: 30)
+ .border(ImagePaint(image: Image("AirMaxPreDay"),sourceRect: CGRect(x: 0, y: 0.25, width: 1, height: 0.5), scale:0.5), width: 30)
+ 
+ Capsule()
+ //                .fill(ImagePaint(image: Image("AixMaxPreDay")))
+ .strokeBorder(ImagePaint(image: Image("AirMaxPreDay")), lineWidth: 20)
+ .frame(width: 300, height: 200)
+ 
+ 
+ }
+ }
+ }
+ */
+
+
+struct ColorCirclingCircle: View {
+    var amount = 0.0
+    var steps = 0
+    
+    var body: some View {
+            ZStack {
+                ForEach(0..<steps) { value in
+                    Circle()
+                        .inset(by: CGFloat(value))
+//                        .strokeBorder(self.color(for: value, brightness: 1), lineWidth: 2)
+                        .strokeBorder(LinearGradient(gradient: Gradient(colors: [
+                            self.color(for: value, brightness: 1),
+                            self.color(for: value, brightness: 0.5)
+                        ]), startPoint: .top, endPoint: .bottom), lineWidth: 2)
+                }
+            }
+            // This tells SwiftUI it should render the contents of the view into an off-screen image before putting it back onto the screen as a single rendered output, which is signficantly faster.
+            // Adding the off-screen render pass might slow down SwiftUI for simple drawing, so you should wait until you have an actual performance problem before trying to bring in drawingGroup().
+            .drawingGroup()
+        }
+    
+    func color(for value: Int, brightness: Double)->Color{
+        var hue = Double(value)/(Double)(self.steps) + self.amount
+        if hue > 1 {
+            hue -= 1
+        }
+        return Color(hue: hue, saturation: 1, brightness: brightness)
+    }
+}
+    
+
+
+struct ContentView:View {
+    @State var amount:Double = 0
     var body: some View{
         VStack{
+            ColorCirclingCircle(amount: self.amount, steps: 100)
             
-            Text("Hello world")
-                .frame(width: 300, height: 300)
-                //            .border(ImagePaint(image: Image("AirMaxPreDay"), scale: 0.5), width: 30)
-                .border(ImagePaint(image: Image("AirMaxPreDay"),sourceRect: CGRect(x: 0, y: 0.25, width: 1, height: 0.5), scale:0.5), width: 30)
-            
-            Capsule()
-//                .fill(ImagePaint(image: Image("AixMaxPreDay")))
-                .strokeBorder(ImagePaint(image: Image("AirMaxPreDay")), lineWidth: 20)
-                .frame(width: 300, height: 200)
-            
-            
+            Slider(value: $amount, in: 0...1)
         }
     }
 }
