@@ -189,46 +189,130 @@ import SwiftUI
  }
  */
 
+/* Color circling circle
+ struct ColorCirclingCircle: View {
+ var amount = 0.0
+ var steps = 0
+ 
+ var body: some View {
+ ZStack {
+ ForEach(0..<steps) { value in
+ Circle()
+ .inset(by: CGFloat(value))
+ //                        .strokeBorder(self.color(for: value, brightness: 1), lineWidth: 2)
+ .strokeBorder(LinearGradient(gradient: Gradient(colors: [
+ self.color(for: value, brightness: 1),
+ self.color(for: value, brightness: 0.5)
+ ]), startPoint: .top, endPoint: .bottom), lineWidth: 2)
+ }
+ }
+ // This tells SwiftUI it should render the contents of the view into an off-screen image before putting it back onto the screen as a single rendered output, which is signficantly faster.
+ // Adding the off-screen render pass might slow down SwiftUI for simple drawing, so you should wait until you have an actual performance problem before trying to bring in drawingGroup().
+ .drawingGroup()
+ }
+ 
+ func color(for value: Int, brightness: Double)->Color{
+ var hue = Double(value)/(Double)(self.steps) + self.amount
+ if hue > 1 {
+ hue -= 1
+ }
+ return Color(hue: hue, saturation: 1, brightness: brightness)
+ }
+ }
+ struct ContentView:View {
+ @State var amount:Double = 0
+ var body: some View{
+ VStack{
+ ColorCirclingCircle(amount: self.amount, steps: 100)
+ 
+ Slider(value: $amount, in: 0...1)
+ }
+ }
+ }
+ */
 
-struct ColorCirclingCircle: View {
-    var amount = 0.0
-    var steps = 0
-    
-    var body: some View {
-            ZStack {
-                ForEach(0..<steps) { value in
-                    Circle()
-                        .inset(by: CGFloat(value))
-//                        .strokeBorder(self.color(for: value, brightness: 1), lineWidth: 2)
-                        .strokeBorder(LinearGradient(gradient: Gradient(colors: [
-                            self.color(for: value, brightness: 1),
-                            self.color(for: value, brightness: 0.5)
-                        ]), startPoint: .top, endPoint: .bottom), lineWidth: 2)
-                }
-            }
-            // This tells SwiftUI it should render the contents of the view into an off-screen image before putting it back onto the screen as a single rendered output, which is signficantly faster.
-            // Adding the off-screen render pass might slow down SwiftUI for simple drawing, so you should wait until you have an actual performance problem before trying to bring in drawingGroup().
-            .drawingGroup()
-        }
-    
-    func color(for value: Int, brightness: Double)->Color{
-        var hue = Double(value)/(Double)(self.steps) + self.amount
-        if hue > 1 {
-            hue -= 1
-        }
-        return Color(hue: hue, saturation: 1, brightness: brightness)
-    }
-}
-    
+/* blendMode
+ struct ContentView: View {
+ var body: some View{
+ VStack{
+ ZStack{
+ Image("Example")
+ .resizable()
+ 
+ Rectangle()
+ .fill(Color.red)
+ .blendMode(.multiply)
+ }
+ .frame(width: 400, height: 400)
+ .clipped()
+ 
+ Image("Example")
+ .resizable()
+ .colorMultiply(.blue)
+ .frame(width:400, height: 400)
+ 
+ 
+ }
+ }
+ }
+ */
 
+/* blendmode .screen
+ struct ContentView: View {
+ @State var amount: CGFloat = 0
+ 
+ var body: some View {
+ VStack{
+ ZStack{
+ Circle()
+ .fill(Color(red: 0, green: 0, blue: 1))
+ .frame(width: 200, height: 200)
+ .offset(x: -50, y: 0)
+ .blendMode(.screen)
+ 
+ Circle()
+ .fill(Color(red: 0, green: 1, blue: 0))
+ .frame(width: 200, height: 200)
+ .offset(x: 50, y: 0)
+ .blendMode(.screen)
+ 
+ Circle()
+ .fill(Color(red: 1, green: 0, blue: 0))
+ .frame(width: 200)
+ .offset(x: 0, y: 80)
+ .blendMode(.screen)
+ }
+ .frame(width: 400, height: 400)
+ 
+ Slider(value: $amount, in: 0...200)
+ .padding()
+ }
+ .frame(maxWidth: .infinity, maxHeight: .infinity)
+ .background(Color.black)
+ .edgesIgnoringSafeArea(.all)
+ 
+ }
+ 
+ }
+ */
 
+/* blurs, blending and saturation
+ 
+ */
 struct ContentView:View {
-    @State var amount:Double = 0
+    @State var amount: CGFloat = 0
     var body: some View{
         VStack{
-            ColorCirclingCircle(amount: self.amount, steps: 100)
+            Image("AirMaxPreDay")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                // saturation = 0 means no color, saturation = 1 means original color
+                .saturation(Double(amount))
+                .blur(radius: (1-amount) * 10)
             
             Slider(value: $amount, in: 0...1)
+                .padding()
         }
     }
 }
