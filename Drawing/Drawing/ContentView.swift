@@ -25,39 +25,84 @@ import SwiftUI
  }
  */
 
-struct ContentView: View {
-    struct Triangle: Shape {
-        func path(in rect: CGRect) -> Path {
-            var path = Path()
-            path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-            path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-            path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
-            return path
-        }
-    }
+/* Path vs shape
+ struct ContentView: View {
+ struct Triangle: Shape {
+ func path(in rect: CGRect) -> Path {
+ var path = Path()
+ path.move(to: CGPoint(x: rect.midX, y: rect.minY))
+ path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
+ path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+ path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
+ return path
+ }
+ }
+ 
+ struct Arc: Shape {
+ let startAngle: Angle
+ let endAngle: Angle
+ let closeWise: Bool
+ 
+ func path(in rect: CGRect) -> Path {
+ var path = Path()
+ path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: 100, startAngle: startAngle-Angle.degrees(90), endAngle: endAngle-Angle.degrees(90), clockwise: !closeWise)
+ return path
+ }
+ }
+ 
+ var body: some View{
+ VStack{
+ Triangle()
+ //            .fill(Color.blue)
+ .stroke(Color.red, style: StrokeStyle(lineWidth: 10, lineCap: .round))
+ .frame(width: 200, height: 200)
+ Arc(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 200), closeWise: true)
+ .fill(Color.green)
+ .frame(width: 200, height: 200)
+ }
+ }
+ }
+ */
+
+struct ContentView: View{
     
-    struct Arc: Shape {
+    struct Arc: InsettableShape {
         let startAngle: Angle
         let endAngle: Angle
         let closeWise: Bool
+    
+        var insetAmount: CGFloat = 0
         
         func path(in rect: CGRect) -> Path {
             var path = Path()
-            path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: 100, startAngle: startAngle-Angle.degrees(90), endAngle: endAngle-Angle.degrees(90), clockwise: !closeWise)
+            path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width/2 - insetAmount, startAngle: startAngle-Angle.degrees(90), endAngle: endAngle-Angle.degrees(90), clockwise: !closeWise)
             return path
+        }
+        
+        // This method will be called whenever we try to shrink the shape
+        func inset(by amount: CGFloat) -> some InsettableShape {
+            // self is immutable, so we need a copy of self
+            var arc = self
+            arc.insetAmount += amount
+            return arc
+            
+//            self.insetAmount += amount
+//            return self
         }
     }
     
     var body: some View{
+        
+        
+        
         VStack{
-            Triangle()
-                //            .fill(Color.blue)
-                .stroke(Color.red, style: StrokeStyle(lineWidth: 10, lineCap: .round))
-                .frame(width: 200, height: 200)
-            Arc(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 200), closeWise: true)
-                .fill(Color.green)
-                .frame(width: 200, height: 200)
+            Circle()
+                //            .stroke(Color.blue, style: StrokeStyle(lineWidth: 30))
+                // The strike will be drawn inside the circle
+                .strokeBorder(Color.purple, lineWidth: 40)
+            
+            Arc(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360), closeWise: true)
+                .strokeBorder(Color.orange, lineWidth: 30)
         }
     }
 }
