@@ -297,24 +297,76 @@ import SwiftUI
  */
 
 /* blurs, blending and saturation
+ struct ContentView:View {
+ @State var amount: CGFloat = 0
+ var body: some View{
+ VStack{
+ Image("AirMaxPreDay")
+ .resizable()
+ .scaledToFit()
+ .frame(width: 200, height: 200)
+ // saturation = 0 means no color, saturation = 1 means original color
+ .saturation(Double(amount))
+ .blur(radius: (1-amount) * 10)
  
+ Slider(value: $amount, in: 0...1)
+ .padding()
+ }
+ }
+ }
  */
-struct ContentView:View {
-    @State var amount: CGFloat = 0
+
+struct Trapezoid: Shape {
+    var insetAmount: CGFloat
+    
+    
+    // Allow swift to slowly set the value by intepolating
+    var animatableData: CGFloat {
+        get{ insetAmount }
+        set{ self.insetAmount = newValue }
+    }
+    
+    
+    
+    
+//    var animatableData: CGFloat {
+//        get { insetAmount }
+//        set { self.insetAmount = newValue }
+//    }
+
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+
+        path.move(to: CGPoint(x: 0, y: rect.maxY))
+        path.addLine(to: CGPoint(x: insetAmount, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - insetAmount, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+        path.addLine(to: CGPoint(x: 0, y: rect.maxY))
+
+        return path
+   }
+}
+
+struct ContentView: View {
+    @State var insetAmount:CGFloat = 50
+    
+    
+    
     var body: some View{
         VStack{
-            Image("AirMaxPreDay")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200)
-                // saturation = 0 means no color, saturation = 1 means original color
-                .saturation(Double(amount))
-                .blur(radius: (1-amount) * 10)
+            Trapezoid(insetAmount: insetAmount)
+                .frame(width: 200, height: 100)
+                .onTapGesture {
+                    withAnimation{
+                        self.insetAmount = CGFloat.random(in: 10...90)
+                    }
+                }
             
-            Slider(value: $amount, in: 0...1)
+            Slider(value:$insetAmount, in: 0...100)
                 .padding()
         }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
