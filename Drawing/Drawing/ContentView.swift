@@ -316,57 +316,222 @@ import SwiftUI
  }
  */
 
-struct Trapezoid: Shape {
-    var insetAmount: CGFloat
-    
-    
-    // Allow swift to slowly set the value by intepolating
-    var animatableData: CGFloat {
-        get{ insetAmount }
-        set{ self.insetAmount = newValue }
-    }
-    
-    
-    
-    
-//    var animatableData: CGFloat {
-//        get { insetAmount }
-//        set { self.insetAmount = newValue }
-//    }
+/* animatableData
+ struct Trapezoid: Shape {
+ var insetAmount: CGFloat
+ 
+ 
+ // Allow swift to slowly set the value by intepolating
+ var animatableData: CGFloat {
+ get{ insetAmount }
+ set{ self.insetAmount = newValue }
+ }
+ 
+ func path(in rect: CGRect) -> Path {
+ var path = Path()
+ 
+ path.move(to: CGPoint(x: 0, y: rect.maxY))
+ path.addLine(to: CGPoint(x: insetAmount, y: rect.minY))
+ path.addLine(to: CGPoint(x: rect.maxX - insetAmount, y: rect.minY))
+ path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+ path.addLine(to: CGPoint(x: 0, y: rect.maxY))
+ 
+ return path
+ }
+ }
+ 
+ struct ContentView: View {
+ @State var insetAmount:CGFloat = 50
+ 
+ 
+ 
+ var body: some View{
+ VStack{
+ Trapezoid(insetAmount: insetAmount)
+ .frame(width: 200, height: 100)
+ .onTapGesture {
+ withAnimation{
+ self.insetAmount = CGFloat.random(in: 10...90)
+ }
+ }
+ 
+ Slider(value:$insetAmount, in: 0...100)
+ .padding()
+ }
+ }
+ 
+ }
+ */
 
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
+/* CheckerBoard
+ 
+ struct CheckerBoard: Shape {
+ var numofRows: Int
+ var numofColumns: Int
+ 
+ var animatableData: AnimatablePair<Double, Double>{
+ get{ AnimatablePair(Double(numofRows), Double(numofColumns)) }
+ set{
+ self.numofRows = Int(newValue.first)
+ self.numofColumns = Int(newValue.second)
+ }
+ 
+ }
+ 
+ func path(in rect: CGRect) -> Path {
+ var path = Path()
+ let sizeofRow = rect.height / CGFloat(numofRows)
+ let sizeofCol = rect.width / CGFloat(numofColumns)
+ 
+ for row in 0..<numofRows {
+ for col in 0..<numofColumns {
+ if(row + col).isMultiple(of: 2){
+ let startX = CGFloat(col) * sizeofCol
+ let startY = CGFloat(row) * sizeofRow
+ let rect = CGRect(x: startX, y: startY, width: sizeofCol, height: sizeofRow)
+ path.addRect(rect)
+ }
+ }
+ }
+ return path
+ }
+ }
+ 
+ struct ContentView: View{
+ @State var numofRows = 8
+ @State var numofCols = 8
+ var body: some View{
+ CheckerBoard(numofRows: numofRows, numofColumns: numofCols)
+ .border(Color.black)
+ .frame(width: 300, height: 300, alignment: .center)
+ .onTapGesture {
+ withAnimation(.linear(duration: 3)){
+ numofCols = 4
+ numofRows = 4
+ }
+ }
+ }
+ }
+ */
 
-        path.move(to: CGPoint(x: 0, y: rect.maxY))
-        path.addLine(to: CGPoint(x: insetAmount, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX - insetAmount, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: 0, y: rect.maxY))
+/* SpiralGraph (TODO)
+ 
+ struct SpiralGraph: Shape{
+ var innerRadius: Int
+ var outerRadius: Int
+ var distance: Int
+ let amount: CGFloat
+ 
+ func path(in rect: CGRect) -> Path {
+ return Path()
+ }
+ }
+ 
+ func gcd(_ a: Int, _ b: Int) -> Int {
+ var a = a
+ var b = b
+ 
+ while b != 0 {
+ let temp = b
+ b = a % b
+ a = temp
+ }
+ 
+ return a
+ }
+ 
+ struct ContentView: View{
+ var body: some View{
+ Text("some text")
+ }
+ }
+ */
 
-        return path
-   }
-}
+/* Arrow
+ 
+ struct Arrow: Shape {
+ 
+ func path(in rect: CGRect) -> Path {
+ var path = Path()
+ 
+ path.move(to: CGPoint(x: 0, y: rect.midY))
+ path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+ path.addLine(to: CGPoint(x: rect.midX, y: 0))
+ path.addLine(to: CGPoint(x: 0, y:rect.midY))
+ 
+ path.move(to: CGPoint(x: rect.maxX / 3, y: rect.midY))
+ path.addLine(to: CGPoint(x: rect.maxX / 3, y: rect.maxY))
+ path.addLine(to: CGPoint(x:rect.maxX*2/3, y:rect.maxY))
+ path.addLine(to: CGPoint(x: rect.maxX*2/3, y: rect.midY))
+ 
+ return path
+ }
+ }
+ 
+ struct ContentView: View {
+ @State var borderThickness: CGFloat = 10
+ var body: some View{
+ 
+ VStack{
+ Arrow()
+ .stroke(style: StrokeStyle(lineWidth: borderThickness, lineCap: .round, lineJoin: .round))
+ .frame(width: 300, height: 400)
+ .onTapGesture {
+ withAnimation{
+ borderThickness = CGFloat.random(in: 1...100)
+ }
+ }
+ 
+ Slider(value: $borderThickness, in: 1...100)
+ 
+ }
+ }
+ }
+*/
 
-struct ContentView: View {
-    @State var insetAmount:CGFloat = 50
+/* Color Circling Rectangle
+ */
+
+struct ColorCirclingRentangle:View {
+    var steps = 100
+    var amount = 0.25 // The colorshift amount (from 0 to 1)
     
     
-    
+        
     var body: some View{
-        VStack{
-            Trapezoid(insetAmount: insetAmount)
-                .frame(width: 200, height: 100)
-                .onTapGesture {
-                    withAnimation{
-                        self.insetAmount = CGFloat.random(in: 10...90)
-                    }
-                }
+        ZStack{
+            ForEach(0..<steps){ value in
+                Rectangle()
+                    .inset(by: CGFloat(value))
+                    .strokeBorder(LinearGradient(gradient: Gradient(colors: [color(for: value, brightness: 0.5), color(for: value, brightness: 1)]), startPoint: .top, endPoint: .bottom))
+                
+            }
             
-            Slider(value:$insetAmount, in: 0...100)
-                .padding()
         }
     }
     
+    func color(for value: Int, brightness: Double) -> Color {
+        var hue = Double(value)/Double(self.steps) + self.amount
+        if hue > 1 {
+            hue -= 1
+        }
+        return Color(hue: hue, saturation: 1, brightness: brightness)
+    }
+}
+
+struct ContentView: View {
+    @State var steps:Int = 100
+    @State var amount:CGFloat = 0
+    var body: some View{
+        VStack{
+            ColorCirclingRentangle(steps: steps, amount: Double(amount))
+                .frame(width: 200, height: 200, alignment: .center)
+            
+            Stepper("\(steps)",value:$steps, in: 1...100, step:5)
+            Slider(value: $amount, in: 0...1)
+        }
+        
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
