@@ -32,4 +32,17 @@ class Order: ObservableObject {
     var hasValidAddress: Bool {
         return !name.isEmpty && !streetAddress.isEmpty && !city.isEmpty && !zip.isEmpty
     }
+    
+    var price: Double{
+        var total = 0.0
+        total += Double(type) / 2.0
+        total += Double(quantity) * 2.0
+        if(extraTopping){
+            total += 1
+        }
+        if(addSprinkles){
+            total += 0.5
+        }
+        return total
+    }
 }

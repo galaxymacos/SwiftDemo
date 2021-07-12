@@ -8,13 +8,34 @@
 import SwiftUI
 
 struct CheckoutView: View {
+    @State var order: Order
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            GeometryReader{ geo in
+                ScrollView{
+                    VStack{
+                        Image("cupcakes")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width)
+                        
+                        // show total price
+                        Text("Total price: \(order.price, specifier: "%.2f")")
+                        // checkout button
+                        Button("Checkout"){
+                            //
+                        }
+                    }
+                }
+                
+            }
+            .navigationBarTitle("Checkout", displayMode: .inline)
+        }
     }
 }
 
 struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckoutView()
+        CheckoutView(order: Order())
     }
 }
