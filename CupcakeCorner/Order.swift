@@ -7,12 +7,36 @@
 
 import SwiftUI
 
-// Codable won't work on @Published variable by default
-class Order: ObservableObject, Codable {
+struct OrderDetail: Codable{
     static let types = ["Vanilla", "Strawberry", "chocolate", "rainbow"]
     
     var type = 0
     var quantity = 3
+    
+    var specialRequestEnabled = false{
+        didSet{
+            if specialRequestEnabled == false{
+                extraFrosting = false
+                addSprinkles = false
+            }
+        }
+    }
+    var extraFrosting = false
+    
+    var addSprinkles = false
+    
+    var name = ""
+    var streetAddress = ""
+    var city = ""
+    var zip = ""
+}
+
+// Codable won't work on @Published variable by default
+class Order: ObservableObject, Codable {
+    static let types = ["Vanilla", "Strawberry", "chocolate", "rainbow"]
+    
+    @Published var type = 0
+    @Published var quantity = 3
     
     @Published var specialRequestEnabled = false{
         didSet{
@@ -68,7 +92,10 @@ class Order: ObservableObject, Codable {
     }
     
     var hasValidAddress: Bool {
-        return !name.isEmpty && !streetAddress.isEmpty && !city.isEmpty && !zip.isEmpty
+        if streetAddress.trimmingCharacters(in: .whitespacesAndNewlines).count == 0{
+            return false
+        }
+        return !name.isEmpty && !city.isEmpty && !zip.isEmpty
     }
     
     var price: Double{
