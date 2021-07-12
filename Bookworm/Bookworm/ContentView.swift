@@ -8,6 +8,24 @@
 import SwiftUI
 import CoreData
 
+struct PushButton: View {
+    var title = "Push"
+    @State var isOn = false
+    var onColor = [Color.red, Color.yellow]
+    var offColor = [Color(white: 0.6), Color(white: 0.4)]
+    
+    var body: some View{
+        Button(title){
+            isOn.toggle()
+        }
+        .padding()
+        .background(LinearGradient(gradient: isOn ? Gradient(colors: [onColor[0], onColor[1]]):Gradient(colors: [offColor[0], offColor[1]]), startPoint: .top, endPoint: .bottom))
+        .foregroundColor(.white)
+        clipShape(Capsule())
+            .shadow(radius: isOn ? 0 : 5)
+    }
+}
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
