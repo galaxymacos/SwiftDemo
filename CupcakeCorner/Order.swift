@@ -29,74 +29,11 @@ struct OrderDetail: Codable{
     var streetAddress = ""
     var city = ""
     var zip = ""
-}
-
-// Codable won't work on @Published variable by default
-class Order: ObservableObject, Codable {
-    static let types = ["Vanilla", "Strawberry", "chocolate", "rainbow"]
-    
-    @Published var type = 0
-    @Published var quantity = 3
-    
-    @Published var specialRequestEnabled = false{
-        didSet{
-            if specialRequestEnabled == false{
-                extraFrosting = false
-                addSprinkles = false
-            }
-        }
-    }
-    @Published var extraFrosting = false
-    
-    @Published var addSprinkles = false
-    
-    @Published var name = ""
-    @Published var streetAddress = ""
-    @Published var city = ""
-    @Published var zip = ""
-    
-    enum CodingKeys: CodingKey {
-        case type, quantity, specialRequestEnabled, extraFrosting, addSprinkles, name, streetAddress, city, zip
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(type, forKey: .type)
-        try container.encode(quantity, forKey: .quantity)
-        
-        try container.encode(extraFrosting, forKey: .extraFrosting)
-        try container.encode(addSprinkles, forKey: .addSprinkles)
-        
-        try container.encode(name, forKey: .name)
-        try container.encode(streetAddress, forKey: .streetAddress)
-        try container.encode(city, forKey: .city)
-        try container.encode(zip, forKey: .zip)
-    }
     
     init() {
         
     }
     
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-            type = try container.decode(Int.self, forKey: .type)
-            quantity = try container.decode(Int.self, forKey: .quantity)
-
-            extraFrosting = try container.decode(Bool.self, forKey: .extraFrosting)
-            addSprinkles = try container.decode(Bool.self, forKey: .addSprinkles)
-
-            name = try container.decode(String.self, forKey: .name)
-            streetAddress = try container.decode(String.self, forKey: .streetAddress)
-            city = try container.decode(String.self, forKey: .city)
-            zip = try container.decode(String.self, forKey: .zip)
-    }
-    
-    var hasValidAddress: Bool {
-        if streetAddress.trimmingCharacters(in: .whitespacesAndNewlines).count == 0{
-            return false
-        }
-        return !name.isEmpty && !city.isEmpty && !zip.isEmpty
-    }
     
     var price: Double{
         var total = 0.0
@@ -110,6 +47,41 @@ class Order: ObservableObject, Codable {
         }
         return total
     }
+    
+    
+}
+
+// Codable won't work on @Published variable by default
+class Order: ObservableObject, Codable {
+
+    @Published var orderDetail: OrderDetail = OrderDetail()
+    
+    enum CodingKeys: CodingKey {
+        case orderDetail
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(orderDetail, forKey: .orderDetail)
+    }
+    
+    init() {
+        
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+            orderDetail = try container.decode(OrderDetail.self, forKey: .orderDetail)
+            
+    }
+    
+    var hasValidAddress: Bool {
+        if orderDetail.streetAddress.trimmingCharacters(in: .whitespacesAndNewlines).count == 0{
+            return false
+        }
+        return !orderDetail.name.isEmpty && !orderDetail.city.isEmpty && !orderDetail.zip.isEmpty
+    }
+   
     
     
 }

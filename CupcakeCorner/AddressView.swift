@@ -14,10 +14,10 @@ struct AddressView: View {
         NavigationView{
             Form{
                 Section{
-                    TextField("Name", text: $order.name)
-                    TextField("Street address", text: $order.streetAddress)
-                    TextField("Zip", text: $order.zip)
-                    TextField("City", text: $order.city)
+                    TextField("Name", text: $order.orderDetail.name)
+                    TextField("Street address", text: $order.orderDetail.streetAddress)
+                    TextField("Zip", text: $order.orderDetail.zip)
+                    TextField("City", text: $order.orderDetail.city)
                 }
                 
                 Section{

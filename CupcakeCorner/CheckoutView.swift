@@ -27,7 +27,7 @@ struct CheckoutView: View {
                             .frame(width: geo.size.width)
                         
                         // show total price
-                        Text("Total price: \(order.price, specifier: "%.2f")")
+                        Text("Total price: \(order.orderDetail.price, specifier: "%.2f")")
                         // checkout button
                         Button("Checkout"){
                             placeOrder()
@@ -72,7 +72,7 @@ struct CheckoutView: View {
                 return
             }
             if let decodedOrder = try? JSONDecoder().decode(Order.self, from: data){
-                confirmationMessage = "You have placed an order of \(decodedOrder.quantity) \(Order.types[decodedOrder.type]) ice cream"
+                confirmationMessage = "You have placed an order of \(decodedOrder.orderDetail.quantity) \(OrderDetail.types[decodedOrder.orderDetail.type]) ice cream"
                 showingConfirmation = true
             }
             else{
