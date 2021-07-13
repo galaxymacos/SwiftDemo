@@ -54,6 +54,7 @@ struct AddBookView: View {
                         
                         presentationMode.wrappedValue.dismiss()
                     }
+                    .disabled(genre.isEmpty)
                 }
             }
             .navigationBarTitle("Add book")
