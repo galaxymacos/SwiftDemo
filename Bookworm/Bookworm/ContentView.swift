@@ -53,13 +53,36 @@ struct ContentView: View {
      }
      */
     
-    @State var rememberMe: Bool = false
+    
+    /* two-way binding
+     @State var rememberMe: Bool = false
+     var body: some View{
+     VStack{
+     PushButton(title: "Remember me?", isOn: $rememberMe)
+     Text("\(rememberMe ? "On":"Off")")
+     }
+     }
+     */
+    
+    @Environment(\.horizontalSizeClass) var sizeClass
     var body: some View{
-        VStack{
-            PushButton(title: "Remember me?", isOn: $rememberMe)
-            Text("\(rememberMe ? "On":"Off")")
+        if sizeClass == .compact{
+            VStack{
+                Text("Size class is compact")
+                    .font(.largeTitle)
+                Text("placeholder")
+            }
+        }
+        else{
+            HStack{
+                Text("Size class is regular")
+                    .font(.largeTitle)
+                Text("placeholder")
+            }
+            
         }
     }
+}
 
 //    private func addItem() {
 //        withAnimation {
@@ -91,7 +114,7 @@ struct ContentView: View {
 //            }
 //        }
 //    }
-}
+//}
 
 private let itemFormatter: DateFormatter = {
     let formatter = DateFormatter()
