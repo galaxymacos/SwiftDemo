@@ -10,9 +10,31 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
+    @FetchRequest(entity: Wizard.entity(), sortDescriptors: []) var wizards: FetchedResults<Wizard>
     
     var body: some View{
-        Text("text")
+        VStack{
+            List(wizards, id: \.name){
+                Text($0.name ?? "Unknown")
+            }
+            
+            Button("Add"){
+                // Add a new entity instance in core data
+                let wizard = Wizard(context: moc)
+                wizard.name = "Harry Potter"
+            }
+            
+            
+            Button("Save"){
+                do{
+                    try moc.save()
+                }catch{
+                    print(error.localizedDescription)
+                }
+            }
+            
+        }
+        
     }
     
     func safeSave(){
@@ -20,6 +42,13 @@ struct ContentView: View {
             try? moc.save()
         }
     }
+    
+    func add() {
+        let wizard = Wizard(context: moc)
+        wizard.name = "Harry Potter"
+    }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
