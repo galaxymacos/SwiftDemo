@@ -11,13 +11,13 @@ import CoreData
 struct ContentView: View {
     @State var showingAddScreen = false
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Book.entity(), sortDescriptors: []) var books: FetchedResults<Book>
+    @FetchRequest(entity: Book.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Book.title, ascending: true), NSSortDescriptor(keyPath: \Book.author, ascending: true)]) var books: FetchedResults<Book>
     
     var body: some View{
         NavigationView{
             List{
                 ForEach(books, id: \.self){ book in
-                    NavigationLink(destination: Text(book.title ?? "Unknown title")){
+                    NavigationLink(destination: DetailView(book: book)){
                         EmojiRatingView(rating: book.rating)
                             .font(.largeTitle)
                         VStack{
