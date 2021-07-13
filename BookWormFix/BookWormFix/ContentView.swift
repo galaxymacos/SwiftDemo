@@ -15,14 +15,27 @@ struct ContentView: View {
     
     var body: some View{
         NavigationView{
-            Text("Books count: \(books.count)")
-                .navigationBarItems(trailing: Button(action: {self.showingAddScreen.toggle()}, label: {
-                    Image(systemName: "plus")
-                }))
-                .navigationBarTitle("Bookworm")
-                .sheet(isPresented: $showingAddScreen, content: {
-                    AddBookView().environment(\.managedObjectContext, moc)
-                })
+            List{
+                ForEach(books, id: \.self){ book in
+                    NavigationLink(destination: Text(book.title ?? "Unknown title")){
+                        EmojiRatingView(rating: book.rating)
+                            .font(.largeTitle)
+                        VStack{
+                            Text(book.title ?? "Unknown title")
+                                .font(.headline)
+                            Text(book.author ?? "Unknown author")
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+            }
+            .navigationBarItems(trailing: Button(action: {self.showingAddScreen.toggle()}, label: {
+                Image(systemName: "plus")
+            }))
+            .navigationBarTitle("Bookworm")
+            .sheet(isPresented: $showingAddScreen, content: {
+                AddBookView().environment(\.managedObjectContext, moc)
+            })
         }
     }
     

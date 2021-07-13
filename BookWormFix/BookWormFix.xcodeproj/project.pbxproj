@@ -15,6 +15,7 @@
 		2B5C1A04269D5849001ABA22 /* BookWormFix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C1A02269D5849001ABA22 /* BookWormFix.xcdatamodeld */; };
 		2B5C1A0C269D5D2A001ABA22 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C1A0B269D5D2A001ABA22 /* AddBookView.swift */; };
 		2B5C1A0E269D738A001ABA22 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C1A0D269D738A001ABA22 /* RatingView.swift */; };
+		2B5C1A11269D7874001ABA22 /* EmojiRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5C1A10269D7874001ABA22 /* EmojiRatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		2B5C1A05269D5849001ABA22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B5C1A0B269D5D2A001ABA22 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
 		2B5C1A0D269D738A001ABA22 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		2B5C1A10269D7874001ABA22 /* EmojiRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiRatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +46,7 @@
 		2B5C19EB269D5849001ABA22 = {
 			isa = PBXGroup;
 			children = (
+				2B5C1A10269D7874001ABA22 /* EmojiRatingView.swift */,
 				2B5C1A0D269D738A001ABA22 /* RatingView.swift */,
 				2B5C1A0B269D5D2A001ABA22 /* AddBookView.swift */,
 				2B5C19F6269D5849001ABA22 /* BookWormFix */,
@@ -152,6 +155,7 @@
 			files = (
 				2B5C1A01269D5849001ABA22 /* Persistence.swift in Sources */,
 				2B5C19FA269D5849001ABA22 /* ContentView.swift in Sources */,
+				2B5C1A11269D7874001ABA22 /* EmojiRatingView.swift in Sources */,
 				2B5C19F8269D5849001ABA22 /* BookWormFixApp.swift in Sources */,
 				2B5C1A0E269D738A001ABA22 /* RatingView.swift in Sources */,
 				2B5C1A04269D5849001ABA22 /* BookWormFix.xcdatamodeld in Sources */,
