@@ -22,8 +22,15 @@ struct DetailView: View {
                 VStack {
                     ZStack(alignment: .bottomTrailing) {
                         
-                        Image(self.book.genre ?? "Fantasy")
-                            .frame(maxWidth: geometry.size.width)
+                        if(self.book.genre == ""){
+                            Image("Fantasy")
+                                .frame(maxWidth: geometry.size.width)
+                        }
+                        else{
+                            Image(self.book.genre ?? "Fantasy")
+                                .frame(maxWidth: geometry.size.width)
+                            
+                        }
 
                         Text(self.book.genre?.uppercased() ?? "FANTASY")
                             .font(.caption)
