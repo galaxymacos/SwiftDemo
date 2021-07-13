@@ -1,8 +1,8 @@
 //
 //  Persistence.swift
-//  Bookworm
+//  PizzaRestaurant
 //
-//  Created by Xun Ruan on 2021/7/12.
+//  Created by Xun Ruan on 2021/7/13.
 //
 
 import CoreData
@@ -14,7 +14,12 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
-            let newItem = Student(context: viewContext)
+            let newItem = Order(context: viewContext)
+                        newItem.status = "pending"
+                        newItem.id = UUID()
+                        newItem.tableNumber = "12"
+                        newItem.pizzaType = "Margherita"
+                        newItem.numberOfSlices = 4
         }
         do {
             try viewContext.save()
@@ -30,7 +35,7 @@ struct PersistenceController {
     let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "Bookworm")
+        container = NSPersistentContainer(name: "PizzaRestaurant")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
