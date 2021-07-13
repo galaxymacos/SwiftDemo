@@ -27,9 +27,9 @@ struct ContentView: View {
                                 .foregroundColor(.secondary)
                         }
                     }
-                }
+                }.onDelete(perform: deleteBooks)
             }
-            .navigationBarItems(trailing: Button(action: {self.showingAddScreen.toggle()}, label: {
+            .navigationBarItems(leading: EditButton(), trailing: Button(action: {self.showingAddScreen.toggle()}, label: {
                 Image(systemName: "plus")
             }))
             .navigationBarTitle("Bookworm")
@@ -39,6 +39,14 @@ struct ContentView: View {
         }
     }
     
+    // send the delete request from local to Internet
+    func deleteBooks(at offsets: IndexSet) {
+        for offset in offsets {
+            let book = books[offset]
+            moc.delete(book)
+        }
+        try? moc.save()
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
