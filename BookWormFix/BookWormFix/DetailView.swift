@@ -20,6 +20,9 @@ struct DetailView: View {
         NavigationView{
             GeometryReader{ geometry in
                 VStack {
+                    Text(getFormattedDate(date: self.book.date ?? Date()))
+                        .font(.caption)
+                        .fontWeight(.bold)
                     ZStack(alignment: .bottomTrailing) {
                         
                         if(self.book.genre == ""){
@@ -47,7 +50,8 @@ struct DetailView: View {
 
                     Text(self.book.review ?? "No review")
                         .padding()
-
+                    
+                    
                     RatingView(rating: .constant(Int(self.book.rating)))
                         .font(.largeTitle)
 
@@ -65,6 +69,13 @@ struct DetailView: View {
                 Image(systemName: "trash")
             })
         }
+    }
+    
+    func getFormattedDate(date: Date)->String{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        return formatter.string(from: date)
+        
     }
     
     func deleteBook(){
