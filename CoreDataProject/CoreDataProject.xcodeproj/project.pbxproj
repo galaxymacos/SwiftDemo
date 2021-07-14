@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B59F0B1269E8F0700A3C397 /* FilteredList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B59F0B0269E8F0700A3C397 /* FilteredList.swift */; };
+		2B59F0B3269E933E00A3C397 /* FilteredListGenerics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B59F0B2269E933E00A3C397 /* FilteredListGenerics.swift */; };
 		2B7CF118269DC951007558E3 /* CoreDataProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7CF117269DC951007558E3 /* CoreDataProjectApp.swift */; };
 		2B7CF11A269DC951007558E3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7CF119269DC951007558E3 /* ContentView.swift */; };
 		2B7CF11C269DC952007558E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B7CF11B269DC952007558E3 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		2B59F0B0269E8F0700A3C397 /* FilteredList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredList.swift; sourceTree = "<group>"; };
+		2B59F0B2269E933E00A3C397 /* FilteredListGenerics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredListGenerics.swift; sourceTree = "<group>"; };
 		2B7CF114269DC951007558E3 /* CoreDataProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7CF117269DC951007558E3 /* CoreDataProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProjectApp.swift; sourceTree = "<group>"; };
 		2B7CF119269DC951007558E3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				2B59F0B0269E8F0700A3C397 /* FilteredList.swift */,
+				2B59F0B2269E933E00A3C397 /* FilteredListGenerics.swift */,
 				2BF5B037269E896600930313 /* Singer+CoreDataClass.swift */,
 				2BF5B038269E896600930313 /* Singer+CoreDataProperties.swift */,
 				2B7CF12B269DD85A007558E3 /* Movie+CoreDataClass.swift */,
@@ -159,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B59F0B3269E933E00A3C397 /* FilteredListGenerics.swift in Sources */,
 				2BF5B039269E896600930313 /* Singer+CoreDataClass.swift in Sources */,
 				2B7CF121269DC952007558E3 /* Persistence.swift in Sources */,
 				2B59F0B1269E8F0700A3C397 /* FilteredList.swift in Sources */,

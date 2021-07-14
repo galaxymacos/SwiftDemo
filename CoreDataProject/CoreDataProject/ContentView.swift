@@ -99,14 +99,20 @@ struct ContentView: View {
                 lastNameFilter  = "A"
                 showingALetterSinger = true
             }.sheet(isPresented: $showingALetterSinger, content: {
-                FilteredList(filter: "A")
+//                FilteredList(filter: "A")
+                FilteredListGenerics(filterKey: "lastName", filterValue: "A", content: { (singer: Singer) in
+                    Text(singer.wrappedFirstName + " " + singer.wrappedLastName)
+                })
             })
             
             Button("Show S"){
-                lastNameFilter = "S"
+//                lastNameFilter = "S"
                 showingSLetterSinger = true
             }.sheet(isPresented: $showingSLetterSinger, content: {
-                FilteredList(filter: "S")
+//                FilteredList(filter: "S")
+                FilteredListGenerics(filterKey: "lastName", filterValue: "S", content: { (singer: Singer) in
+                    Text(singer.wrappedFirstName + " " + singer.wrappedLastName)
+                })
             })
             
         }
