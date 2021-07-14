@@ -78,6 +78,8 @@ struct ContentView: View {
          }
          }
          */
+        
+        
         VStack{
             Button("Add singer"){
                 let taylor = Singer(context: self.moc)
@@ -100,7 +102,7 @@ struct ContentView: View {
                 showingALetterSinger = true
             }.sheet(isPresented: $showingALetterSinger, content: {
 //                FilteredList(filter: "A")
-                FilteredListGenerics(filterKey: "lastName", filterValue: "A", content: { (singer: Singer) in
+                FilteredListGenerics(filterKey: "lastName", filterValue: "A",sortDescriptors: [],predicateType: .BEGINSWITH, predicateArgs: [], content: { (singer: Singer) in
                     Text(singer.wrappedFirstName + " " + singer.wrappedLastName)
                 })
             })
@@ -110,7 +112,7 @@ struct ContentView: View {
                 showingSLetterSinger = true
             }.sheet(isPresented: $showingSLetterSinger, content: {
 //                FilteredList(filter: "S")
-                FilteredListGenerics(filterKey: "lastName", filterValue: "S", content: { (singer: Singer) in
+                FilteredListGenerics(filterKey: "lastName", filterValue: "S",sortDescriptors: [], predicateType: .BEGINSWITH, predicateArgs: [], content: { (singer: Singer) in
                     Text(singer.wrappedFirstName + " " + singer.wrappedLastName)
                 })
             })
