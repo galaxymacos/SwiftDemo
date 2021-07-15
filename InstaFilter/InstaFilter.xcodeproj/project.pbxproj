@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B477ADB269FB39500AD3ED2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B477ADA269FB39500AD3ED2 /* ImagePicker.swift */; };
 		2BA6B166269EF1FE0052FDC7 /* InstaFilterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA6B165269EF1FE0052FDC7 /* InstaFilterApp.swift */; };
 		2BA6B168269EF1FE0052FDC7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA6B167269EF1FE0052FDC7 /* ContentView.swift */; };
 		2BA6B16A269EF2000052FDC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BA6B169269EF2000052FDC7 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B477ADA269FB39500AD3ED2 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		2BA6B162269EF1FE0052FDC7 /* InstaFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstaFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BA6B165269EF1FE0052FDC7 /* InstaFilterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaFilterApp.swift; sourceTree = "<group>"; };
 		2BA6B167269EF1FE0052FDC7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			children = (
 				2BA6B165269EF1FE0052FDC7 /* InstaFilterApp.swift */,
 				2BA6B167269EF1FE0052FDC7 /* ContentView.swift */,
+				2B477ADA269FB39500AD3ED2 /* ImagePicker.swift */,
 				2BA6B169269EF2000052FDC7 /* Assets.xcassets */,
 				2BA6B16E269EF2000052FDC7 /* Info.plist */,
 				2BA6B16B269EF2000052FDC7 /* Preview Content */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B477ADB269FB39500AD3ED2 /* ImagePicker.swift in Sources */,
 				2BA6B168269EF1FE0052FDC7 /* ContentView.swift in Sources */,
 				2BA6B166269EF1FE0052FDC7 /* InstaFilterApp.swift in Sources */,
 			);

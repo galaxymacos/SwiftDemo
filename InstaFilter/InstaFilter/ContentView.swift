@@ -66,18 +66,58 @@ import CoreImage.CIFilterBuiltins
  */
 
 struct ContentView: View {
+    @State var inputImage: UIImage?
     @State var image: Image?
+    @State var showImagePicker = false
+    
+    @State var intensity = 0.5
     var body: some View{
-        VStack{
-            image?
-                .resizable()
-                .scaledToFit()
+        NavigationView{
+            VStack{
+                
+                ZStack{
+                    Rectangle()
+                        .fill(Color.secondary)
+                    if let image = image{
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    else{
+                        Text("Tap to select an image")
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .onTapGesture {
+                                showImagePicker = true
+                            }
+                    }
+                }
+                
+                HStack{
+                    Slider(value: $intensity, in: 0...1)
+                }
+                
+                HStack{
+                    Button("Change filter"){
+                        // Change filter
+                        
+                    }
+                    Spacer()
+                    Button("Add"){
+                        showImagePicker = true
+                    }
+                }
+            }
+            .sheet(isPresented: $showImagePicker, onDismiss: loadImage){
+                ImagePicker(image: $inputImage)
+            }
+            .navigationBarTitle("InstaFilter")
+            
         }
-        .onAppear(perform: loadImage)
     }
     
     func loadImage(){
-        guard let inputImage = UIImage(named: "Example") else {return}
+        guard let inputImage = inputImage else { return }
         let beginImage = CIImage(image: inputImage)
         
         let context = CIContext()
@@ -97,9 +137,9 @@ struct ContentView: View {
         // filter is working on CIImage
         guard let currentFilter = CIFilter(name: "CITwirlDistortion") else { return }
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
-        currentFilter.setValue(500, forKey: kCIInputRadiusKey)
+        currentFilter.setValue(1000, forKey: kCIInputRadiusKey)
         currentFilter.setValue(CIVector(x: inputImage.size.width / 2, y: inputImage.size.height / 2), forKey: kCIInputCenterKey)
-
+        
         
         // From CIImage to CGImage
         guard let outputImage = currentFilter.outputImage else {return}
@@ -108,6 +148,20 @@ struct ContentView: View {
             image = Image(uiImage: uiImg)
         }
         
+        
+//        UIImageWriteToSavedPhotosAlbum(inputImage, nil, nil, nil)
+        let imageSaver = ImageSaver()
+        imageSaver.writeToPhotoAlbum(image: inputImage)
+    }
+}
+
+class ImageSaver: NSObject {
+    func writeToPhotoAlbum(image: UIImage) {
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveError), nil)
+    }
+
+    @objc func saveError(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        print("Save finished!")
     }
 }
 
