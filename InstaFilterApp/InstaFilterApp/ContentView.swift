@@ -6,13 +6,28 @@
 //
 
 import SwiftUI
+import CoreImage
+import CoreImage.CIFilterBuiltins
 
 struct ContentView: View {
     @State var image: Image?
-    @State var intensity = 0.5
+    @State var filterIntensity:Double = 0.5
     @State private var showingImagePicker = false
     @State var inputImage: UIImage?
+    @State private var currentFilter = CIFilter.sepiaTone()
+    
+    // context is expensive to create, so keep it forever as possible
+    let context = CIContext()
     var body: some View {
+        let intensity = Binding<Double>(
+            get: {
+                filterIntensity
+            },
+            set: {
+                filterIntensity = $0
+                applyProcessing()
+            }
+        )
         NavigationView{
             VStack{
                 ZStack{
@@ -34,7 +49,7 @@ struct ContentView: View {
                 }
                 HStack{
                     Text("Intensity")
-                    Slider(value: $intensity, in: 0.0...1.0)
+                    Slider(value: intensity, in: 0.0...1.0)
                 }
                 .padding([.horizontal, .top])
                 HStack{
@@ -57,7 +72,19 @@ struct ContentView: View {
     
     func loadImage(){
         guard let inputImage = inputImage else{return}
-        image = Image(uiImage: inputImage)
+        let beginImage = CIImage(image: inputImage)
+        currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
+        applyProcessing()
+    }
+    
+    func applyProcessing(){
+        currentFilter.intensity = Float(filterIntensity)
+        guard let outputImage = currentFilter.outputImage else {return}
+        
+        if let cgimg = context.createCGImage(outputImage, from: outputImage.extent){
+            let uiImage = UIImage(cgImage: cgimg)
+            image = Image(uiImage: uiImage)
+        }
     }
 }
 
