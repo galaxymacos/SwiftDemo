@@ -12,6 +12,7 @@
 		2BC5CEF526A01C9A0064819D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5CEF426A01C9A0064819D /* Assets.xcassets */; };
 		2BC5CEF826A01C9A0064819D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BC5CEF726A01C9A0064819D /* Preview Assets.xcassets */; };
 		2BE4B4EA26A037F900C32925 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE4B4E926A037F900C32925 /* ImagePicker.swift */; };
+		2BE4B4EC26A0496B00C32925 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE4B4EB26A0496B00C32925 /* ImageSaver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		2BC5CEF726A01C9A0064819D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2BC5CEF926A01C9A0064819D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BE4B4E926A037F900C32925 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		2BE4B4EB26A0496B00C32925 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				2BC5CEF026A01C990064819D /* InstaFilterAppApp.swift */,
 				2BC5CEF226A01C990064819D /* ContentView.swift */,
 				2BE4B4E926A037F900C32925 /* ImagePicker.swift */,
+				2BE4B4EB26A0496B00C32925 /* ImageSaver.swift */,
 				2BC5CEF426A01C9A0064819D /* Assets.xcassets */,
 				2BC5CEF926A01C9A0064819D /* Info.plist */,
 				2BC5CEF626A01C9A0064819D /* Preview Content */,
@@ -144,6 +147,7 @@
 				2BE4B4EA26A037F900C32925 /* ImagePicker.swift in Sources */,
 				2BC5CEF326A01C990064819D /* ContentView.swift in Sources */,
 				2BC5CEF126A01C990064819D /* InstaFilterAppApp.swift in Sources */,
+				2BE4B4EC26A0496B00C32925 /* ImageSaver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
