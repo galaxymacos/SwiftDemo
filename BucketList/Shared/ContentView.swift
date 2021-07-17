@@ -119,7 +119,8 @@ import LocalAuthentication
  }
  */
 
-
+// Using TouchID and FaceID with SwiftUI
+ 
 struct ContentView: View{
     @State var isUnlocked = false
     var body: some View{
@@ -159,6 +160,8 @@ struct ContentView: View{
         
     }
 }
+ 
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
