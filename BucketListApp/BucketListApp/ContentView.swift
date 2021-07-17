@@ -10,7 +10,7 @@ import MapKit
 
 struct ContentView: View {
     @State var centerCoordinate = CLLocationCoordinate2D()
-    @State var locations = [MKPointAnnotation]()
+    @State var locations = [CodableMKPointAnnotation]()
     @State var selectedPlace: MKPointAnnotation? = nil
     @State var showPlaceDetail: Bool = false
     @State var showingEditScreen: Bool = false
@@ -28,7 +28,7 @@ struct ContentView: View {
                     Button(action: {
                         showingEditScreen = true
                         
-                        let newLocation = MKPointAnnotation()
+                        let newLocation = CodableMKPointAnnotation()
                         
                         // Pin won't show detail view if we don't tell it the title
                         newLocation.title = "Example Location"
@@ -54,11 +54,39 @@ struct ContentView: View {
                 showingEditScreen = true
             })
         })
-        .sheet(isPresented: $showingEditScreen, content: {
+        .sheet(isPresented: $showingEditScreen, onDismiss: saveData, content: {
             if self.selectedPlace != nil {
-                EditView(placeMark: self.selectedPlace!)
+                EditView(placemark: self.selectedPlace!)
             }
         })
+        .onAppear(perform: loadData)
+    }
+    
+    func getDocumentDirecotry() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func loadData(){
+        let filename = getDocumentDirecotry().appendingPathComponent("SavedPlaces")
+        do{
+            let data = try Data(contentsOf: filename)
+            locations = try JSONDecoder().decode([CodableMKPointAnnotation].self, from: data)
+        }
+        catch{
+            print("Unable to load saved data")
+        }
+    }
+    
+    func saveData(){
+        do{
+            let filename = getDocumentDirecotry().appendingPathComponent("SavedPlaces")
+            let data = try JSONEncoder().encode(self.locations)
+            try data.write(to: filename, options: [.atomicWrite,.completeFileProtection])
+        }
+        catch{
+            print("Unable to save data")
+        }
     }
 }
 
