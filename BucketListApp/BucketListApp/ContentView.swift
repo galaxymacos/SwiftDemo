@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MapKit
+import LocalAuthentication
 
 struct ContentView: View {
     @State var centerCoordinate = CLLocationCoordinate2D()
@@ -14,6 +15,8 @@ struct ContentView: View {
     @State var selectedPlace: MKPointAnnotation? = nil
     @State var showPlaceDetail: Bool = false
     @State var showingEditScreen: Bool = false
+    @State var isUnlocked:Bool = false
+    @State var showingNotAuthenicatedAlert = false
     var body: some View {
         ZStack{
             MapView(centerCoordinate: $centerCoordinate,selectedPlace: $selectedPlace, showPlaceDetail: $showPlaceDetail, annotations: locations)
@@ -48,6 +51,9 @@ struct ContentView: View {
                     
                 }
             }
+            .alert(isPresented: $showingNotAuthenicatedAlert, content: {
+                Alert(title: Text("Not authenicated"), message: Text("FaceID or touchID incorrent"), dismissButton: .default(Text("Ok")))
+            })
         }
         .edgesIgnoringSafeArea(.all)
         .alert(isPresented: $showPlaceDetail, content: {
@@ -60,7 +66,8 @@ struct ContentView: View {
                 EditView(placemark: self.selectedPlace!)
             }
         })
-        .onAppear(perform: loadData)
+        .onAppear(perform: authenticate)
+        
     }
     
     func getDocumentDirecotry() -> URL {
@@ -69,6 +76,8 @@ struct ContentView: View {
     }
     
     func loadData(){
+        if !isUnlocked {return}
+        
         let filename = getDocumentDirecotry().appendingPathComponent("SavedPlaces")
         do{
             let data = try Data(contentsOf: filename)
@@ -84,12 +93,38 @@ struct ContentView: View {
             let filename = getDocumentDirecotry().appendingPathComponent("SavedPlaces")
             let data = try JSONEncoder().encode(self.locations)
             try data.write(to: filename, options: [.atomicWrite,.completeFileProtection])
+            print("data saved")
         }
         catch{
             print("Unable to save data")
         }
     }
+    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError? = nil
+
+        print("a")
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            print("b")
+            let reason = "Please authenticate yourself to unlock your places."
+
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {success, authenticationError in
+
+                DispatchQueue.main.async {
+                    guard success, error == nil else{
+                        return
+                    }
+                    
+                    isUnlocked = true
+                }
+            }
+        } else {
+            // no biometrics
+        }
+    }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

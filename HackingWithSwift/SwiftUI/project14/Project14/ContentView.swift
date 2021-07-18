@@ -86,6 +86,7 @@ struct ContentView: View {
         do {
             let data = try Data(contentsOf: filename)
             locations = try JSONDecoder().decode([CodableMKPointAnnotation].self, from: data)
+            print(locations.count)
         } catch {
             print("Unable to load saved data.")
         }

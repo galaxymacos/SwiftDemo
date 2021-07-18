@@ -6,13 +6,13 @@
 //
 
 struct Page: Codable, Comparable {
-    let pageId: Int
+    let pageid: Int
     let title: String
-    let term: [String: [String]]?
+    let terms: [String: [String]]?
     
     // get wikipedia description of the current page
     var description: String {
-        return term?["description"]?.first ?? "No further description"
+        return terms?["description"]?.first ?? "No further description"
     }
     
     static func <(lhs: Page, rhs: Page) -> Bool {
