@@ -22,17 +22,31 @@ struct ContentView: View {
         "Fireworks",
     ]
     
+    @State var sliderValue:Double = 5
+    
     @State var randomPictureIndex = Int.random(in: 0...3)
     var body: some View {
-        Image(pictures[randomPictureIndex])
-            .resizable()
-            .scaledToFit()
-            .onTapGesture {
-                randomPictureIndex = Int.random(in: 0...3)
-            }
-            .accessibility(label: Text(labels[randomPictureIndex]))
-            .accessibility(addTraits: .isButton)
-            .accessibility(removeTraits: .isImage)
+        VStack{
+            Image(pictures[randomPictureIndex])
+                .resizable()
+                .scaledToFit()
+                .onTapGesture {
+                    randomPictureIndex = Int.random(in: 0...3)
+                }
+                .accessibility(label: Text(labels[randomPictureIndex]))
+                .accessibility(addTraits: .isButton)
+                .accessibility(removeTraits: .isImage)
+            
+            // read as: "image"
+            Image(decorative: "nicolas_tissot-335096")
+            
+            // read as nothing
+            Text("slience text")
+                .accessibility(hidden: true)
+                
+            Slider(value: $sliderValue, in: 1.0...10.0)
+                .accessibility(value: Text("\(Int(sliderValue))"))
+        }
     }
 }
 
