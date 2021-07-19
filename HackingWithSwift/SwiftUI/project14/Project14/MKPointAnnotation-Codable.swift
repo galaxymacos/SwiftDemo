@@ -37,3 +37,4 @@ class CodableMKPointAnnotation: MKPointAnnotation, Codable {
         try container.encode(coordinate.longitude, forKey: .longitude)
     }
 }
+

@@ -21,6 +21,7 @@ struct MapView: UIViewRepresentable {
         return mapView
     }
 
+    // Update the annotation of the map view according to how many annotations we have
     func updateUIView(_ view: MKMapView, context: Context) {
         if annotations.count != view.annotations.count {
             view.removeAnnotations(view.annotations)
@@ -39,6 +40,7 @@ struct MapView: UIViewRepresentable {
             self.parent = parent
         }
 
+        // Update the center coordiante whenever the user moves the map
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
             parent.centerCoordinate = mapView.centerCoordinate
         }
@@ -68,6 +70,7 @@ struct MapView: UIViewRepresentable {
             return annotationView
         }
 
+        // when click the detail button, tell swiftUI to show the detail of this annotation
         func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
             guard let placemark = view.annotation as? MKPointAnnotation else { return }
 

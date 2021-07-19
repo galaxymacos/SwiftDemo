@@ -23,4 +23,10 @@ class ImageSaver: NSObject {
             successHandler?()
         }
     }
+    
+    func writeToDisk(image: UIImage, url: URL){
+        if let jpegData = image.jpegData(compressionQuality: 0.8) {
+            try? jpegData.write(to: url, options: [.atomicWrite, .completeFileProtection])
+        }
+    }
 }
