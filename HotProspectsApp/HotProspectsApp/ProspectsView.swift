@@ -57,6 +57,12 @@ struct ProspectsView: View {
                             Button(person.isContacted ? "Mark UnContacted":"Mark Contacted"){
                                 prospects.toggle(person)
                             }
+                            if !person.isContacted{
+                                Button("Remind me"){
+                                    addNotification(person)
+                                }
+                                
+                            }
                         })
                     }
                     
@@ -95,6 +101,41 @@ struct ProspectsView: View {
         case .failure(_):
             print("Scanning failed")
         }
+    }
+    
+    func addNotification(_ prospect: Prospect){
+        let center = UNUserNotificationCenter.current()
+        
+        let addRequest = {
+            let content = UNMutableNotificationContent()
+            content.title = "Contact \(prospect)"
+            content.subtitle = prospect.emailAddress
+            var time = DateComponents()
+            // It will trigger the next time when 9am come about
+            time.hour = 9
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: time, repeats: false)
+            let instantTrigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: instantTrigger)
+            center.add(request)
+            print("add request")
+        }
+        
+        center.getNotificationSettings{settings in
+            if(settings.authorizationStatus == .authorized){
+                addRequest()
+            }
+            else{
+                center.requestAuthorization(options: [.sound, .alert, .badge]){success, error in
+                    if success {
+                        addRequest()
+                    }
+                    else{
+                        print("Request not permitted")
+                    }
+                }
+            }
+        }
+        
     }
 }
 
