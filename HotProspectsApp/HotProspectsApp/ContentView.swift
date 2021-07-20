@@ -28,6 +28,17 @@ class Prospects: ObservableObject{
             }
         }
         people = []
+        
+        var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        url = url.appendingPathComponent(Prospects.saveKey)
+        do{
+            let data = try Data(contentsOf: url)
+            people = try JSONDecoder().decode([Prospect].self, from: data)
+        }
+        catch{
+            print("Can't get data")
+        }
+        
     }
     
     func toggle(_ prospect: Prospect){
@@ -38,10 +49,19 @@ class Prospects: ObservableObject{
     }
     
     private func Save() {
-        if let data = try? JSONEncoder().encode(people){
-            UserDefaults.standard.set(data, forKey: Prospects.saveKey)
+        do{
+            var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            url = url.appendingPathComponent(Prospects.saveKey)
+            if let data = try? JSONEncoder().encode(people){
+                //            UserDefaults.standard.set(data, forKey: Prospects.saveKey)
+                
+                // This will throw error, unless marked by try?
+                try data.write(to: url, options: [.atomicWrite, .completeFileProtection])
+            }
         }
-        
+        catch{
+            print("Unable to save data")
+        }
     }
     
     func add(_ prospect: Prospect) {
