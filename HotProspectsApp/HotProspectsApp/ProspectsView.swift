@@ -46,24 +46,35 @@ struct ProspectsView: View {
             VStack{
                 List{
                     ForEach(filteredProspects, id: \.id){person in
-                        VStack(alignment: .leading){
-                            Text(person.name)
-                                .font(.headline)
-                            Text(person.emailAddress)
-                                .foregroundColor(.secondary)
-                            
-                        }
-                        .contextMenu(menuItems: {
-                            Button(person.isContacted ? "Mark UnContacted":"Mark Contacted"){
-                                prospects.toggle(person)
-                            }
-                            if !person.isContacted{
-                                Button("Remind me"){
-                                    addNotification(person)
-                                }
+                        HStack{
+                            VStack(alignment: .leading){
+                                Text(person.name)
+                                    .font(.headline)
+                                Text(person.emailAddress)
+                                    .foregroundColor(.secondary)
                                 
                             }
-                        })
+                            .contextMenu(menuItems: {
+                                Button(person.isContacted ? "Mark UnContacted":"Mark Contacted"){
+                                    prospects.toggle(person)
+                                }
+                                if !person.isContacted{
+                                    Button("Remind me"){
+                                        addNotification(person)
+                                    }
+                                    
+                                }
+                            })
+                            Spacer()
+                            if person.isContacted{
+                                Image(systemName: "person.crop.circle.badge.checkmark")
+                                    .padding([.trailing])
+                            }
+                            else{
+                                Image(systemName: "person.crop.circle.badge.xmark")
+                                    .padding([.trailing])
+                            }
+                        }
                     }
                     
                 }
