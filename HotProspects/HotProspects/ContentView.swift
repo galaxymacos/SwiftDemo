@@ -202,33 +202,52 @@ import SwiftUI
  }
  */
 
+/* Scheduling local notifications
+ struct ContentView: View {
+ var body: some View{
+ VStack{
+ Button("Request Permission"){
+ UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]){success, error in
+ if success{
+ print("success")
+ }
+ else if let error = error{
+ print(error.localizedDescription)
+ }
+ }
+ }
+ Button("Schedule Notification"){
+ // create notification content
+ let content = UNMutableNotificationContent()
+ content.title = "Fire"
+ content.subtitle = "Address is Foshan Nanhai"
+ content.sound = UNNotificationSound.default
+ 
+ let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+ 
+ let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+ 
+ UNUserNotificationCenter.current().add(request)
+ }
+ }
+ }
+ }
+ */
+
+/* Adding Swift package dependencies in XCode */
+
+import SamplePackage
+
+let possibleArrays = Array(1...60)
+var result: String {
+    let selected = possibleArrays.random(7).sorted()
+    let strings = selected.map(String.init)
+    return strings.joined(separator: ",")
+}
+
 struct ContentView: View {
     var body: some View{
-        VStack{
-            Button("Request Permission"){
-                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]){success, error in
-                    if success{
-                        print("success")
-                    }
-                    else if let error = error{
-                        print(error.localizedDescription)
-                    }
-                }
-            }
-            Button("Schedule Notification"){
-                // create notification content
-                let content = UNMutableNotificationContent()
-                content.title = "Fire"
-                content.subtitle = "Address is Foshan Nanhai"
-                content.sound = UNNotificationSound.default
-                
-                let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-                
-                let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                
-                UNUserNotificationCenter.current().add(request)
-            }
-        }
+        Text(result)
     }
 }
 
