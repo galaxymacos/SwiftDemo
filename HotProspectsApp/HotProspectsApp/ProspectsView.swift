@@ -27,10 +27,32 @@ struct ProspectsView: View {
         }
     }
     
+    var filteredProspects:[Prospect]{
+        switch filter {
+        case .none:
+            return prospects.people
+        case .contacted:
+            return prospects.people.filter{$0.contacted}
+        case .uncontacted:
+            return prospects.people.filter{!$0.contacted}
+        }
+    }
     
     var body: some View {
         NavigationView{
-            Text("People: \(prospects.people.count)")
+            VStack{
+                List{
+                    ForEach(filteredProspects, id: \.id){person in
+                        VStack(alignment: .leading){
+                            Text(person.name)
+                                .font(.headline)
+                            Text(person.emailAddress)
+                                .foregroundColor(.secondary)
+                            
+                        }
+                    }
+                }
+                Text("People: \(prospects.people.count)")
                     .navigationBarTitle(title)
                     .navigationBarItems(trailing: Button(action: {
                         let prospect = Prospect()
@@ -41,6 +63,7 @@ struct ProspectsView: View {
                         Image(systemName: "qrcode.viewfinder")
                         Text("Scan")
                     })
+            }
                 
         }
     }
