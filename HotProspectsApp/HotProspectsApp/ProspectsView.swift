@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 enum FilterType{
     case none, contacted, uncontacted
@@ -14,6 +15,8 @@ enum FilterType{
 struct ProspectsView: View {
     
     @EnvironmentObject var prospects: Prospects
+    @State private var isShowingScanner = false
+    
     let filter: FilterType
     
     var title:String{
@@ -55,16 +58,32 @@ struct ProspectsView: View {
                 Text("People: \(prospects.people.count)")
                     .navigationBarTitle(title)
                     .navigationBarItems(trailing: Button(action: {
-                        let prospect = Prospect()
-                        prospect.name = "Paul Hudson"
-                        prospect.emailAddress = "paul@hackingwithswift.com"
-                        self.prospects.people.append(prospect)
+                        isShowingScanner = true
                     }) {
                         Image(systemName: "qrcode.viewfinder")
                         Text("Scan")
                     })
             }
                 
+        }
+        .sheet(isPresented: $isShowingScanner){
+            CodeScannerView(codeTypes: [.qr], simulatedData: "XunRuan\ngalaxymaxx@outlook.com", completion: self.handleScan)
+        }
+    }
+    
+    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+        self.isShowingScanner = false
+        
+        switch result {
+        case .success(let str):
+            let components = str.components(separatedBy: "\n")
+            guard components.count == 2 else {return}
+            let prospect = Prospect()
+            prospect.name = components[0]
+            prospect.emailAddress = components[1]
+            prospects.people.append(prospect)
+        case .failure(_):
+            print("Scanning failed")
         }
     }
 }
