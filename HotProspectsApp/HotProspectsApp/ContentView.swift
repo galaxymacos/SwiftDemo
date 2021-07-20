@@ -11,6 +11,7 @@ class Prospect: Codable{
     var id = UUID()
     var name = ""
     var emailAddress = ""
+    var date = Date()
     // Because modify this won't update UI, which will cause problem, so we stop others to modify it
     fileprivate(set) var isContacted = false
 }
@@ -18,6 +19,7 @@ class Prospect: Codable{
 class Prospects: ObservableObject{
     // Published: SwiftUI will know when we add or remove a Prospect, but will not know if we secretly modify an element
     @Published private(set) var people: [Prospect]
+    
     static let saveKey = "SavedData"
     
     init() {
@@ -46,6 +48,16 @@ class Prospects: ObservableObject{
         objectWillChange.send()
         prospect.isContacted.toggle()
         Save()
+    }
+    
+    func sortByName(){
+        objectWillChange.send()
+        people.sort(by: {$0.name < $1.name})
+    }
+    
+    func sortByRecent(){
+        objectWillChange.send()
+        people.sort(by: {$0.date > $1.date})
     }
     
     private func Save() {
@@ -99,6 +111,7 @@ struct ContentView: View {
             }
         }
         .environmentObject(prospects)
+        
         
         
     }

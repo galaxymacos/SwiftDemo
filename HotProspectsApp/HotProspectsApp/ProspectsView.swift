@@ -16,6 +16,7 @@ struct ProspectsView: View {
     
     @EnvironmentObject var prospects: Prospects
     @State private var isShowingScanner = false
+    @State private var isShowingSortingMethod = false
     
     let filter: FilterType
     
@@ -81,6 +82,10 @@ struct ProspectsView: View {
                 Text("People: \(prospects.people.count)")
                     .navigationBarTitle(title)
                     .navigationBarItems(
+                        leading: Button("Sort"){
+                            isShowingSortingMethod = true
+                        }
+                        ,
                         trailing: Button(action: {
                         isShowingScanner = true
                     }) {
@@ -88,12 +93,23 @@ struct ProspectsView: View {
                         Text("Scan")
                     })
             }
+            .actionSheet(isPresented: $isShowingSortingMethod){
+                ActionSheet(title: Text("Sorting Method"), message: Text("How to do want to sort your contact"), buttons: [
+                                .default(Text("By Name")){
+                                    prospects.sortByName()
+                                },
+                                .default(Text("By recent")){
+                                    prospects.sortByRecent()
+                                }
+                ])
+            }
             
                 
         }
         .sheet(isPresented: $isShowingScanner){
-            CodeScannerView(codeTypes: [.qr], simulatedData: "XunRuan\ngalaxymaxx@outlook.com", completion: self.handleScan)
+            CodeScannerView(codeTypes: [.qr], simulatedData: "AdamLaji\nglaxymaxx@outlook.com", completion: self.handleScan)
         }
+        
     }
     
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
