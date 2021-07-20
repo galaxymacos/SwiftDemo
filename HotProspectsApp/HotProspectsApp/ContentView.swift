@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-class Prospect{
-    let id = UUID()
+class Prospect: Codable{
+    var id = UUID()
     var name = ""
     var emailAddress = ""
     // Because modify this won't update UI, which will cause problem, so we stop others to modify it
@@ -17,9 +17,16 @@ class Prospect{
 
 class Prospects: ObservableObject{
     // Published: SwiftUI will know when we add or remove a Prospect, but will not know if we secretly modify an element
-    @Published var people: [Prospect]
+    @Published private(set) var people: [Prospect]
+    static let saveKey = "SavedData"
     
     init() {
+        if let data = UserDefaults.standard.data(forKey: Prospects.saveKey){
+            if let decoded = try? JSONDecoder().decode([Prospect].self, from: data){
+                people = decoded
+                return
+            }
+        }
         people = []
     }
     
@@ -27,7 +34,22 @@ class Prospects: ObservableObject{
         // At the beginning because it will then handle the animation
         objectWillChange.send()
         prospect.isContacted.toggle()
+        Save()
     }
+    
+    private func Save() {
+        if let data = try? JSONEncoder().encode(people){
+            UserDefaults.standard.set(data, forKey: Prospects.saveKey)
+        }
+        
+    }
+    
+    func add(_ prospect: Prospect) {
+        people.append(prospect)
+        Save()
+    }
+    
+    
 }
 
 struct ContentView: View {

@@ -59,16 +59,19 @@ struct ProspectsView: View {
                             }
                         })
                     }
+                    
                 }
                 Text("People: \(prospects.people.count)")
                     .navigationBarTitle(title)
-                    .navigationBarItems(trailing: Button(action: {
+                    .navigationBarItems(
+                        trailing: Button(action: {
                         isShowingScanner = true
                     }) {
                         Image(systemName: "qrcode.viewfinder")
                         Text("Scan")
                     })
             }
+            
                 
         }
         .sheet(isPresented: $isShowingScanner){
@@ -86,7 +89,9 @@ struct ProspectsView: View {
             let prospect = Prospect()
             prospect.name = components[0]
             prospect.emailAddress = components[1]
-            prospects.people.append(prospect)
+            prospects.add(prospect)
+            // Save it to permanent storage
+            
         case .failure(_):
             print("Scanning failed")
         }
