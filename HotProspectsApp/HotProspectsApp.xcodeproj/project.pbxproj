@@ -12,6 +12,7 @@
 		2B0D44AA26A667F300FA9652 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B0D44A926A667F300FA9652 /* Assets.xcassets */; };
 		2B0D44AD26A667F300FA9652 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B0D44AC26A667F300FA9652 /* Preview Assets.xcassets */; };
 		2B0D44B526A6686D00FA9652 /* ProspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D44B426A6686D00FA9652 /* ProspectsView.swift */; };
+		2B0D44B726A67B1500FA9652 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D44B626A67B1500FA9652 /* MeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		2B0D44AC26A667F300FA9652 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2B0D44AE26A667F300FA9652 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B0D44B426A6686D00FA9652 /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
+		2B0D44B626A67B1500FA9652 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +40,7 @@
 		2B0D449926A667F200FA9652 = {
 			isa = PBXGroup;
 			children = (
+				2B0D44B626A67B1500FA9652 /* MeView.swift */,
 				2B0D44A426A667F200FA9652 /* HotProspectsApp */,
 				2B0D44A326A667F200FA9652 /* Products */,
 			);
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0D44B726A67B1500FA9652 /* MeView.swift in Sources */,
 				2B0D44B526A6686D00FA9652 /* ProspectsView.swift in Sources */,
 				2B0D44A826A667F200FA9652 /* ContentView.swift in Sources */,
 				2B0D44A626A667F200FA9652 /* HotProspectsAppApp.swift in Sources */,
