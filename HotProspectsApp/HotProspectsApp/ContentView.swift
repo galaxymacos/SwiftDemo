@@ -11,14 +11,22 @@ class Prospect{
     let id = UUID()
     var name = ""
     var emailAddress = ""
-    var contacted = false
+    // Because modify this won't update UI, which will cause problem, so we stop others to modify it
+    fileprivate(set) var isContacted = false
 }
 
 class Prospects: ObservableObject{
+    // Published: SwiftUI will know when we add or remove a Prospect, but will not know if we secretly modify an element
     @Published var people: [Prospect]
     
     init() {
         people = []
+    }
+    
+    func toggle(_ prospect: Prospect){
+        // At the beginning because it will then handle the animation
+        objectWillChange.send()
+        prospect.isContacted.toggle()
     }
 }
 

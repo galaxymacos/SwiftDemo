@@ -35,9 +35,9 @@ struct ProspectsView: View {
         case .none:
             return prospects.people
         case .contacted:
-            return prospects.people.filter{$0.contacted}
+            return prospects.people.filter{$0.isContacted}
         case .uncontacted:
-            return prospects.people.filter{!$0.contacted}
+            return prospects.people.filter{!$0.isContacted}
         }
     }
     
@@ -53,6 +53,11 @@ struct ProspectsView: View {
                                 .foregroundColor(.secondary)
                             
                         }
+                        .contextMenu(menuItems: {
+                            Button(person.isContacted ? "Mark UnContacted":"Mark Contacted"){
+                                prospects.toggle(person)
+                            }
+                        })
                     }
                 }
                 Text("People: \(prospects.people.count)")
