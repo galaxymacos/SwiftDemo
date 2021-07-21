@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B1910D226A7A48D00B9CA1A /* HapticApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1910D126A7A48D00B9CA1A /* HapticApp.swift */; };
-		2B1910D426A7A48D00B9CA1A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1910D326A7A48D00B9CA1A /* ContentView.swift */; };
-		2B1910D626A7A48F00B9CA1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B1910D526A7A48F00B9CA1A /* Assets.xcassets */; };
-		2B1910D926A7A48F00B9CA1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B1910D826A7A48F00B9CA1A /* Preview Assets.xcassets */; };
+		2B1910EE26A7D50F00B9CA1A /* HitTestingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1910ED26A7D50F00B9CA1A /* HitTestingApp.swift */; };
+		2B1910F026A7D50F00B9CA1A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1910EF26A7D50F00B9CA1A /* ContentView.swift */; };
+		2B1910F226A7D51100B9CA1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B1910F126A7D51100B9CA1A /* Assets.xcassets */; };
+		2B1910F526A7D51100B9CA1A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B1910F426A7D51100B9CA1A /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B1910CE26A7A48D00B9CA1A /* Haptic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Haptic.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B1910D126A7A48D00B9CA1A /* HapticApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticApp.swift; sourceTree = "<group>"; };
-		2B1910D326A7A48D00B9CA1A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		2B1910D526A7A48F00B9CA1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2B1910D826A7A48F00B9CA1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2B1910DA26A7A48F00B9CA1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B1910EA26A7D50F00B9CA1A /* HitTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HitTesting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B1910ED26A7D50F00B9CA1A /* HitTestingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitTestingApp.swift; sourceTree = "<group>"; };
+		2B1910EF26A7D50F00B9CA1A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2B1910F126A7D51100B9CA1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2B1910F426A7D51100B9CA1A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2B1910F626A7D51100B9CA1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2B1910CB26A7A48D00B9CA1A /* Frameworks */ = {
+		2B1910E726A7D50F00B9CA1A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,85 +33,77 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B1910C526A7A48D00B9CA1A = {
+		2B1910E126A7D50F00B9CA1A = {
 			isa = PBXGroup;
 			children = (
-				2B1910D026A7A48D00B9CA1A /* Haptic */,
-				2B1910CF26A7A48D00B9CA1A /* Products */,
+				2B1910EC26A7D50F00B9CA1A /* HitTesting */,
+				2B1910EB26A7D50F00B9CA1A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		2B1910CF26A7A48D00B9CA1A /* Products */ = {
+		2B1910EB26A7D50F00B9CA1A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2B1910CE26A7A48D00B9CA1A /* Haptic.app */,
+				2B1910EA26A7D50F00B9CA1A /* HitTesting.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2B1910D026A7A48D00B9CA1A /* Haptic */ = {
+		2B1910EC26A7D50F00B9CA1A /* HitTesting */ = {
 			isa = PBXGroup;
 			children = (
-				2B1910D126A7A48D00B9CA1A /* HapticApp.swift */,
-				2B1910D326A7A48D00B9CA1A /* ContentView.swift */,
-				2B1910E026A7D4F900B9CA1A /* New Group */,
-				2B1910D526A7A48F00B9CA1A /* Assets.xcassets */,
-				2B1910DA26A7A48F00B9CA1A /* Info.plist */,
-				2B1910D726A7A48F00B9CA1A /* Preview Content */,
+				2B1910ED26A7D50F00B9CA1A /* HitTestingApp.swift */,
+				2B1910EF26A7D50F00B9CA1A /* ContentView.swift */,
+				2B1910F126A7D51100B9CA1A /* Assets.xcassets */,
+				2B1910F626A7D51100B9CA1A /* Info.plist */,
+				2B1910F326A7D51100B9CA1A /* Preview Content */,
 			);
-			path = Haptic;
+			path = HitTesting;
 			sourceTree = "<group>";
 		};
-		2B1910D726A7A48F00B9CA1A /* Preview Content */ = {
+		2B1910F326A7D51100B9CA1A /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				2B1910D826A7A48F00B9CA1A /* Preview Assets.xcassets */,
+				2B1910F426A7D51100B9CA1A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		2B1910E026A7D4F900B9CA1A /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2B1910CD26A7A48D00B9CA1A /* Haptic */ = {
+		2B1910E926A7D50F00B9CA1A /* HitTesting */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2B1910DD26A7A48F00B9CA1A /* Build configuration list for PBXNativeTarget "Haptic" */;
+			buildConfigurationList = 2B1910F926A7D51100B9CA1A /* Build configuration list for PBXNativeTarget "HitTesting" */;
 			buildPhases = (
-				2B1910CA26A7A48D00B9CA1A /* Sources */,
-				2B1910CB26A7A48D00B9CA1A /* Frameworks */,
-				2B1910CC26A7A48D00B9CA1A /* Resources */,
+				2B1910E626A7D50F00B9CA1A /* Sources */,
+				2B1910E726A7D50F00B9CA1A /* Frameworks */,
+				2B1910E826A7D50F00B9CA1A /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Haptic;
-			productName = Haptic;
-			productReference = 2B1910CE26A7A48D00B9CA1A /* Haptic.app */;
+			name = HitTesting;
+			productName = HitTesting;
+			productReference = 2B1910EA26A7D50F00B9CA1A /* HitTesting.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		2B1910C626A7A48D00B9CA1A /* Project object */ = {
+		2B1910E226A7D50F00B9CA1A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
-					2B1910CD26A7A48D00B9CA1A = {
+					2B1910E926A7D50F00B9CA1A = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
-			buildConfigurationList = 2B1910C926A7A48D00B9CA1A /* Build configuration list for PBXProject "Haptic" */;
+			buildConfigurationList = 2B1910E526A7D50F00B9CA1A /* Build configuration list for PBXProject "HitTesting" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -119,42 +111,42 @@
 				en,
 				Base,
 			);
-			mainGroup = 2B1910C526A7A48D00B9CA1A;
-			productRefGroup = 2B1910CF26A7A48D00B9CA1A /* Products */;
+			mainGroup = 2B1910E126A7D50F00B9CA1A;
+			productRefGroup = 2B1910EB26A7D50F00B9CA1A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2B1910CD26A7A48D00B9CA1A /* Haptic */,
+				2B1910E926A7D50F00B9CA1A /* HitTesting */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2B1910CC26A7A48D00B9CA1A /* Resources */ = {
+		2B1910E826A7D50F00B9CA1A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B1910D926A7A48F00B9CA1A /* Preview Assets.xcassets in Resources */,
-				2B1910D626A7A48F00B9CA1A /* Assets.xcassets in Resources */,
+				2B1910F526A7D51100B9CA1A /* Preview Assets.xcassets in Resources */,
+				2B1910F226A7D51100B9CA1A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2B1910CA26A7A48D00B9CA1A /* Sources */ = {
+		2B1910E626A7D50F00B9CA1A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B1910D426A7A48D00B9CA1A /* ContentView.swift in Sources */,
-				2B1910D226A7A48D00B9CA1A /* HapticApp.swift in Sources */,
+				2B1910F026A7D50F00B9CA1A /* ContentView.swift in Sources */,
+				2B1910EE26A7D50F00B9CA1A /* HitTestingApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		2B1910DB26A7A48F00B9CA1A /* Debug */ = {
+		2B1910F726A7D51100B9CA1A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -215,7 +207,7 @@
 			};
 			name = Debug;
 		};
-		2B1910DC26A7A48F00B9CA1A /* Release */ = {
+		2B1910F826A7D51100B9CA1A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -270,44 +262,44 @@
 			};
 			name = Release;
 		};
-		2B1910DE26A7A48F00B9CA1A /* Debug */ = {
+		2B1910FA26A7D51100B9CA1A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Haptic/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"HitTesting/Preview Content\"";
 				DEVELOPMENT_TEAM = 73842P7FP7;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Haptic/Info.plist;
+				INFOPLIST_FILE = HitTesting/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = unruan.practice.Haptic;
+				PRODUCT_BUNDLE_IDENTIFIER = unruan.practice.HitTesting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		2B1910DF26A7A48F00B9CA1A /* Release */ = {
+		2B1910FB26A7D51100B9CA1A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Haptic/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"HitTesting/Preview Content\"";
 				DEVELOPMENT_TEAM = 73842P7FP7;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Haptic/Info.plist;
+				INFOPLIST_FILE = HitTesting/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = unruan.practice.Haptic;
+				PRODUCT_BUNDLE_IDENTIFIER = unruan.practice.HitTesting;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -317,25 +309,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2B1910C926A7A48D00B9CA1A /* Build configuration list for PBXProject "Haptic" */ = {
+		2B1910E526A7D50F00B9CA1A /* Build configuration list for PBXProject "HitTesting" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2B1910DB26A7A48F00B9CA1A /* Debug */,
-				2B1910DC26A7A48F00B9CA1A /* Release */,
+				2B1910F726A7D51100B9CA1A /* Debug */,
+				2B1910F826A7D51100B9CA1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2B1910DD26A7A48F00B9CA1A /* Build configuration list for PBXNativeTarget "Haptic" */ = {
+		2B1910F926A7D51100B9CA1A /* Build configuration list for PBXNativeTarget "HitTesting" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2B1910DE26A7A48F00B9CA1A /* Debug */,
-				2B1910DF26A7A48F00B9CA1A /* Release */,
+				2B1910FA26A7D51100B9CA1A /* Debug */,
+				2B1910FB26A7D51100B9CA1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 2B1910C626A7A48D00B9CA1A /* Project object */;
+	rootObject = 2B1910E226A7D50F00B9CA1A /* Project object */;
 }
