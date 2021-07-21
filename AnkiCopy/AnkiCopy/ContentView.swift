@@ -18,6 +18,7 @@ struct ContentView: View {
     @State var cards = [Card](repeating: Card.example, count: 10)
     
     
+    
     var body: some View {
         ZStack{
             Image("background")
@@ -26,10 +27,18 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             
             ForEach(0..<cards.count, id: \.self){ index in
-                CardView(card: Card.example)
+                CardView(card: Card.example){
+                    withAnimation{
+                        removeCard(index: index)
+                    }
+                }
                     .stacked(at: index, in: cards.count)
             }
         }
+    }
+    
+    func removeCard(index: Int) {
+        cards.remove(at: index)
     }
 }
 
