@@ -21,7 +21,9 @@ import SwiftUI
  }
  }
  */
- 
+
+/* Complex haptic
+ */
 import CoreHaptics
 
 struct ContentView: View {
@@ -81,6 +83,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

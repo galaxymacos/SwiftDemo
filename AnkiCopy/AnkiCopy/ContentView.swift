@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreHaptics
 
 extension View{
     func stacked(at position: Int, in total: Int) -> some View {
@@ -16,11 +17,15 @@ extension View{
 }
 
 struct ContentView: View {
+    @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
     @State var cards = [Card]()
     @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var isActive = true
     @State var timeRemaining = 100
     @State var showingEditScreen = false
+    @State var showingSettingScreen = false
+    @State var hapticEngine: CHHapticEngine?
+    @State var showReviewIncorrectCard = false
     
     
     var body: some View {
@@ -34,6 +39,14 @@ struct ContentView: View {
                 ZStack{
                     
                     HStack{
+                        
+                        Button(action: {showingSettingScreen = true}){
+                            Image(systemName: "gear")
+                                .padding()
+                                .background(Color.black.opacity(0.7))
+                                .font(.largeTitle)
+                                .clipShape(Circle())
+                        }
                         Spacer()
                         Button(action: {showingEditScreen = true}){
                             Image(systemName: "plus.circle")
@@ -74,32 +87,47 @@ struct ContentView: View {
                     }
                     VStack{
                         Spacer()
-                        HStack{
-                            Button(action: {
-                                withAnimation{
-                                    removeCard(index: cards.count - 1)
+                        if differentiateWithoutColor{
+                            HStack{
+                                // Can't remember button
+                                Button(action: {
+                                    withAnimation{
+                                        
+                                        if showReviewIncorrectCard {
+                                            let cardToRemove = cards[cards.count - 1]
+                                            cards.remove(at: cards.count-1)
+                                            cards.insert(cardToRemove, at: 0)
+                                        }
+                                        else{
+                                            removeCard(index: cards.count - 1)
+                                        }
+                                        
+                                        activateFailureHaptic()
+                                    }
+                                }){
+                                    Image(systemName: "xmark.circle")
+                                        .padding()
+                                        .background(Color.black.opacity(0.7))
+                                        .clipShape(Circle())
                                 }
-                            }){
-                                Image(systemName: "xmark.circle")
-                                    .padding()
-                                    .background(Color.black.opacity(0.7))
-                                    .clipShape(Circle())
+                                .padding([.trailing])
+                                .accessibility(label: Text("You get it correct"))
+                                
+                                // Can remember button
+                                Button(action: {
+                                    withAnimation{
+                                        removeCard(index: cards.count - 1)
+                                    }
+                                }){
+                                    Image(systemName: "checkmark.circle")
+                                        .padding()
+                                        .background(Color.black.opacity(0.7))
+                                        .clipShape(Circle())
+                                }
+                                .padding([.leading])
+                                .accessibility(label: Text("You get it wrong"))
                             }
-                            .padding([.trailing])
-                            .accessibility(label: Text("You get it correct"))
                             
-                            Button(action: {
-                                withAnimation{
-                                    removeCard(index: cards.count - 1)
-                                }
-                            }){
-                                Image(systemName: "checkmark.circle")
-                                    .padding()
-                                    .background(Color.black.opacity(0.7))
-                                    .clipShape(Circle())
-                            }
-                            .padding([.leading])
-                            .accessibility(label: Text("You get it wrong"))
                         }
                     }
                     
@@ -119,12 +147,16 @@ struct ContentView: View {
                         .clipShape(Capsule())
                 }
             }
+            .sheet(isPresented: $showingSettingScreen){
+                SettingScreen(recoverCard: $showReviewIncorrectCard)
+            }
             
         }
         .onReceive(timer, perform: { _ in
             // Stop timer from running in the background
             guard isActive else {return}
             if(timeRemaining>0){
+                prepareHaptic()
                 timeRemaining -= 1
             }
         })
@@ -161,6 +193,42 @@ struct ContentView: View {
                 cards = decoded
             }
         }
+    }
+    
+    func prepareHaptic(){
+            guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {return}
+        do {
+            // Try Initializing haptic engine
+            hapticEngine = try CHHapticEngine()
+            // Try start haptic engine
+            try hapticEngine?.start()
+            
+        }
+        catch{
+            print(error.localizedDescription)
+        }
+    }
+    
+    func activateFailureHaptic(){
+        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {return}
+        var events = [CHHapticEvent]()
+        
+        for i in stride(from: 1, to: 0, by: 0.1){
+            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(i))
+            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(i))
+            let event = CHHapticEvent(eventType: .hapticTransient, parameters: [sharpness, intensity], relativeTime: 0)
+            events.append(event)
+        }
+        
+        do{
+            let pattern = try CHHapticPattern(events: events, parameters: [])
+            let player = try hapticEngine?.makePlayer(with: pattern)
+            try player?.start(atTime: 0)
+        }
+        catch{
+            print("Failed to play pattern: \(error.localizedDescription)")
+        }
+        
     }
 }
 

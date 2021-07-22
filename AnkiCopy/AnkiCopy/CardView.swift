@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
+    // For blind people
     @Environment(\.accessibilityEnabled) var accessibilityEnabled
     
     @State var card: Card

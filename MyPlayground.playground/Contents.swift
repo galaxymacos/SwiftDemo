@@ -1,7 +1,18 @@
+import UIKit
 import SwiftUI
 
-let exampleInt: Int64 = 50_000_000_000_000_001
-print(exampleInt)
+class Demo{
+    var name = ""
+    init() throws {
+        name = "Xun Ruan"
+    }
+}
 
-let result = Double(exampleInt) * 1.0
-print(String(format: "%.0f", result))
+do{
+    var myDemo = try Demo()
+    myDemo.name
+}
+catch{
+    error.localizedDescription
+}
+
