@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardView: View {
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
+    @Environment(\.accessibilityEnabled) var accessibilityEnabled
     
     @State var card: Card
     @State var isShowingAnswer = false
@@ -32,35 +33,26 @@ struct CardView: View {
                                     .fill(offset.width>0 ? Color.green : Color.red))
                 
                 VStack{
-                    Text(card.prompt)
-                        .font(.largeTitle)
-                        .foregroundColor(.black)
-                    if isShowingAnswer {
-                        Text(card.answer)
-                            .font(.title)
-                            .foregroundColor(.gray)
+                    if accessibilityEnabled{
+                        Text(isShowingAnswer ? card.answer : card.prompt)
+                            .font(.largeTitle)
+                            .foregroundColor(.black)
+                    }
+                    else{
+                        Text(card.prompt)
+                            .font(.largeTitle)
+                            .foregroundColor(.black)
+                        if isShowingAnswer {
+                            Text(card.answer)
+                                .font(.title)
+                                .foregroundColor(.gray)
+                        }
                     }
                     
                 }
                 .padding(20)
                 .multilineTextAlignment(.center)
-                VStack{
-                    Spacer()
-                    HStack{
-                        Image(systemName: "xmark.circle")
-                            .padding()
-                            .background(Color.black.opacity(0.7))
-                            .clipShape(Circle())
-                        Spacer()
-                        Image(systemName: "checkmark.circle")
-                            .padding()
-                            .background(Color.black.opacity(0.7))
-                            .clipShape(Circle())
-                    }
-                    .foregroundColor(.white)
-                    .font(.largeTitle)
-                    .padding()
-                }
+                
             }
             
             
@@ -70,6 +62,7 @@ struct CardView: View {
         .rotationEffect(.degrees(Double(self.offset.width / 5)))
         .offset(x:self.offset.width * 5, y:0)
         .opacity(2-Double(abs(offset.width/50)))
+        .accessibility(addTraits: .isButton)
         .gesture(DragGesture()
                     .onChanged{ gesture in
                         offset = gesture.translation

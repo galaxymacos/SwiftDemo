@@ -13,6 +13,7 @@
 		2B3B3D3026A8413600952162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B3B3D2F26A8413600952162 /* Preview Assets.xcassets */; };
 		2B3B3D3826A8425B00952162 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B3D3726A8425B00952162 /* Card.swift */; };
 		2B3B3D3A26A843D000952162 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3B3D3926A843D000952162 /* CardView.swift */; };
+		2B907C6326A9585F000AD57A /* EditCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B907C6226A9585F000AD57A /* EditCards.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		2B3B3D3126A8413600952162 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B3B3D3726A8425B00952162 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		2B3B3D3926A843D000952162 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		2B907C6226A9585F000AD57A /* EditCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCards.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 		2B3B3D1C26A8413400952162 = {
 			isa = PBXGroup;
 			children = (
+				2B907C6226A9585F000AD57A /* EditCards.swift */,
 				2B3B3D2726A8413400952162 /* AnkiCopy */,
 				2B3B3D2626A8413400952162 /* Products */,
 			);
@@ -147,6 +150,7 @@
 				2B3B3D2B26A8413400952162 /* ContentView.swift in Sources */,
 				2B3B3D3826A8425B00952162 /* Card.swift in Sources */,
 				2B3B3D3A26A843D000952162 /* CardView.swift in Sources */,
+				2B907C6326A9585F000AD57A /* EditCards.swift in Sources */,
 				2B3B3D2926A8413400952162 /* AnkiCopyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
