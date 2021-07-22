@@ -13,6 +13,8 @@ struct CardView: View {
     @State var card: Card
     @State var isShowingAnswer = false
     @State var offset = CGSize.zero
+    
+    @State var haptic = UINotificationFeedbackGenerator()
    
     var removal: (()->Void)? = nil
     var body: some View {
@@ -71,9 +73,16 @@ struct CardView: View {
         .gesture(DragGesture()
                     .onChanged{ gesture in
                         offset = gesture.translation
+                        haptic.prepare()
                     }
                     .onEnded{ gesture in
                         if abs(offset.width) >= 100{
+                            if(offset.width>0){
+                                haptic.notificationOccurred(.success)
+                            }
+                            else{
+                                haptic.notificationOccurred(.error)
+                            }
                             removal?()
                         }
                         else{
