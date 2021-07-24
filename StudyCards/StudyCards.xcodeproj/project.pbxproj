@@ -1,0 +1,428 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B0FA1CE26AB9D230049A8E7 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0FA1CD26AB9D230049A8E7 /* FormView.swift */; };
+		2B2F37E326AA7A6300953F32 /* StudyCardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F37E226AA7A6300953F32 /* StudyCardsApp.swift */; };
+		2B2F37E526AA7A6300953F32 /* CardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F37E426AA7A6300953F32 /* CardListView.swift */; };
+		2B2F37E726AA7A6400953F32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B2F37E626AA7A6400953F32 /* Assets.xcassets */; };
+		2B2F37EA26AA7A6400953F32 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B2F37E926AA7A6400953F32 /* Preview Assets.xcassets */; };
+		2B2F37F226AA7ACE00953F32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2B2F37F126AA7ACE00953F32 /* GoogleService-Info.plist */; };
+		2B2F37F526AA7B3300953F32 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2B2F37F426AA7B3300953F32 /* FirebaseFirestore */; };
+		2B2F37F726AA7B3300953F32 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 2B2F37F626AA7B3300953F32 /* FirebaseFirestoreSwift-Beta */; };
+		2B2F37FD26AA7DD200953F32 /* CardRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F37FC26AA7DD200953F32 /* CardRepository.swift */; };
+		2B2F37FF26AA7F0000953F32 /* StudyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F37FE26AA7F0000953F32 /* StudyCard.swift */; };
+		2B2F380126AAA7B600953F32 /* CardListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F380026AAA7B600953F32 /* CardListViewModel.swift */; };
+		2B2F380326AAFBDC00953F32 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F380226AAFBDC00953F32 /* CardView.swift */; };
+		2B2F380526AAFC4C00953F32 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F380426AAFC4C00953F32 /* CardViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2B0FA1CD26AB9D230049A8E7 /* FormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
+		2B2F37DF26AA7A6300953F32 /* StudyCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B2F37E226AA7A6300953F32 /* StudyCardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCardsApp.swift; sourceTree = "<group>"; };
+		2B2F37E426AA7A6300953F32 /* CardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListView.swift; sourceTree = "<group>"; };
+		2B2F37E626AA7A6400953F32 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2B2F37E926AA7A6400953F32 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2B2F37EB26AA7A6400953F32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B2F37F126AA7ACE00953F32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2B2F37FC26AA7DD200953F32 /* CardRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRepository.swift; sourceTree = "<group>"; };
+		2B2F37FE26AA7F0000953F32 /* StudyCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCard.swift; sourceTree = "<group>"; };
+		2B2F380026AAA7B600953F32 /* CardListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewModel.swift; sourceTree = "<group>"; };
+		2B2F380226AAFBDC00953F32 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		2B2F380426AAFC4C00953F32 /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2B2F37DC26AA7A6300953F32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B2F37F526AA7B3300953F32 /* FirebaseFirestore in Frameworks */,
+				2B2F37F726AA7B3300953F32 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B2F37D626AA7A6300953F32 = {
+			isa = PBXGroup;
+			children = (
+				2B2F37E126AA7A6300953F32 /* StudyCards */,
+				2B2F37E026AA7A6300953F32 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2B2F37E026AA7A6300953F32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2B2F37DF26AA7A6300953F32 /* StudyCards.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2B2F37E126AA7A6300953F32 /* StudyCards */ = {
+			isa = PBXGroup;
+			children = (
+				2B2F37FB26AA7D4B00953F32 /* Repository */,
+				2B2F37FA26AA7D4200953F32 /* ViewModels */,
+				2B2F37F926AA7D3900953F32 /* Models */,
+				2B2F37F826AA7D3300953F32 /* Views */,
+				2B2F37E226AA7A6300953F32 /* StudyCardsApp.swift */,
+				2B2F37E626AA7A6400953F32 /* Assets.xcassets */,
+				2B2F37EB26AA7A6400953F32 /* Info.plist */,
+				2B2F37F126AA7ACE00953F32 /* GoogleService-Info.plist */,
+				2B2F37E826AA7A6400953F32 /* Preview Content */,
+			);
+			path = StudyCards;
+			sourceTree = "<group>";
+		};
+		2B2F37E826AA7A6400953F32 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2B2F37E926AA7A6400953F32 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2B2F37F826AA7D3300953F32 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2B2F37E426AA7A6300953F32 /* CardListView.swift */,
+				2B2F380226AAFBDC00953F32 /* CardView.swift */,
+				2B0FA1CD26AB9D230049A8E7 /* FormView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2B2F37F926AA7D3900953F32 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2B2F37FE26AA7F0000953F32 /* StudyCard.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2B2F37FA26AA7D4200953F32 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2B2F380026AAA7B600953F32 /* CardListViewModel.swift */,
+				2B2F380426AAFC4C00953F32 /* CardViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		2B2F37FB26AA7D4B00953F32 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				2B2F37FC26AA7DD200953F32 /* CardRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B2F37DE26AA7A6300953F32 /* StudyCards */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B2F37EE26AA7A6400953F32 /* Build configuration list for PBXNativeTarget "StudyCards" */;
+			buildPhases = (
+				2B2F37DB26AA7A6300953F32 /* Sources */,
+				2B2F37DC26AA7A6300953F32 /* Frameworks */,
+				2B2F37DD26AA7A6300953F32 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StudyCards;
+			packageProductDependencies = (
+				2B2F37F426AA7B3300953F32 /* FirebaseFirestore */,
+				2B2F37F626AA7B3300953F32 /* FirebaseFirestoreSwift-Beta */,
+			);
+			productName = StudyCards;
+			productReference = 2B2F37DF26AA7A6300953F32 /* StudyCards.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2B2F37D726AA7A6300953F32 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					2B2F37DE26AA7A6300953F32 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
+				};
+			};
+			buildConfigurationList = 2B2F37DA26AA7A6300953F32 /* Build configuration list for PBXProject "StudyCards" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2B2F37D626AA7A6300953F32;
+			packageReferences = (
+				2B2F37F326AA7B3300953F32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			productRefGroup = 2B2F37E026AA7A6300953F32 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2B2F37DE26AA7A6300953F32 /* StudyCards */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2B2F37DD26AA7A6300953F32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B2F37EA26AA7A6400953F32 /* Preview Assets.xcassets in Resources */,
+				2B2F37E726AA7A6400953F32 /* Assets.xcassets in Resources */,
+				2B2F37F226AA7ACE00953F32 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B2F37DB26AA7A6300953F32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B0FA1CE26AB9D230049A8E7 /* FormView.swift in Sources */,
+				2B2F380126AAA7B600953F32 /* CardListViewModel.swift in Sources */,
+				2B2F37E526AA7A6300953F32 /* CardListView.swift in Sources */,
+				2B2F37FF26AA7F0000953F32 /* StudyCard.swift in Sources */,
+				2B2F37FD26AA7DD200953F32 /* CardRepository.swift in Sources */,
+				2B2F380326AAFBDC00953F32 /* CardView.swift in Sources */,
+				2B2F37E326AA7A6300953F32 /* StudyCardsApp.swift in Sources */,
+				2B2F380526AAFC4C00953F32 /* CardViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2B2F37EC26AA7A6400953F32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		2B2F37ED26AA7A6400953F32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2B2F37EF26AA7A6400953F32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"StudyCards/Preview Content\"";
+				DEVELOPMENT_TEAM = 73842P7FP7;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = StudyCards/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xunruan.practice.StudyCards;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2B2F37F026AA7A6400953F32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"StudyCards/Preview Content\"";
+				DEVELOPMENT_TEAM = 73842P7FP7;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = StudyCards/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = xunruan.practice.StudyCards;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2B2F37DA26AA7A6300953F32 /* Build configuration list for PBXProject "StudyCards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B2F37EC26AA7A6400953F32 /* Debug */,
+				2B2F37ED26AA7A6400953F32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B2F37EE26AA7A6400953F32 /* Build configuration list for PBXNativeTarget "StudyCards" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B2F37EF26AA7A6400953F32 /* Debug */,
+				2B2F37F026AA7A6400953F32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2B2F37F326AA7B3300953F32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2B2F37F426AA7B3300953F32 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B2F37F326AA7B3300953F32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		2B2F37F626AA7B3300953F32 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B2F37F326AA7B3300953F32 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 2B2F37D726AA7A6300953F32 /* Project object */;
+}

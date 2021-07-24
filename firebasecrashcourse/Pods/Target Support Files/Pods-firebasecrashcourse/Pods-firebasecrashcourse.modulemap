@@ -1,0 +1,6 @@
+framework module Pods_firebasecrashcourse {
+  umbrella header "Pods-firebasecrashcourse-umbrella.h"
+
+  export *
+  module * { export * }
+}
