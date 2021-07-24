@@ -22,11 +22,13 @@ final class CardRepository: ObservableObject{
     
     func get(){
         // accessing a specific database through store.collection(path)
+        // addSnapshotListner -> Attach a listener for QuerySnapshot event
         store.collection(path).addSnapshotListener{ (snapshot, error) in
             if let error = error{
                 print(error)
                 return
             }
+            // iterate each document and try to convert them into a swiftUI class
             self.studyCards = snapshot?.documents.compactMap{
                 try? $0.data(as: StudyCard.self)
             } ?? []

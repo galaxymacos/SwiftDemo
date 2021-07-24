@@ -8,6 +8,7 @@
 import FirebaseFirestoreSwift
 
 struct StudyCard: Identifiable, Codable {
+    // To connect to firestore
     @DocumentID var id: String?
     var question: String
     var answer: String
