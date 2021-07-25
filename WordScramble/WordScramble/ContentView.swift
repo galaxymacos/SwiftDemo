@@ -26,28 +26,55 @@ struct ContentView: View {
     var body: some View {
         
         NavigationView{
-            VStack{
-                TextField("Enter your word: ", text: $newWord, onCommit: addNewWord)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                    .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+            GeometryReader{fullView in
+                VStack{
+                    TextField("Enter your word: ", text: $newWord, onCommit: addNewWord)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                        .autocapitalization(/*@START_MENU_TOKEN@*/.none/*@END_MENU_TOKEN@*/)
+                    
+                    
+                    List(usedWords, id: \.self){ usedWord in
+                        if usedWords.count <= 7{
+                            HStack{
+                                Image(systemName: "\(usedWord.count).circle")
+                                Text(usedWord).padding([.leading])
+                                
+                            }
+                        }
+                        else{
+                            if usedWords.firstIndex(of: usedWord)! <= 7{
+                                HStack{
+                                    Image(systemName: "\(usedWord.count).circle")
+                                    Text(usedWord).padding([.leading])
+                                }
+                            }
+                            else{
+                                GeometryReader{geo in
+                                    HStack{
+                                        Image(systemName: "\(usedWord.count).circle")
+                                        Text(usedWord).padding([.leading])
+                                    }
+                                    .offset(x: geo.frame(in: .global).midY / fullView.size.height * 2000 - 1877 < 0 ? 0 : geo.frame(in: .global).midY / fullView.size.height * 2000 - 1877, y: 0)
+                                }
+                                
+                            }
+                            
+                        }
+                    }
+                    Text("Score: \(score)")
+                    Spacer()
+                    
+                }.navigationBarTitle(Text("\(rootWord)"))
+                .onAppear(perform: startGame)
+                .alert(isPresented: $showAlert, content: {
+                    Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("Ok")))
+                })
+                .navigationBarItems(leading: Button(action:startGame){
+                    Text("Start game")
+                })
                 
-                
-                List(usedWords, id: \.self){
-                    Image(systemName: "\($0.count).circle")
-                    Text($0)
-                }
-                Text("Score: \(score)")
-                Spacer()
-                
-            }.navigationBarTitle(Text("\(rootWord)"))
-            .onAppear(perform: startGame)
-            .alert(isPresented: $showAlert, content: {
-                Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("Ok")))
-            })
-            .navigationBarItems(leading: Button(action:startGame){
-                Text("Start game")
-            })
+            }
         }
     }
     
