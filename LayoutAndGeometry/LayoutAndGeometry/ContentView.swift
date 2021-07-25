@@ -93,19 +93,91 @@ import SwiftUI
  }
  */
 
-struct ContentView: View{
-    var body: some View{
-//        Text("Hello world")
-//            .position(x: 0, y: 0)
-//            .background(Color.red)
-        
-        Text("Hello world")
-            // offset won't change its actual position
-            .offset(x: 100, y: 100)
-            .background(Color.red)
+/* Absolute positioning for swiftUI views
+ struct ContentView: View{
+ var body: some View{
+ //        Text("Hello world")
+ // .position needs to use full space to know the position, that's why the background is covered in full space
+ //            .position(x: 0, y: 0)
+ //            .background(Color.red)
+ 
+ Text("Hello world")
+ // offset won't change its actual position
+ .offset(x: 100, y: 100)
+ .background(Color.red)
+ }
+ }
+ */
+
+/* Geometry reader will take up remaining space unless provided with a frame
+ struct ContentView: View{
+ var body: some View{
+ //        GeometryReader{ geo in
+ //            Text("Hello world")
+ //                .frame(width: geo.size.width * 0.9)
+ //                .background(Color.red)
+ //        }
+ 
+ VStack {
+ GeometryReader { geo in
+ Text("Hello, World!")
+ .frame(width: geo.size.width * 0.9, height: 50)
+ .background(Color.red)
+ }
+ // GeometryReader has a preferred size that will take all the remaining space
+ .background(Color.green)
+ 
+ Text("More text")
+ .background(Color.blue)
+ }
+ }
+ }
+ */
+
+struct OuterView: View {
+    var body: some View {
+        VStack {
+            Text("Top")
+            InnerView()
+                .background(Color.green)
+            Text("Bottom")
+        }
     }
 }
 
+struct InnerView: View {
+    var body: some View {
+        HStack {
+            // Views in a HStack or a VStack will have its size the same with the largest element that takes up the most space
+            Text("Left")
+            GeometryReader { geo in
+                Text("Center")
+                    .background(Color.blue)
+                    .onTapGesture {
+                        // the (x:,y:) relative the top-left corner of the screen
+                        print("Global center: \(geo.frame(in: .global).midX) x \(geo.frame(in: .global).midY)")
+                        
+                        // the (x:,y:) relative the top-left corner of what holds the name of "custom" coordinate space (In this case, it's the OuterView
+                        print("Custom center: \(geo.frame(in: .named("Custom")).midX) x \(geo.frame(in: .named("Custom")).midY)")
+                        // the (x:,y:) relative to the top-left corner of its parent (in this case, it is the grometry reader
+                        print("Local center: \(geo.frame(in: .local).midX) x \(geo.frame(in: .local).midY)")
+                    }
+            }
+            .background(Color.orange)
+            Text("Right")
+        }
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        OuterView()
+            .background(Color.red)
+            .coordinateSpace(name: "Custom")
+    }
+}
+/* Understanding frames and coordinates insides GrometryReader
+ */
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
