@@ -35,13 +35,23 @@ struct MissionView: View {
     let mission: Mission
     var body: some View {
         NavigationView{
-            GeometryReader{geometry in
+            GeometryReader{fullView in
                 ScrollView(.vertical){
                     VStack{
-                        Image(mission.imageS)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: geometry.size.width*0.75)
+                                
+                            //                            .scaleEffect(geometry.size.width)
+
+                        GeometryReader{geo in
+                            Image(mission.imageS)
+                                .resizable()
+                                .scaledToFit()
+                                .scaleEffect(geo.frame(in: .global).midY / fullView.size.height + 0.6 < 0.8 ? 0.8 : geo.frame(in: .global).midY / fullView.size.height + 0.6)
+                        }
+                        .frame(height: 300)
+//                        .background(Color.green)
+                        
+//                                .frame(width: fullView.size.width*0.75)
+
                         
                         Text(mission.formattedLaunchDate)
                         
@@ -49,6 +59,9 @@ struct MissionView: View {
                             .padding()
                             // It will not be shrinked. layoutPriority(0) will get shrinked. (If there is not enough space)
                             .layoutPriority(1)
+
+                        
+                        
                         
                         ForEach(astronauts, id: \.role){ member in
                             NavigationLink(destination: AstronautView(astronaut: member.astronaut)){
