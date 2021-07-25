@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var usedWords = [String]()
+    @State private var usedWords = ["a","b","c","d","e","f","g","h","i","j","k"]
     @State private var rootWord = "Root Word"
     @State private var newWord = ""
     
@@ -38,6 +38,7 @@ struct ContentView: View {
                         if usedWords.count <= 7{
                             HStack{
                                 Image(systemName: "\(usedWord.count).circle")
+                                    .foregroundColor(getColor(str: usedWord))
                                 Text(usedWord).padding([.leading])
                                 
                             }
@@ -46,6 +47,7 @@ struct ContentView: View {
                             if usedWords.firstIndex(of: usedWord)! <= 7{
                                 HStack{
                                     Image(systemName: "\(usedWord.count).circle")
+                                        .foregroundColor(getColor(str: usedWord))
                                     Text(usedWord).padding([.leading])
                                 }
                             }
@@ -53,6 +55,7 @@ struct ContentView: View {
                                 GeometryReader{geo in
                                     HStack{
                                         Image(systemName: "\(usedWord.count).circle")
+                                            .foregroundColor(getColor(str: usedWord))
                                         Text(usedWord).padding([.leading])
                                     }
                                     .offset(x: geo.frame(in: .global).midY / fullView.size.height * 2000 - 1877 < 0 ? 0 : geo.frame(in: .global).midY / fullView.size.height * 2000 - 1877, y: 0)
@@ -76,6 +79,15 @@ struct ContentView: View {
                 
             }
         }
+    }
+    
+    func getColor(str: String)->Color{
+        let index = usedWords.firstIndex(of: str)!
+        let redAmount = Double(index) / Double(usedWords.count)
+        let greenAmount = (Double(index) / Double(usedWords.count)+0.33).truncatingRemainder(dividingBy: 1)
+        let blueAmount = (Double(index) / Double(usedWords.count)+0.66).truncatingRemainder(dividingBy: 1)
+        
+        return Color(red: redAmount, green: greenAmount, blue: blueAmount)
     }
     
     func addNewWord(){
