@@ -54,9 +54,59 @@ struct Test_SheetAlert_Optional: View {
     }
 }
 
+struct UserView: View {
+    var body: some View{
+        Group{
+            Text("Name: Paul")
+            Text("Country: England")
+            Text("Pet: Luna, Arya and Toby")
+        }
+    }
+}
+
+struct ControlableLayout: View{
+    @State var verticalLayout = false
+    var body: some View{
+        NavigationView{
+            Group{
+                if verticalLayout{
+                    VStack{
+                        UserView()
+                    }
+                }
+                else{
+                    HStack{
+                        UserView()
+                    }
+                }
+            }
+            .navigationBarTitle("Controlable view")
+            .navigationBarItems(trailing: Button(verticalLayout ? "Vertical" : "Horizontal"){
+                verticalLayout.toggle()
+            })
+        }
+    }
+}
+
+struct AutoSwitchLayoutForSizeClasses: View{
+    @Environment(\.horizontalSizeClass) var sizeClass
+    var body: some View{
+        if sizeClass == .compact{
+            VStack(content: UserView.init)
+            // More concise than
+//            VStack{
+//                UserView()
+//            }
+        }
+        else{
+            HStack(content: UserView.init)
+        }
+    }
+}
+
 struct ContentView: View {
     var body: some View{
-        Test_SheetAlert_Optional()
+        AutoSwitchLayoutForSizeClasses()
     }
 }
 
