@@ -11,9 +11,11 @@ struct SkiDetailsView: View {
     let resort: Resort
     
     var body: some View {
-        VStack{
-            Text("Elevation: \(resort.elevation)m")
-            Text("Snow depth: \(resort.snowDepth)cm")
+        Group{
+            // Text should not be hidden or pushed to wrap by Spacer()
+            Text("Elevation: \(resort.elevation)m").layoutPriority(1)
+            Spacer().frame(height: 0)
+            Text("Snow depth: \(resort.snowDepth)cm").layoutPriority(1)
         }
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ResortView: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
     let resort: Resort
     
     var body: some View {
@@ -18,10 +19,19 @@ struct ResortView: View {
                     .scaledToFit()
                 
                 HStack {
-                    Spacer()
-                    ResortDetailsView(resort: resort)
-                    SkiDetailsView(resort: resort)
-                    Spacer()
+                    if(sizeClass == .compact){
+                        Spacer()
+                        VStack{ ResortDetailsView(resort: resort)}
+                        VStack{ SkiDetailsView(resort: resort)}
+                        Spacer()
+                    }
+                    else{
+                        ResortDetailsView(resort: resort)
+                        // tell Spacer() to only work in landscape mode and stop them from adding space vertically
+                        // this spacer will have a fexible width, and will be pushed by its child view
+                        Spacer().frame(height: 0)
+                        SkiDetailsView(resort: resort)
+                    }
                 }
                 .font(.headline)
                 .foregroundColor(.secondary)
@@ -34,6 +44,10 @@ struct ResortView: View {
                     Text("Facilities")
                         .font(.headline)
                     
+                    // Outdated (Old)
+//                    Text(resort.facilities.joined(separator: ","))
+                    
+                    // A better (automatic) way to join strings together
                     Text(ListFormatter.localizedString(byJoining: resort.facilities)).padding(.vertical)
                 }
                 .padding(.horizontal)

@@ -23,8 +23,13 @@ struct ResortDetailsView: View {
         String(repeating: "$", count: resort.price)
     }
     var body: some View {
-        Text("Price: \(price)")
-        Text("Size: \(size)")
+        Group{
+            // We have two views because we can then use VStack or HStack to wrap those views later
+            Text("Price: \(price)").layoutPriority(1)
+            Spacer().frame(height: 0)
+            Text("Size: \(size)").layoutPriority(1)
+            
+        }
     }
 }
 
