@@ -17,4 +17,9 @@ struct Resort: Codable, Identifiable {
     var elevation: Int
     let runs: Int
     let facilities: [String]
+    
+    static var example: Resort{
+        ContentView.randomResort
+    }
 }
+

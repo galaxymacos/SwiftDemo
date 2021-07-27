@@ -22,7 +22,7 @@ struct ContentView: View {
             // Every element in the list will be listed in an horizontal line
             List(resorts){ resort in
                 // A NavigationLink on an element in the list will create a small arrow at the right, indicating the user that it can be tabbed
-                NavigationLink(destination: Text(resort.country)){
+                NavigationLink(destination: ResortView(resort: resort)){
                     Image(resort.country)
                         .resizable()
                         .scaledToFill()
