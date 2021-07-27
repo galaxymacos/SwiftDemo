@@ -7,9 +7,20 @@
 
 import SwiftUI
 
+
+extension String: Identifiable {
+    public var id: String {
+        self
+    }
+}
+
 struct ResortView: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     let resort: Resort
+    
+    @State private var selectedFacility: Facility?
+    
+    
     
     var body: some View {
         ScrollView{
@@ -45,14 +56,31 @@ struct ResortView: View {
                         .font(.headline)
                     
                     // Outdated (Old)
-//                    Text(resort.facilities.joined(separator: ","))
+                    //                    Text(resort.facilities.joined(separator: ","))
                     
                     // A better (automatic) way to join strings together
                     Text(ListFormatter.localizedString(byJoining: resort.facilities)).padding(.vertical)
+                    
+                    HStack {
+                        ForEach(resort.facilityTypes) { facility in
+                            facility.icon
+                                .font(.title)
+                                .onTapGesture {
+                                    selectedFacility = facility
+                                }
+                        }
+                    }
+                    .padding(.vertical)
                 }
                 .padding(.horizontal)
             }
+            
         }
+        
+        .alert(item: $selectedFacility) { facility in
+            facility.alert
+        }
+        
         .navigationBarTitle(Text("\(resort.name), \(resort.country)"), displayMode: .inline)
     }
 }

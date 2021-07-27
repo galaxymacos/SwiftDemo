@@ -21,5 +21,10 @@ struct Resort: Codable, Identifiable {
     static var example: Resort{
         ContentView.randomResort
     }
+    
+    var facilityTypes: [Facility] {
+        // The id must be marked as let, or the init will need us to instantiate it as well
+        facilities.map(Facility.init)
+    }
 }
 
