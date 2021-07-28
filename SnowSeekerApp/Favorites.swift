@@ -39,6 +39,7 @@ class Favorites: ObservableObject{
     func remove(_ resort: Resort){
         objectWillChange.send()
         resorts.remove(resort.id)
+        save()
     }
     
     func save(){
