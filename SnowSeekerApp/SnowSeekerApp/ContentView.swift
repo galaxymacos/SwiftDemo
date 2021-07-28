@@ -17,6 +17,8 @@ struct ContentView: View {
     
     let resorts: [Resort] = Bundle.main.decode([Resort].self, for: "resorts.json")
     
+    @ObservedObject var favorites = Favorites()
+    
     var body: some View {
         NavigationView {
             // Every element in the list will be listed in an horizontal line
@@ -39,6 +41,13 @@ struct ContentView: View {
                         Text("\(resort.runs) runs")
                             .foregroundColor(.secondary)
                     }
+                    .layoutPriority(1)
+                    if self.favorites.contains(resort){
+                        Spacer()
+                        Image(systemName: "heart.fill")
+                            .accessibility(label: Text("This is a favorite resort"))
+                            .foregroundColor(.red)
+                    }
                 }
             }
             .navigationBarTitle(Text("Resorts"))
@@ -47,6 +56,8 @@ struct ContentView: View {
             WelcomeView()
         }
         .phoneOnlyStackNavigationView()
+        // make its child view can modify this variable
+        .environmentObject(favorites)
     }
 }
 

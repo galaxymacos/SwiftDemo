@@ -16,6 +16,8 @@ extension String: Identifiable {
 
 struct ResortView: View {
     @Environment(\.horizontalSizeClass) var sizeClass
+    // We can get this environmentObject because ResortView is a child of ContentView
+    @EnvironmentObject var favorites: Favorites
     let resort: Resort
     
     @State private var selectedFacility: Facility?
@@ -74,7 +76,15 @@ struct ResortView: View {
                 }
                 .padding(.horizontal)
             }
-            
+            Button(favorites.contains(resort) ? "Remove from favorite" : "Add to favorite"){
+                if favorites.contains(resort){
+                    favorites.remove(resort)
+                }
+                else{
+                    favorites.add(resort)
+                }
+            }
+            .padding()
         }
         
         .alert(item: $selectedFacility) { facility in
