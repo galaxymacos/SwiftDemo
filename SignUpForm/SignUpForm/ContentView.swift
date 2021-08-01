@@ -24,9 +24,11 @@ class FormViewModel: ObservableObject{
 
     @Published var isValid = false
     
+    @Published var inlineErrorForPassword = ""
+    
     private var cancellables = Set<AnyCancellable>()
     
-    private static let predicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&]).{6.}$")
+    private static let predicate = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&]).{6,}$")
     
     private var isUsernameValidPublisher: AnyPublisher<Bool, Never>{
         $username
@@ -81,6 +83,26 @@ class FormViewModel: ObservableObject{
             .receive(on: RunLoop.main)
             .assign(to: \.isValid, on: self)
             .store(in: &cancellables)
+        
+        isPasswordValidPublisher
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .map{ passwordStatus in
+                switch passwordStatus{
+                case .empty:
+                    return "Password is empty"
+                case .notStrongEnough:
+                    return "Password not strong enough"
+                case .repeatPasswordWrong:
+                    return "Password doesn't match"
+                case .valid:
+                    return ""
+                }
+                
+            }
+            .assign(to: \.inlineErrorForPassword, on: self)
+            .store(in: &cancellables)
+        
     }
         
     
@@ -96,7 +118,7 @@ struct ContentView: View {
                         TextField("Username", text: $formViewModel.username)
                             .autocapitalization(.none)
                     }
-                    Section(header: Text("Password")){
+                    Section(header: Text("Password"), footer: Text(formViewModel.inlineErrorForPassword).foregroundColor(.red)){
                         SecureField("Password", text:$formViewModel.password)
                         SecureField("Password again", text:$formViewModel.passwordAgain)
                     }

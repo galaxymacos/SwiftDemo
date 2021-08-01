@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
+    
     // add an example value in workflow so we can see change in the real time
     static let allResorts: [Resort] = Bundle.main.decode([Resort].self, for: "resorts.json")
     static let resort = allResorts[0]
@@ -16,8 +18,33 @@ struct ContentView: View {
     static let randomResort = (Bundle.main.decode([Resort].self, for: "resorts.json") as [Resort])[0]
     
     let resorts: [Resort] = Bundle.main.decode([Resort].self, for: "resorts.json")
-    
+
     @ObservedObject var favorites = Favorites()
+    
+    @State private var isShowingFilterActionSheet = false
+    @State private var isShowingSortActionSheet = false
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     var body: some View {
         NavigationView {
@@ -49,8 +76,24 @@ struct ContentView: View {
                             .foregroundColor(.red)
                     }
                 }
+                .actionSheet(isPresented: $isShowingFilterActionSheet){
+                    ActionSheet(title: Text("Filter by"), message: nil, buttons: [
+                        .default(Text("Country")){Resort.currentFilter = .country},
+                        .default(Text("Size")){Resort.currentFilter = .size},
+                        .default(Text("Price")){Resort.currentFilter = .price},
+                        .default(Text("None")){Resort.currentFilter = .none}
+                    ])
+                }
             }
+            .navigationBarItems(leading: Button("Filter"){self.isShowingFilterActionSheet = true},trailing: Button("Sort"){self.isShowingSortActionSheet = true})
             .navigationBarTitle(Text("Resorts"))
+            .actionSheet(isPresented: $isShowingSortActionSheet){
+                ActionSheet(title: Text("Sort by"), message: nil, buttons: [
+                    .default(Text("alphabetical")){Resort.currentSorter = .alphabetical},
+                    .default(Text("Country")){Resort.currentSorter = .country},
+                    .default(Text("None")){Resort.currentSorter = .none}
+                ])
+            }
             
             // On landspace for iPhone XS max or iPad, the main window will be WelcomeView() and others will be hidden in a button
             WelcomeView()
@@ -59,6 +102,7 @@ struct ContentView: View {
         // make its child view can modify this variable
         .environmentObject(favorites)
     }
+    
 }
 
 // Stop phone from showing two views
