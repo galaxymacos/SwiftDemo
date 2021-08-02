@@ -65,7 +65,9 @@ struct ContentView: View{
                 Form{
                     ForEach(dataCollection.userDisplayedMode){ user in
                         Text("\(user.firstName!) \(user.lastName!)")
-                    }
+                    }.onDelete(perform: { indexSet in
+                        dataCollection.userDisplayedMode.remove(atOffsets: indexSet)
+                    })
                 }
             }
             .navigationBarItems(leading: Button("Filter"){
