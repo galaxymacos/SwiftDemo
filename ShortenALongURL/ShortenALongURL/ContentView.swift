@@ -17,6 +17,20 @@ struct ContentView: View {
         NavigationView{
             ScrollView(.vertical){
                 header()
+                
+                ForEach(viewModel.models, id: \.self){ model in
+                    VStack(alignment: .leading){
+                        Text("https://1pt.co/"+model.short)
+                        Text(model.long)
+                    }
+                    .padding()
+                    .onTapGesture {
+                        guard let url = URL(string: "https://1pt.co/"+model.short) else{
+                            return
+                        }
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                }
             }
             .navigationTitle(Text("Shorten URL"))
         }
