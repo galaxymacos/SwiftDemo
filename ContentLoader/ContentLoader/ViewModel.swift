@@ -13,7 +13,6 @@ struct Course: Hashable, Codable{
     var image: String
 }
 
-
 class ViewModel: ObservableObject{
     @Published var courses: [Course] = []
     
@@ -38,6 +37,19 @@ class ViewModel: ObservableObject{
                 print(error.localizedDescription)
             }
             
+        }
+        task.resume()
+    }
+}
+
+class ViewModelUrlImage: ObservableObject{
+    @Published var data: Data?  // We want the view (In this case, the image) to update when we have data, that's why we mark it as @State
+    func fetchImageFromUrl(urlString: String){
+        guard let url = URL(string: urlString) else{
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url){data, _, _ in
+            self.data = data    //Function can't assign to the variable in struct that doesn't mark as @State
         }
         task.resume()
     }

@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct URLImage: View{
+    @StateObject var urlImageViewModel = ViewModelUrlImage()
     var urlString = ""
-    @State var data: Data?  // We want the view (In this case, the image) to update when we have data, that's why we mark it as @State
+    
     var body: some View{
-        if let data = data, let uiImage = UIImage(data: data){
+        if let data = urlImageViewModel.data, let uiImage = UIImage(data: data){
             Image(uiImage: uiImage)
                 .resizable()
                 .scaledToFill()
@@ -26,19 +27,13 @@ struct URLImage: View{
 //                .aspectRatio(contentMode: .fill)
                 .frame(width: 130, height: 70)
                 .background(Color.gray)
-                .onAppear(perform: fetchImageFromUrl)
+                .onAppear{
+                    urlImageViewModel.fetchImageFromUrl(urlString: urlString)
+                }
         }
     }
     
-    private func fetchImageFromUrl(){
-        guard let url = URL(string: urlString) else{
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url){data, _, _ in
-            self.data = data    //Function can't assign to the variable in struct that doesn't mark as @State
-        }
-        task.resume()
-    }
+    
 }
 
 struct ContentView: View {
