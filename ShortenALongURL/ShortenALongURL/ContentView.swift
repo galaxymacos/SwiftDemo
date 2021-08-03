@@ -19,9 +19,12 @@ struct ContentView: View {
                 header()
                 
                 ForEach(viewModel.models, id: \.self){ model in
-                    VStack(alignment: .leading){
-                        Text("https://1pt.co/"+model.short)
-                        Text(model.long)
+                    HStack{
+                        VStack(alignment: .leading){
+                            Text("https://1pt.co/"+model.short)
+                            Text(model.long)
+                        }
+                        Spacer()
                     }
                     .padding()
                     .onTapGesture {
@@ -46,10 +49,10 @@ struct ContentView: View {
                 .foregroundColor(Color.white)
             TextField("URL...", text: $url)
                 .autocapitalization(.none)
-                .padding()  // This padding is added between the textfield and the background
+                .padding()  // This padding is added between the textfield and the background of the textfield
                 .background(Color.white)
                 .cornerRadius(10)
-                .padding()  // This padding is added between the background and the environment
+                .padding()  // This padding is added between the background of the textfield and the environment
             Button(action: {
                 // make api call
                 guard !url.isEmpty else{
@@ -69,6 +72,7 @@ struct ContentView: View {
             })
             
         }
+        // Detect the boundaries of the phone screen
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
         .background(Color.blue)
     }
