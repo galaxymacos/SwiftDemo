@@ -10,7 +10,7 @@ import UIKit
 // One screen of information
 class ViewController: UITableViewController {
     var pictures: [String] = []
-    // After the view has been loaded
+    // After the view has been loadeds
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -24,6 +24,7 @@ class ViewController: UITableViewController {
                 pictures.append(item)
             }
         }
+        pictures.sort()
         print(pictures)
     }
     
@@ -31,6 +32,7 @@ class ViewController: UITableViewController {
     // Seet the number of row in the table view
     override func tableView(_ tableView: UITableView    // This is the table view that triggers the effect
                             ,numberOfRowsInSection section: Int) -> Int {
+        
         return pictures.count
     }
     
@@ -39,7 +41,8 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // get the current cell in the table view
         let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath) // iOS will reuse the cell that no longer appear on the screen
-        cell.textLabel?.text = pictures[indexPath.row]  // add a text in the cell
+//        cell.textLabel?.text = pictures[indexPath.row]  // add a text in the cell
+        cell.textLabel?.text = "Picture \(indexPath.row+1) in \(pictures.count)"
         return cell
     }
 
@@ -48,7 +51,8 @@ class ViewController: UITableViewController {
         // we tell storyboard to instantiate a view controller but it can't guess which controller it is based on its name
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController{   // Instantiate a view (ref storyboard because every view is inside storyboard)
             vc.selectedImage = pictures[indexPath.row]
-            // we need to navigate to that view
+            // Navigation controllers manage a stack of view controllers that can be pushed by us.
+            // This view controller stack is what gives us smooth sliding in and out 
             navigationController?.pushViewController(vc, animated: true)
         }
     }
