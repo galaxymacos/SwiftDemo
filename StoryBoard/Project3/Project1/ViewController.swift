@@ -15,6 +15,9 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         title = "Storm Viewer"
+        
+         
+        
         navigationController?.navigationBar.prefersLargeTitles = true   // Only on the main screen usually
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
@@ -25,8 +28,17 @@ class ViewController: UITableViewController {
             }
         }
         pictures.sort()
-        print(pictures)
+        
+        
     }
+    
+    // let user focus
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.hidesBarsOnTap = false
+//        print("true")
+    }
+    
     
     // the parameter of the method decided what should happen
     // Seet the number of row in the table view
@@ -56,5 +68,7 @@ class ViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    
 }
 

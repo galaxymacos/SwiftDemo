@@ -18,6 +18,10 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         title = selectedImage
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,   // the icon of the button (action = the "share" icon)
+                                                            target: self,   // the #selector method belongs to self
+                                                            action: #selector(shareTapped)  // when you are tapped, call...
+                                                            )
         navigationItem.largeTitleDisplayMode = .never   // Only for this item, use this display mode
         if let imageToLoad = selectedImage{
             imageView.image = UIImage(named: imageToLoad)
@@ -35,6 +39,22 @@ class DetailViewController: UIViewController {
         super.viewDidDisappear(animated)
         navigationController?.hidesBarsOnTap = false
 //        print("false")
+    }
+    
+    // @objc because this method will get called by the underlying Objective-C operating system (the UIBarButtonItem)
+    @objc func shareTapped(){
+        // try to compress the image in the image view
+        guard let image = imageView.image?.jpegData(compressionQuality: 0.8) else{
+            print("No image found")
+            return
+        }
+        // the iOS method of sharing content with other apps and services
+        let vc = UIActivityViewController(activityItems: [image, selectedImage!], applicationActivities: [])
+        
+        // tells iOS to anchor the activity view controller to the right bar item (the share button)
+        // ONLY ON IPAD (since there is not enough space on iPhone)
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
     
     

@@ -23,6 +23,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         countries+=["estonia", "france", "germany", "ireland", "italy", "manaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showScoreTapped))
+        
         button1.layer.borderWidth = 1
         button2.layer.borderWidth = 1
         button3.layer.borderWidth = 1
@@ -32,6 +34,16 @@ class ViewController: UIViewController {
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
         askQuestion()
+    }
+    
+    @objc func showScoreTapped(){
+        // Create an alert (Just the alert, no button to click)
+        let ac = UIAlertController(title: "Score", message: "\(score)", preferredStyle: .alert)
+        // handler: after we hit the button
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
+        
+        // completion: after we present the alert
+        present(ac, animated: true, completion: nil)
     }
 
     // Swift want to know which alert is tapped

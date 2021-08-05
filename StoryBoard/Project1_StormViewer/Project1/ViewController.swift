@@ -26,6 +26,14 @@ class ViewController: UITableViewController {
         }
         pictures.sort()
         print(pictures)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+    }
+    
+    @objc func shareTapped(){
+        let vc = UIActivityViewController(activityItems: ["StoreViewer"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
     
     // the parameter of the method decided what should happen
