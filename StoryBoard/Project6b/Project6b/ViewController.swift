@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    let metric:[String: Int] = ["labelHeight": 88]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +66,16 @@ class ViewController: UIViewController {
                                                                 views: viewsDictionary))    // let the VFL knows what's the string "label" by finding the target view in dictionary
         }
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1]-[label2]-[label3]-[label4]-[label5]", options: [], metrics: nil, views: viewsDictionary))
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1]-[label2]-[label3]-[label4]-[label5]", options: [], metrics: nil, views: viewsDictionary))
+        // ==88 means the height is 88 points
+        
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight)]-[label2(labelHeight)]-[label3(labelHeight)]-[label4(labelHeight)]-[label5(labelHeight)]-(>=10)-|", options: [], metrics: nil, views: viewsDictionary))
+//
+        
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]->=10-|",
+                                                           options: [],
+                                                           metrics: metric, // metric allows us to store some same number into a variable, and changing that variable in one place can change all
+                                                           views: viewsDictionary))
     }
 
 
