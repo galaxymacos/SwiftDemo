@@ -9,17 +9,34 @@ import UIKit
 
 class ViewController: UITableViewController {
     var petitions = [Petition]()
+    var originalPetitions = [Petition]()
+    var isFilterOn:Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
-        
+        let urlString: String
+        if navigationController?.tabBarItem.tag == 0{
+            urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
+        }
+        else{
+            urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
+        }
+        originalPetitions = petitions
         if let url = URL(string: urlString) {
             if let data = try? Data(contentsOf: url) {
                 parse(json: data)
             }
+            else{
+                showError()
+            }
         }
+        else{
+            showError()
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showCredit))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(filterPetition))
     }
     
     func parse(json: Data){
@@ -44,6 +61,42 @@ class ViewController: UITableViewController {
         let detailvc = DetailViewController()
         detailvc.detailItem = petitions[indexPath.row]
         navigationController?.pushViewController(detailvc, animated: true)
+    }
+    
+    func showError(){
+        let ac = UIAlertController(title: "Error", message: "Please check your connection", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(ac, animated: true)
+    }
+    
+    @objc func showCredit(){
+        let ac = UIAlertController(title: "Credits", message: "We the people API of the whitehouse", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
+    }
+    
+    @objc func filterPetition(){
+        if !self.isFilterOn{
+            let ac = UIAlertController(title: "Filter", message: "Add string to filter", preferredStyle: .alert)
+            ac.addTextField(configurationHandler: nil)
+            ac.addAction(UIAlertAction(title: "Submit", style: .default){[weak self, weak ac] _ in
+                self?.originalPetitions = self!.petitions
+                    let filterString = ac?.textFields?[0].text ?? ""
+                    print(filterString)
+                    self?.petitions = self?.petitions.filter{$0.title.contains(filterString)} ?? [Petition]()
+                    self?.tableView.reloadData()
+                    self?.isFilterOn.toggle()
+                    
+                
+            })
+            
+            present(ac, animated: true)
+        }
+        else{
+            self.petitions = self.originalPetitions
+            self.tableView.reloadData()
+            self.isFilterOn.toggle()
+        }
     }
 }
 
