@@ -79,13 +79,21 @@ class ViewController: UIViewController {
         var previous: UILabel?
         
         for label in [label1, label2, label3, label4, label5] {
-            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-            label.heightAnchor.constraint(equalToConstant: 88).isActive = true
+            // Equalize the width of the current anchor to the parents' anchor
+//            label.widthAnchor.constraint(equalToConstant).isActive = true
+            label.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5, constant: 50).isActive = true  // Make the label's width the the half of the width of its parent plus 50 pixels
+            
+//            label.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true // Make the view attach to the left edge of its parent
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            
+//            label.heightAnchor.constraint(equalToConstant: (UIScreen.main.bounds.height-50) / 5.0).isActive = true
+            label.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2, constant: -10).isActive = true
             if let previous = previous{
                 label.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true
             }
             else{   // Push view away from safe area
                 label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+                
             }
             previous = label
         }
