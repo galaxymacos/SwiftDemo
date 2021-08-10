@@ -18,8 +18,13 @@ class ViewController: UIViewController {
     var activatedButtons = [UIButton]()
     var solutions = [String]()
     
-    var score = 0
+    var score = 0 {
+        didSet{
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
     var level = 1
+    var numofCorrectGuess = 0
     
     override func loadView() {
         view = UIView()
@@ -139,7 +144,9 @@ class ViewController: UIViewController {
             }
         }
 
-        buttonView.backgroundColor = .green
+        buttonView.layer.borderWidth = 5
+        buttonView.layer.borderColor = .init(red: 1, green: 0, blue: 0, alpha: 1)
+//        buttonView.backgroundColor = .green
     }
     
     override func viewDidLoad() {
@@ -158,7 +165,7 @@ class ViewController: UIViewController {
     @objc func submitTapped(_ sender: UIButton){
         guard let answerText = currentAnswer.text else {return} // Make sure there is text in label
         
-        if let solutionPosition = solutions.firstIndex(of: answerText){
+        if let solutionPosition = solutions.firstIndex(of: answerText){ // Correct answer found in the list
             activatedButtons.removeAll()
             
             var splitAnswers = answersLabel.text?.components(separatedBy: "\n")
@@ -167,12 +174,19 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
+            numofCorrectGuess += 1
             
-            if score % 7 == 0{
+            if numofCorrectGuess % 7 == 0{
                 let ac = UIAlertController(title: "Well done!", message: "Are you ready for th next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        }
+        else{
+            let ac = UIAlertController(title: "Incorrect", message: "\(currentAnswer.text!) is invalid", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(ac, animated: true)
+            score -= 1
         }
     }
     
