@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B5A94F026C242C3005A7631 /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2B5A94EF26C242C3005A7631 /* level1.txt */; };
 		2BC7109C26C181EA00EE9C3D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7109B26C181EA00EE9C3D /* AppDelegate.swift */; };
 		2BC7109E26C181EA00EE9C3D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7109D26C181EA00EE9C3D /* SceneDelegate.swift */; };
 		2BC710A026C181EA00EE9C3D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC7109F26C181EA00EE9C3D /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B5A94EF26C242C3005A7631 /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level1.txt; path = "../../../SwiftUI/HackingWithSwift/Classic/project8-files/level1.txt"; sourceTree = "<group>"; };
 		2BC7109826C181EA00EE9C3D /* Project8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BC7109B26C181EA00EE9C3D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BC7109D26C181EA00EE9C3D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		2BC7109A26C181EA00EE9C3D /* Project8 */ = {
 			isa = PBXGroup;
 			children = (
+				2B5A94EF26C242C3005A7631 /* level1.txt */,
 				2BC7109B26C181EA00EE9C3D /* AppDelegate.swift */,
 				2BC7109D26C181EA00EE9C3D /* SceneDelegate.swift */,
 				2BC7109F26C181EA00EE9C3D /* ViewController.swift */,
@@ -126,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BC710A826C181EB00EE9C3D /* LaunchScreen.storyboard in Resources */,
+				2B5A94F026C242C3005A7631 /* level1.txt in Resources */,
 				2BC710A526C181EB00EE9C3D /* Assets.xcassets in Resources */,
 				2BC710A326C181EA00EE9C3D /* Main.storyboard in Resources */,
 			);
