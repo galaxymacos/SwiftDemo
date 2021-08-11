@@ -15,6 +15,14 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        performSelector(inBackground: #selector(fetchJson), with: nil)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showCredit))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(filterPetition))
+    }
+    
+    // Run in background
+    @objc func fetchJson(){
         let urlString: String
         if navigationController?.tabBarItem.tag == 0{
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
@@ -23,31 +31,31 @@ class ViewController: UITableViewController {
             urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
         }
         originalPetitions = petitions
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        
             if let url = URL(string: urlString) {
                 if let data = try? Data(contentsOf: url) {
-                    self?.parse(json: data)
+                    parse(json: data)
                 }
                 else{
-                    self?.showError()
+                    performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
                 }
             }
             else{
-                self?.showError()
+                performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
             }
-        }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(showCredit))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(filterPetition))
+        
     }
     
-    func parse(json: Data){
+    // Run in background
+    private func parse(json: Data){
         if let decoded = try? JSONDecoder().decode(Petitions.self, from: json){
             petitions = decoded.results
-            
-            DispatchQueue.main.async {[weak self] in  // Push the code that executes on the background back to the main queue
-                self?.tableView.reloadData()
-            }
+            // Update UI should be on the main thread
+            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+        }
+        else{
+            performSelector(onMainThread: #selector(showError), with: nil, waitUntilDone: false)
         }
     }
 
@@ -68,13 +76,10 @@ class ViewController: UITableViewController {
         navigationController?.pushViewController(detailvc, animated: true)
     }
     
-    func showError(){
-        DispatchQueue.main.async {[weak self] in
-            let ac = UIAlertController(title: "Error", message: "Please check your connection", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self?.present(ac, animated: true)
-            
-        }
+    @objc func showError(){
+        let ac = UIAlertController(title: "Error", message: "Please check your connection", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(ac, animated: true)
     }
     
     @objc func showCredit(){

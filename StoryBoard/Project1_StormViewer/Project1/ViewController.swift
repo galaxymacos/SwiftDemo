@@ -16,18 +16,26 @@ class ViewController: UITableViewController {
         // Do any additional setup after loading the view.
         title = "Storm Viewer"
         navigationController?.navigationBar.prefersLargeTitles = true   // Only on the main screen usually
+//        DispatchQueue.global(qos: .userInitiated).async {[weak self] in
+//            self?.fetchImage()
+//        }
+        performSelector(inBackground: #selector(fetchImage), with: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+    }
+    
+    @objc func fetchImage(){
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
+        
         for item in items{
             if item.hasPrefix("nssl"){
                 pictures.append(item)
             }
         }
-        pictures.sort()
-        print(pictures)
+            pictures.sort()
+        tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
     }
     
     @objc func shareTapped(){

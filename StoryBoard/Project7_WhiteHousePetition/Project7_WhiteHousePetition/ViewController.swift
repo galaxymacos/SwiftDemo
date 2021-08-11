@@ -80,12 +80,17 @@ class ViewController: UITableViewController {
             let ac = UIAlertController(title: "Filter", message: "Add string to filter", preferredStyle: .alert)
             ac.addTextField(configurationHandler: nil)
             ac.addAction(UIAlertAction(title: "Submit", style: .default){[weak self, weak ac] _ in
-                self?.originalPetitions = self!.petitions
+                DispatchQueue.global(qos: .userInitiated).async { [weak self, weak ac] in
+                    self?.originalPetitions = self!.petitions
                     let filterString = ac?.textFields?[0].text ?? ""
-                    print(filterString)
                     self?.petitions = self?.petitions.filter{$0.title.contains(filterString)} ?? [Petition]()
-                    self?.tableView.reloadData()
                     self?.isFilterOn.toggle()
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                    }
+                    
+                    
+                }
                     
                 
             })

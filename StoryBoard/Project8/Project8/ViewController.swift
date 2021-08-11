@@ -152,7 +152,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        loadLevel()
+        DispatchQueue.global(qos: .default).async {[weak self] in
+            self?.loadLevel()
+        }
     }
 
     @objc func letterTapped(_ sender: UIButton){
@@ -194,7 +196,9 @@ class ViewController: UIViewController {
         level += 1
         solutions.removeAll(keepingCapacity: true)
         
-        loadLevel()
+        DispatchQueue.global(qos: .default).async {[weak self] in
+            self?.loadLevel()
+        }
         
         for btn in letterButtons{
             btn.isHidden = false
@@ -235,16 +239,22 @@ class ViewController: UIViewController {
             }
         }
         
-        cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
-        answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
+        DispatchQueue.main.async {[weak self] in
+            self?.cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+            self?.answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+        }
         
         letterBits.shuffle()
         
         if letterBits.count == letterButtons.count{
             for i in 0..<letterButtons.count{
-                letterButtons[i].setTitle(letterBits[i], for: .normal)
+                DispatchQueue.main.async {[weak self] in
+                    self?.letterButtons[i].setTitle(letterBits[i], for: .normal)
+                }
             }
         }
+        
         
     }
     
