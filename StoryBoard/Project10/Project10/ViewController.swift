@@ -29,8 +29,10 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         let person = people[indexPath.item]
         // the name is in our custom PersonCell type
         cell.name.text = person.name
-        let path = getDocumentsDirectory().appendingPathComponent(person.image)
-        cell.imageView.image = UIImage(contentsOfFile: path.path)
+        let urlPath = getDocumentsDirectory().appendingPathComponent(person.image)
+        cell.imageView.image = UIImage(
+            contentsOfFile: urlPath.path    // get path in string from url
+        )
         
         cell.imageView.layer.borderColor = UIColor(white: 0, alpha: 0.3).cgColor
         cell.imageView.layer.borderWidth = 2
@@ -67,6 +69,21 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let person = people[indexPath.item]
+        
+        let ac = UIAlertController(title: "Rename person", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Confirm", style: .default){[weak self, weak ac] _ in
+            guard let newName = ac?.textFields?[0].text else { return }
+            person.name = newName
+            self?.collectionView.reloadData()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(ac, animated: true)
+        
     }
 }
 
