@@ -43,8 +43,12 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     
     @objc func addNewPerson(){
         let picker = UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            picker.sourceType = .camera
+        }
         picker.allowsEditing = true
         picker.delegate = self
+        
         present(picker, animated: true)
     }
     
@@ -90,13 +94,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
             self?.people.remove(at: indexPath.item)
             collectionView.reloadData()
         })
-        present(renameOrDeleteAlert, animated: true)
-        
-        
-    }
-    
-    func createRenameAlert(_ action: UIAlertAction){
-        
+        present(renameOrDeleteAlert, animated: true)   
     }
 }
 

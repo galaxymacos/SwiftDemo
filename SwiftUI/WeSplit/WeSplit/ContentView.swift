@@ -70,7 +70,7 @@ struct ContentView: View {
                     // specifier: Round the number to 2 decimal points
                     // %.g will remove insignificant trailing zero, %.f won't
                     Text("Total per person: $\(totalPerPerson, specifier: "%.2g")")
-                }.textCase(nil)
+                }.textCase(.none)
                 
             }
             .navigationBarTitle("We Split")
