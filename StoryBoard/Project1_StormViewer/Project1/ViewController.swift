@@ -9,7 +9,8 @@ import UIKit
 
 // One screen of information
 class ViewController: UITableViewController {
-    var pictures: [String] = []
+    var pictures:[String] = []
+    var picturesVisitTime: [String: Int] = [:]
     // After the view has been loadeds
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,13 @@ class ViewController: UITableViewController {
 //        }
         performSelector(inBackground: #selector(fetchImage), with: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
+        if let data = UserDefaults.standard.object(forKey: "data") as? Data{
+            
+            if let DecodedData = try? JSONDecoder().decode([String: Int].self, from: data){
+                picturesVisitTime = DecodedData
+            }
+        }
     }
     
     @objc func fetchImage(){
@@ -34,8 +42,13 @@ class ViewController: UITableViewController {
             }
         }
             pictures.sort()
-        tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
-        
+        for picture in pictures {
+            picturesVisitTime[picture] = 0
+        }
+        DispatchQueue.main.async {[weak self] in
+            self?.tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+            
+        }
     }
     
     @objc func shareTapped(){
@@ -59,6 +72,7 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath) // iOS will reuse the cell that no longer appear on the screen
 //        cell.textLabel?.text = pictures[indexPath.row]  // add a text in the cell
         cell.textLabel?.text = "Picture \(indexPath.row+1) in \(pictures.count)"
+        cell.detailTextLabel?.text = "Has been viewed for \(picturesVisitTime[pictures[indexPath.row]] ?? -1)"
         return cell
     }
 
@@ -67,9 +81,17 @@ class ViewController: UITableViewController {
         // we tell storyboard to instantiate a view controller but it can't guess which controller it is based on its name
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController{   // Instantiate a view (ref storyboard because every view is inside storyboard)
             vc.selectedImage = pictures[indexPath.row]
+            picturesVisitTime[pictures[indexPath.row]]! += 1
             // Navigation controllers manage a stack of view controllers that can be pushed by us.
-            // This view controller stack is what gives us smooth sliding in and out 
+            // This view controller stack is what gives us smooth sliding in and out
             navigationController?.pushViewController(vc, animated: true)
+            save()
+        }
+    }
+    
+    func save(){
+        if let data = try? JSONEncoder().encode(picturesVisitTime){
+            UserDefaults.standard.set(data, forKey: "data")
         }
     }
 }
