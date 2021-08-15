@@ -27,7 +27,7 @@ class DetailViewController: UIViewController {
     // let user focus
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController?.hidesBarsOnTap = true
+        navigationController?.hidesBarsOnTap = false
 //        print("true")
     }
     

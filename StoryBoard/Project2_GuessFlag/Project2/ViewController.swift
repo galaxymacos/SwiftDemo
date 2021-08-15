@@ -15,7 +15,13 @@ class ViewController: UIViewController {
     
     var countries: [String] = []
     var correctAnswer = -1
-    var score = 0
+    var score = 0{
+        didSet{
+            let str = String(repeating: " ", count: 15-countries[correctAnswer].count)
+            title = countries[correctAnswer].uppercased() + str + "Player Score: \(score)"
+        }
+    }
+    var highestScore = 0
     var numofQuestionAsked = 0
     
     override func viewDidLoad() {
@@ -34,6 +40,8 @@ class ViewController: UIViewController {
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
         askQuestion()
+        
+        highestScore = UserDefaults.standard.integer(forKey: "HighestScore")
     }
     
     @objc func showScoreTapped(){
@@ -49,7 +57,17 @@ class ViewController: UIViewController {
     // Swift want to know which alert is tapped
     func askQuestion(action: UIAlertAction! = nil){
         if(numofQuestionAsked >= 3){
-            let ac = UIAlertController(title: "Final Score", message: "\(score)", preferredStyle: .alert)
+            updateFinalScore()
+            let titleToShow: String = "Congratulations"
+            var messageToShow: String
+            if score > highestScore {
+                messageToShow = "You beat the highest score"
+            }
+            else{
+                messageToShow = "You win!"
+            }
+            
+            let ac = UIAlertController(title: titleToShow, message: messageToShow, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: nil))
             present(ac, animated: true, completion: nil)
         }
@@ -61,8 +79,7 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         correctAnswer = Int.random(in: 0...2)
-        let str = String(repeating: " ", count: 15-countries[correctAnswer].count)
-        title = countries[correctAnswer].uppercased() + str + "Player Score: \(score)"
+        
     }
     
     
@@ -92,6 +109,13 @@ class ViewController: UIViewController {
         
         // completion: after we present the alert
         present(ac, animated: true, completion: nil)
+    }
+    
+    func updateFinalScore(){
+        if score > highestScore!{
+            UserDefaults.standard.set(score, forKey: "HighestScore")
+            print("Update final score")
+        }
     }
 }
 

@@ -26,8 +26,13 @@ class ViewController: UITableViewController {
         if let data = UserDefaults.standard.object(forKey: "data") as? Data{
             
             if let DecodedData = try? JSONDecoder().decode([String: Int].self, from: data){
+                print("Get Data")
                 picturesVisitTime = DecodedData
+                tableView.reloadData()
             }
+        }
+        else{
+            print("Get Datass")
         }
     }
     
@@ -71,17 +76,21 @@ class ViewController: UITableViewController {
         // get the current cell in the table view
         let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath) // iOS will reuse the cell that no longer appear on the screen
 //        cell.textLabel?.text = pictures[indexPath.row]  // add a text in the cell
-        cell.textLabel?.text = "Picture \(indexPath.row+1) in \(pictures.count)"
+        cell.textLabel?.text = "Picture \(indexPath.row+1) in \(pictures.count) for \(picturesVisitTime[pictures[indexPath.row]] ?? -1) times"
         cell.detailTextLabel?.text = "Has been viewed for \(picturesVisitTime[pictures[indexPath.row]] ?? -1)"
         return cell
     }
 
     // this event will be fired when a row is selected
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // we tell storyboard to instantiate a view controller but it can't guess which controller it is based on its name
+//        print("1")
+//        // we tell storyboard to instantiate a view controller but it can't guess which controller it is based on its name
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController{   // Instantiate a view (ref storyboard because every view is inside storyboard)
             vc.selectedImage = pictures[indexPath.row]
             picturesVisitTime[pictures[indexPath.row]]! += 1
+
+            print(picturesVisitTime[pictures[indexPath.row]]!)
+            tableView.reloadData()
             // Navigation controllers manage a stack of view controllers that can be pushed by us.
             // This view controller stack is what gives us smooth sliding in and out
             navigationController?.pushViewController(vc, animated: true)
@@ -92,7 +101,9 @@ class ViewController: UITableViewController {
     func save(){
         if let data = try? JSONEncoder().encode(picturesVisitTime){
             UserDefaults.standard.set(data, forKey: "data")
+            print("Save")
         }
+        
     }
 }
 
