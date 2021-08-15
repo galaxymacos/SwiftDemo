@@ -29,7 +29,14 @@ class ViewController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .redo, target: self, action: #selector(restartGame))
     }
     
+    func save(){
+        UserDefaults.standard.set(usedWords, forKey: "usedWords")
+        UserDefaults.standard.set(title!, forKey: "title")
+    }
+    
     @objc func restartGame(){
+        UserDefaults.standard.removeObject(forKey: "usedWords")
+        UserDefaults.standard.removeObject(forKey: "title")
         startGame()
     }
     
@@ -61,6 +68,7 @@ class ViewController: UITableViewController {
                     // In inserting a row, it means sliding the new row in from the top
                     tableView.insertRows(at: [indexPath], with: .automatic)
 //                    tableView.reloadData() // Not efficient and the animation can't figure out that we just add a row
+                    save()
                     return
                 }
                 else{
@@ -123,8 +131,14 @@ class ViewController: UITableViewController {
     }
 
     func startGame(){
-        title = allWords.randomElement()
+        if let savedTitle = UserDefaults.standard.string(forKey: "title"){
+            title = savedTitle
+        }
+        else{
+            title = allWords.randomElement()
+        }
         usedWords.removeAll(keepingCapacity: true)
+        usedWords = UserDefaults.standard.object(forKey: "usedWords") as? [String] ?? [String]()
         tableView.reloadData()
     }
     
