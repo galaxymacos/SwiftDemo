@@ -16,6 +16,7 @@
 		2B131ADB26CD1ED000CCE2DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B131AD926CD1ED000CCE2DB /* LaunchScreen.storyboard */; };
 		2B131AE326CD1F7600CCE2DB /* whackBad.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2B131AE126CD1F7600CCE2DB /* whackBad.caf */; };
 		2B131AE426CD1F7600CCE2DB /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2B131AE226CD1F7600CCE2DB /* whack.caf */; };
+		2B131AE626CD2AFE00CCE2DB /* WhackSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B131AE526CD2AFE00CCE2DB /* WhackSlot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		2B131ADA26CD1ED000CCE2DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B131AE126CD1F7600CCE2DB /* whackBad.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = whackBad.caf; path = "../../../SwiftUI/HackingWithSwift/Classic/project14-files/Content/whackBad.caf"; sourceTree = "<group>"; };
 		2B131AE226CD1F7600CCE2DB /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = whack.caf; path = "../../../SwiftUI/HackingWithSwift/Classic/project14-files/Content/whack.caf"; sourceTree = "<group>"; };
+		2B131AE526CD2AFE00CCE2DB /* WhackSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackSlot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				2B131ACA26CD1ECE00CCE2DB /* AppDelegate.swift */,
 				2B131ACC26CD1ECE00CCE2DB /* GameScene.sks */,
 				2B131AD026CD1ECE00CCE2DB /* GameScene.swift */,
+				2B131AE526CD2AFE00CCE2DB /* WhackSlot.swift */,
 				2B131AD226CD1ECE00CCE2DB /* GameViewController.swift */,
 				2B131AD426CD1ECE00CCE2DB /* Main.storyboard */,
 				2B131AD726CD1ED000CCE2DB /* Assets.xcassets */,
@@ -150,6 +153,7 @@
 			files = (
 				2B131AD126CD1ECE00CCE2DB /* GameScene.swift in Sources */,
 				2B131AD326CD1ECE00CCE2DB /* GameViewController.swift in Sources */,
+				2B131AE626CD2AFE00CCE2DB /* WhackSlot.swift in Sources */,
 				2B131ACB26CD1ECE00CCE2DB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
