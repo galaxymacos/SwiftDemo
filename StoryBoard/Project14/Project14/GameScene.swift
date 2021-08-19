@@ -89,15 +89,22 @@ class GameScene: SKScene {
     
     func createEnemy(){
         numRounds += 1
-        if numRounds >= 30{
+        if numRounds >= 2{
             for slot in slots {
                 slot.hide()
+                run(SKAction.playSoundFileNamed("gameOver.m4a", waitForCompletion: false))
             }
             
             let gameOver = SKSpriteNode(imageNamed: "gameOver")
             gameOver.position = CGPoint(x: 512, y: 384)
             gameOver.zPosition = 1
             addChild(gameOver)
+            
+            let label = SKLabelNode(fontNamed: "Chalkduster")
+            label.text = "Score: \(score)"
+            label.position = CGPoint(x: 10, y: 500)
+            label.horizontalAlignmentMode = .left
+            addChild(label)
             
             return
         }

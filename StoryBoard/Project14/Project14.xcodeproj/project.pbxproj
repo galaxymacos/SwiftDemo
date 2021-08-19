@@ -17,6 +17,7 @@
 		2B131AE326CD1F7600CCE2DB /* whackBad.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2B131AE126CD1F7600CCE2DB /* whackBad.caf */; };
 		2B131AE426CD1F7600CCE2DB /* whack.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2B131AE226CD1F7600CCE2DB /* whack.caf */; };
 		2B131AE626CD2AFE00CCE2DB /* WhackSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B131AE526CD2AFE00CCE2DB /* WhackSlot.swift */; };
+		2B74470B26CE256600767F52 /* gameOver.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2B74470A26CE256600767F52 /* gameOver.m4a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		2B131AE126CD1F7600CCE2DB /* whackBad.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = whackBad.caf; path = "../../../SwiftUI/HackingWithSwift/Classic/project14-files/Content/whackBad.caf"; sourceTree = "<group>"; };
 		2B131AE226CD1F7600CCE2DB /* whack.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = whack.caf; path = "../../../SwiftUI/HackingWithSwift/Classic/project14-files/Content/whack.caf"; sourceTree = "<group>"; };
 		2B131AE526CD2AFE00CCE2DB /* WhackSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhackSlot.swift; sourceTree = "<group>"; };
+		2B74470A26CE256600767F52 /* gameOver.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = gameOver.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				2B131AD226CD1ECE00CCE2DB /* GameViewController.swift */,
 				2B131AD426CD1ECE00CCE2DB /* Main.storyboard */,
 				2B131AD726CD1ED000CCE2DB /* Assets.xcassets */,
+				2B74470A26CE256600767F52 /* gameOver.m4a */,
 				2B131AE226CD1F7600CCE2DB /* whack.caf */,
 				2B131AE126CD1F7600CCE2DB /* whackBad.caf */,
 				2B131AD926CD1ED000CCE2DB /* LaunchScreen.storyboard */,
@@ -135,6 +138,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B74470B26CE256600767F52 /* gameOver.m4a in Resources */,
 				2B131AE326CD1F7600CCE2DB /* whackBad.caf in Resources */,
 				2B131AD626CD1ECE00CCE2DB /* Main.storyboard in Resources */,
 				2B131ACD26CD1ECE00CCE2DB /* GameScene.sks in Resources */,
