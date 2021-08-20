@@ -21,13 +21,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-// MARK: This is important
-// FIXME: Not actually fabulous quiet yet.
-// TODO: You need to do this later
-#warning("Not good")
-#error("Need to fixed")
-@available(swift, deprecated: 5.3, message: "This is deprecated")
-@available(iOS, obsoleted: 10, message: "Doesn't support iOS 10 or lower version")
+
 struct ContentView_LibraryContent: LibraryContentProvider {
     
     // Add custom views
