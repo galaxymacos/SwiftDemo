@@ -34,9 +34,9 @@ struct ContentView: View {
                 let isPrimeNumber = self.isPrime(number: number)
                 print("\(number) is prime: \(isPrimeNumber)")
             }
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 backgroundTaskRunning = false
-            }
+//            }
         }
         
         // MARK: - Using OperationQueue -
