@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     let calculatePrimeOperation = CalculatePrimeOperation()
-    
+    @State var backgroundTaskRunning = false
     
     var body: some View {
         VStack{
@@ -20,34 +20,38 @@ struct ContentView: View {
             Button(action: calculatePrimes, label: {
                 Text("Calculate Primes")
             })
+            .disabled(backgroundTaskRunning)
             Spacer()
         }
     }
     
     
     func calculatePrimes(){
-        
+        backgroundTaskRunning = true
         // MARK: - Using GCD -
         DispatchQueue.global(qos: .userInitiated).async {
             for number in 0...1_000_000{
                 let isPrimeNumber = self.isPrime(number: number)
                 print("\(number) is prime: \(isPrimeNumber)")
             }
+            DispatchQueue.main.async {
+                backgroundTaskRunning = false
+            }
         }
         
         // MARK: - Using OperationQueue -
-        let queue = OperationQueue()
+//        let queue = OperationQueue()
         
         // MARK: - A more sophsticated way for complex operations
-        queue.addOperation(calculatePrimeOperation)
+//        queue.addOperation(calculatePrimeOperation)
         
         // MARK: - A more elegant way for simpler operations
-        queue.addOperation {
-            for number in 0...1_000_000{
-                let isPrimeNumber = self.isPrime(number: number)
-                print("\(number) is prime: \(isPrimeNumber)")
-            }
-        }
+//        queue.addOperation {
+//            for number in 0...1_000_000{
+//                let isPrimeNumber = self.isPrime(number: number)
+//                print("\(number) is prime: \(isPrimeNumber)")
+//            }
+//        }
     }
     
     
