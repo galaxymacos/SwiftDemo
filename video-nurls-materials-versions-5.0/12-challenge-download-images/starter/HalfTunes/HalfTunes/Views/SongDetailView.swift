@@ -74,8 +74,9 @@ struct SongDetailView: View {
            (200..<300).contains(httpResponse.statusCode),
            let image = UIImage(data: imageData)
            {
-            print("lalala")
-            musicImage = image
+            DispatchQueue.main.async {
+                musicImage = image                
+            }
         }
     }.resume()
   }
