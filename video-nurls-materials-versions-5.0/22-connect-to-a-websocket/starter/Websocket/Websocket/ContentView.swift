@@ -33,31 +33,81 @@
 import SwiftUI
 
 struct ContentView: View {
-  
-  @State private var chatMessage = ""
-  @State private var messages: [String] = []
-  
-  var body: some View {
-    VStack {
-      HStack {
-        TextField("Enter a message", text: $chatMessage)
-          .padding([.leading, .top, .bottom])
-        Button("Send", action: {})
-          .padding(.trailing)
-      }
-      
-      List(messages, id:\.self) { message in
-        Text(message)
-      }
+    
+    @State private var chatMessage = ""
+    @State private var messages: [String] = []
+    @State private var webSocketTask: URLSessionWebSocketTask!
+    
+    var body: some View {
+        VStack {
+            HStack {
+                TextField("Enter a message", text: $chatMessage)
+                    .padding([.leading, .top, .bottom])
+                Button("Send", action: sendMessageTapped)
+                    .padding(.trailing)
+            }
+            
+            List(messages, id:\.self) { message in
+                Text(message)
+            }
+        }
+        .onAppear(perform: {
+            setupSocket()
+        })
+        .onDisappear(perform: {
+            closeSocket()
+        })
     }
-  }
-  
-  
+    
+    func setupSocket(){
+        let websocketURL = URL(string: "ws://localhost:8080/chat")!
+        webSocketTask = URLSession.shared.webSocketTask(with: websocketURL)
+        listenForMessages()
+        webSocketTask.resume()
+    }
+    
+    // MARK: - This will only run once, so we need to recursively call it -
+    func listenForMessages(){
+        // MARK: - Read a websocket message once all the frames of the message are available
+        self.webSocketTask.receive { result in
+            switch result {
+            case .failure(let error):
+                print("Failed to receive message: \(error)")
+            case .success(let message):
+                switch message {
+                case .string(let text):
+                    self.messages.insert(text, at: 0)
+                case .data(let data):
+                    print("Received binary message \(data)")
+                @unknown default:   
+                    fatalError()
+                }
+                self.listenForMessages()
+            
+        }
+    }
+    }
+        
+    func closeSocket(){
+        webSocketTask.cancel(with: .goingAway, reason: nil)
+    }
+    
+    func sendMessageTapped(){
+        // MARK: - Create a string message for websocket to send -
+        let message = URLSessionWebSocketTask.Message.string(self.chatMessage)
+        
+        self.webSocketTask.send(message) { error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 }
 
 struct ChatView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
-  }
+    static var previews: some View {
+        ContentView()
+    }
 }
 

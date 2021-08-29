@@ -36,7 +36,8 @@ struct SongDetailView: View {
 
   @Binding var musicItem: MusicItem
   @State private var playMusic = false
-  @ObservedObject var download = SongDownload()
+    // MARK: - If there is a download session, resume that -
+    @ObservedObject var download = (UIApplication.shared.delegate as? AppDelegate)?.currentDownload ?? SongDownload()
   @State private var musicImage = UIImage(named: "c_urlsession_card_artwork")!
   
   var body: some View {

@@ -51,5 +51,37 @@ final class ArtistQuery: ObservableObject {
   
   init() {
     let locationUrl = URL(string: "https://api.npoint.io/e0b6213b830ade9ac1f8")!
+    let artistInfoPublisher = URLSession.shared.dataTaskPublisher(for: locationUrl)
+        .map(\.data)
+        .decode(type: Token.self, decoder: JSONDecoder())
+        .flatMap { item in
+            self.getArtistInfo(forLocation: item.location)
+        }
+    
+    let photoPublisher = artistInfoPublisher
+        .compactMap{ URL(string: $0.photo) }
+        .flatMap { photoUrl in
+            URLSession.shared.dataTaskPublisher(for: photoUrl)
+                .compactMap{ UIImage(data: $0.data) }
+                .mapError { $0 as Error }
+        }
+        
+    Publishers.Zip(artistInfoPublisher, photoPublisher)
+        .receive(on: DispatchQueue.main)
+        .sink(receiveCompletion: { completion in
+            print(completion)
+        }, receiveValue: { info, photo in
+            self.bio = info.biography
+            self.photo = photo
+        })
+        .store(in: &cancellables)
   }
+    
+    func getArtistInfo(forLocation location: String) -> AnyPublisher<ArtistInfo, Error>{
+        let artistUrl = URL(string: "https://api.point.io\(location)")!
+        return URLSession.shared.dataTaskPublisher(for: artistUrl)
+            .map(\.data)
+            .decode(type: ArtistInfo.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
 }

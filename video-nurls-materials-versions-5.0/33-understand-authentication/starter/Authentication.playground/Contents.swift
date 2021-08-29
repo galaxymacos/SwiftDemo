@@ -68,6 +68,66 @@ let decoder = JSONDecoder()
 //: Prep a new user
 let user = User(name: "jo", email: "jo@razeware.com", password: "password")
 
+//
+let loginString = "\(user.email):\(user.password)"
+guard let loginData = loginString.data(using: .utf8) else {
+    fatalError()
+}
+let encodedString = loginData.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+
+guard let endpointUrl = loginEndpoint else {
+    fatalError()
+}
+
+var loginRequest = URLRequest(url: endpointUrl)
+loginRequest.httpMethod = "POST"
+loginRequest.allHTTPHeaderFields = [
+    "accept": "application/json",
+    "content-type": "application/json",
+    "authorization": "Basic \(encodedString)"
+]
+
+var auth = Auth(token: "")
+session.dataTask(with: loginRequest) { data, response, error in
+    guard let response = response, let data = data else {
+        fatalError()
+    }
+    print(response)
+    
+    do {
+        auth = try decoder.decode(Auth.self, from: data)
+        auth.token
+    } catch {
+        print(error)
+    }
+    
+    guard let newAcronymUrl = newEndpoint else {
+        fatalError()
+    }
+    
+    var tokenAuthRequest = URLRequest(url: newAcronymUrl)
+    tokenAuthRequest.httpMethod = "POST"
+    tokenAuthRequest.allHTTPHeaderFields = [
+        "accept":"appliction/json",
+        "content-type":"application/json",
+        "authorization": "Bearer \(auth.token)"
+    ]
+    
+    let acronym = Acronym(short: "MATH", long: "Mental Assault To Humans")
+    do {
+        tokenAuthRequest.httpBody = try encoder.encode(acronym)
+    } catch {
+        print(error)
+    }
+    
+    session.dataTask(with: tokenAuthRequest) {_, response, _ in
+        guard let response = response else {
+             fatalError()
+        }
+        print(response)
+    }.resume()
+}.resume()
+
 
 
 
