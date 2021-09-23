@@ -20,13 +20,16 @@ struct Result: Codable {
 
 struct URLS: Codable {
     let full: String
+    let regular: String
 }
 
-class ViewController: UIViewController, UICollectionViewDelegate {
+class ViewController: UIViewController, UICollectionViewDelegate, UISearchBarDelegate {
 
-    let urlString = "https://api.unsplash.com/search/photos?page=1&per_page=50&query=pantyhose&client_id=ZihkiVo4y_I3Dkkb7JIbSJdMFdg5-sxW7bcHaPrYXXY"
+   
     
     private var collectionView:UICollectionView?
+    
+    let searchBar = UISearchBar()
     
     var results: [Result] = []
     override func viewDidLoad() {
@@ -43,15 +46,20 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         collectionView.dataSource = self
         view.addSubview(collectionView)
         self.collectionView = collectionView
-        fetchPhoto()
+        
+        searchBar.delegate = self
+        view.addSubview(searchBar)
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView?.frame = view.bounds
+        searchBar.frame = CGRect(x: 10, y: view.safeAreaInsets.top, width: view.frame.size.width - 20, height: 50)
+        collectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top + 55, width: view.frame.size.width, height: view.frame.size.height - 55)
     }
     
-    func fetchPhoto() {
+    func fetchPhoto(keyword: String) {
+        let urlString = "https://api.unsplash.com/search/photos?page=1&per_page=50&query=\(keyword)&client_id=ZihkiVo4y_I3Dkkb7JIbSJdMFdg5-sxW7bcHaPrYXXY"
         guard let url = URL(string: urlString) else { fatalError() }
         let dataTask = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
@@ -73,6 +81,15 @@ class ViewController: UIViewController, UICollectionViewDelegate {
         
         dataTask.resume()
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        if let text = searchBar.text {
+            results = []
+            collectionView?.reloadData()
+            fetchPhoto(keyword: searchBar.text!)
+        }
+    }
 
 
 }
@@ -83,7 +100,7 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let imageURLString = results[indexPath.row].urls.full
+        let imageURLString = results[indexPath.row].urls.regular
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
             fatalError("Can't find cell")
         }
