@@ -55,6 +55,7 @@ struct ContentView: View {
 
             }
             .edgesIgnoringSafeArea(.all)
+            .navigationTitle("Image Generator")
         }
     }
 }
