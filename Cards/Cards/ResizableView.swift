@@ -12,8 +12,7 @@ struct ResizableView: ViewModifier {
 //    let color = Color.red
     @State private var transform = Transform()
     @State private var previousOffset: CGSize = .zero
-    @State private var previousRotation: Angle = .zero
-    @State private var angle: Angle = .zero
+    @State private var startRotation: Angle = .zero
     @State private var scale: CGFloat = 1
 
     
@@ -28,13 +27,10 @@ struct ResizableView: ViewModifier {
                 })
             let rotationGesture = RotationGesture()
                 .onChanged { angle in
-                    transform.rotation += angle - previousRotation
-                    previousRotation = angle
-                    self.angle = angle
+                    transform.rotation = startRotation + angle
                 }
                 .onEnded({ angle in
-                    
-                    previousRotation = .zero
+                    startRotation = startRotation + angle
                 })
             let scaleGesture = MagnificationGesture()
                 .onChanged({ scale in
@@ -46,13 +42,14 @@ struct ResizableView: ViewModifier {
                     self.scale = 1
                 })
             
+            // MARK: The content's size is controlled by both the frame size, and the scale
             content
-                .frame(width: transform.size.width, height: transform.size.height)
+                .frame(width: transform.size.width, height: transform.size.height)  // MARK: The size aspect
                 .rotationEffect(transform.rotation)
-                .scaleEffect(scale)
+                .scaleEffect(scale) // MARK: The scale aspect
                 .offset(transform.offset)
                 .gesture(dragGesture)
-                .gesture(SimultaneousGesture(rotationGesture, scaleGesture))
+                .gesture(SimultaneousGesture(rotationGesture, scaleGesture))    // MARK: Add your scale gesture
            
             
     }
