@@ -64,13 +64,21 @@ enum CalculatorButton: String {
             return Color(.orange)
         case .ac, .plusMinus, .percent, .dot:
             return Color(.lightGray)
-        default:
-            return Color.red
         }
     }
 }
 
+class GlobalEnvironment: ObservableObject {
+    @Published var display: String = ""
+    
+    func receiveInput(button: CalculatorButton) {
+        display = button.title
+    }
+}
+
 struct ContentView: View {
+    
+    @EnvironmentObject var env: GlobalEnvironment
     
     let buttons: [[CalculatorButton]] = [
         [.ac, .plusMinus, .percent, .divide],
@@ -87,30 +95,38 @@ struct ContentView: View {
             VStack(spacing: 12) {
                 HStack {
                     Spacer()
-                    Text("72").foregroundColor(.white).font(.system(size: 72))
+                    Text(env.display).foregroundColor(.white).font(.system(size: 72))
                 }.padding()
                 ForEach(buttons, id: \.self) { row in
                     HStack(spacing: 12) {
                         ForEach(row, id: \.self) { button in
-                            Button {
-                                
-                            } label: {
-                                    // Make a view clickable, you just need to move it into a button's label parameter
-                                Text(button.title)
-                                    .font(.system(size: 32))
-                                    .frame(width: self.buttonWidth(button: button), height: (UIScreen.main.bounds.width - 5 * 12) / 4)
-                                    .foregroundColor(.white)
-                                    .background(button.backgroundColor)
-                                    .cornerRadius(buttonWidth(button: button))
-                            }
-
-                            
+                            CalculateButton(button: button)
                         }
                     }
                     
                 }
             }
             
+        }
+    }
+    
+    
+}
+
+struct CalculateButton: View {
+    var button: CalculatorButton
+    @EnvironmentObject var env: GlobalEnvironment
+    var body: some View {
+        Button {
+            env.receiveInput(button: button)
+        } label: {
+                // Make a view clickable, you just need to move it into a button's label parameter
+            Text(button.title)
+                .font(.system(size: 32))
+                .frame(width: self.buttonWidth(button: button), height: (UIScreen.main.bounds.width - 5 * 12) / 4)
+                .foregroundColor(.white)
+                .background(button.backgroundColor)
+                .cornerRadius(buttonWidth(button: button))
         }
     }
     
@@ -124,6 +140,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(GlobalEnvironment())
     }
 }
