@@ -100,7 +100,7 @@ struct ContentView: View {
                 ForEach(buttons, id: \.self) { row in
                     HStack(spacing: 12) {
                         ForEach(row, id: \.self) { button in
-                            CalculateButton(button: button)
+                            CalculatorButtonView(button: button)
                         }
                     }
                     
@@ -113,7 +113,7 @@ struct ContentView: View {
     
 }
 
-struct CalculateButton: View {
+struct CalculatorButtonView: View {
     var button: CalculatorButton
     @EnvironmentObject var env: GlobalEnvironment
     var body: some View {
