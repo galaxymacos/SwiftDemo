@@ -81,9 +81,8 @@ struct ContentView: View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: [
-                    GridItem(.flexible(minimum: 100, maximum: 200)),
-                    GridItem(.flexible(minimum: 100, maximum: 200)),
-                    GridItem(.flexible(minimum: 100, maximum: 200)),
+                    // MARK: First Way to align the grid item
+                    GridItem(.adaptive(minimum: 100, maximum: 200), spacing: 12 ,alignment: .top)
                 ], spacing: 12) {
                     
                     ForEach(gridViewModel.results, id: \.self) { result in
@@ -95,18 +94,20 @@ struct ContentView: View {
                                 Image(uiImage: artworkImage)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 100, height: 100)
+//                                    .frame(width: 100, height: 100)
+                                    .cornerRadius(22)
                             }
-                            else {  // MARK: If something is wrong with loading the result from JSON, should a placeholder
+                            else {  // If something is wrong with loading the result from JSON, put in a placeholder
                                 Spacer()
                                     .frame(width: 100, height: 100)
                                     .background(Color.blue)
                             }
-                            Text(result.name).font(.system(size: 10, weight: .semibold)).lineLimit(1)
-                            Text(result.artistName).font(.system(size: 9, weight: .regular)).lineLimit(1)
-                            //                                Text("Release Date").font(.system(size: 8)).foregroundColor(.gray)
+                            Text(result.name).font(.system(size: 10, weight: .semibold))
+//                                .lineLimit(1) MARK: Second Way to align the grid item is to make them the same height (Do it when the content is not important)
+                            Text(result.artistName).font(.system(size: 9, weight: .regular))
+//                            Text("Release Date").font(.system(size: 8)).foregroundColor(.gray)
                         }
-//                        .padding()
+                        .padding([.horizontal], 10)
                         
                     }
                     
