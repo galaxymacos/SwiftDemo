@@ -9,28 +9,62 @@ import SwiftUI
 
 struct ContentView: View {
     @State var selectedIndex = 0
-    let icons = ["person", "gear", "plus.app.fill", "pencil", "lasso"]
+    let tabBarImageNames = ["person", "gear", "plus.app.fill", "pencil", "lasso"]
+    @State var showFullscreenModal = false
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             ZStack {
+                
+                Spacer()
+                    .fullScreenCover(isPresented: $showFullscreenModal, onDismiss: nil) {
+                        Text("Fullscreen modal")
+                    }
+                
                 switch selectedIndex {
                 case 0:
-                    Text("First View")
+                    NavigationView {
+                        ScrollView(showsIndicators: false) {
+                            VStack(alignment: .leading, spacing: 10) {
+                                ForEach(0..<100) { num in
+                                    HStack {
+                                        Text("Task \(num)")
+                                            .padding([.leading])
+                                        Spacer()
+                                    }.frame(maxWidth: .infinity)
+                                    Divider()
+                                }
+                            }
+                        }
+                        .navigationTitle("First Tab")
+                    }
                 default:
-                    Text("Other views")
+                    NavigationView {
+                        Text("Other views")
+                    }
                 }
             }
-            Spacer()
-            HStack(spacing: 30) {
+//            Spacer()    // MARK: Spacer has a minimum height
+            Divider()
+            HStack {
                 ForEach(0..<5) { num in
                     Button {
                         selectedIndex = num
                     } label: {
-                        Image(systemName: icons[num])
-                            .font(.system(size: 30))
-                            .foregroundColor(num == selectedIndex ? .black : Color(white: 0.8))
+                        Spacer()
+                        if num == 2 {
+                            Image(systemName: tabBarImageNames[num])
+                                .font(.system(size: 32))
+                                .foregroundColor(.red)
+                        }
+                        else {
+                            Image(systemName: tabBarImageNames[num])
+                                .font(.system(size: 24))
+                                .foregroundColor(num == selectedIndex ? .black : Color(white: 0.8))
+                        }
+                        Spacer()
                     }
-
+                    .padding(.top, 10)
+                    
                 }
             }
         }
